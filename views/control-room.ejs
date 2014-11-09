@@ -1,0 +1,109 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>Control Room</title>
+		<link href='http://fonts.gooleapis.com/css?family=Raleway:300,500,900,800' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" type="text/css" href="/stylesheets/page.css">
+		<link rel="stylesheet" href="/stylesheets/profile.css">
+		<link rel="stylesheet" href="/stylesheets/icons.css">
+		<link rel="stylesheet" href="/stylesheets/forms.css">
+		<link rel="stylesheet" href="/stylesheets/nav.css">
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="/javascript/includes/upload-drop-down.js"></script>
+		<script src="/javascript/includes/track-funcs.js"></script>
+		<script src="/javascript/profile.js"></script>
+		
+	</head>
+
+	<body>
+		<div id="upload-iteration" class="drop-down">					
+			<div class="form-container">
+				<form action="<%=projectid %>/add-iteration" method="POST" enctype="multipart/form-data">
+					<input type="text" name="iteration_title" placeholder="Title">
+					<input type="file" name="file" placeholder="File">					
+					<div id="user-checkbox" class="checkbox"></div>
+					<div id="project-checkbox" class="checkbox"></div>
+					<input type="submit" name="upload">
+				</form>
+
+				<p id="upload-back-iteration">Back</p>
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="mask"></div>
+			<% include includes/nav-main.ejs %>
+
+			<div class="content-container">
+				<div class="half col">
+					<h2>Iterations: <%= project.title %></h2>
+
+					<div class="track-container" id="upload-drop-down-iteration">
+							<h1 class="center">+</h1>
+					</div>	
+					<% 
+						if (iterations) {
+							for (var i = iterations.length - 1; i >=0 ; track = iterations[i--]) {
+								var track = iterations[i];
+					%>
+					<%			include includes/iteration.ejs %>
+					<%
+							}
+						}
+						
+					%>
+				</div>
+
+				<div class="third col">
+					<h2>Tracks</h2>
+
+					<% 
+						if (tracks) {
+							for (var i = 0; i < tracks.length; i++) {
+								var track = tracks[i];
+					%>
+					<%			include includes/track.ejs %>
+					<%
+							}
+						}
+						
+					%>
+
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			var project = {
+				title : "hello",
+				iterations : [
+					{
+						number : 1,
+						date : "OCT 3",
+						tracks : [
+							"hello.mp3",
+							"goodbye.mp3"
+						]
+					},
+					{
+						number : 2,
+						date : "OCT 5",
+						tracks : [
+							"hello.mp3"
+						]
+					}
+				]
+			};
+
+			var pstring = JSON.stringify(project);
+
+			// console.log(project);
+			// console.log(pstring);
+			// console.log(JSON.parse(pstring));
+		</script>
+		<script src="/javascript/projects.js"></script>
+		<script src="/javascript/includes/upload-drop-down.js"></script>
+	</body>
+</html>

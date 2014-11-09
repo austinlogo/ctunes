@@ -1,0 +1,23 @@
+<div class="track-container" id="container-<%= track.id %>">
+	<div id="progress-<%= track.id %>" class="progress"></div>
+	<div class="playback-control" id="playback-control-<%= track.id %>"></div>
+	<audio id="player-<%= track.id %>" src="<%= track.content%>"></audio>
+	<div class="track-info">
+		<p class="track-title"><%=track.title %></p>
+		<% if (track.album != "undefined")  {  %>
+			<p class="track-artist">by <%=track.artist %> on <%=track.album %></p>
+		<% } else { %>
+			<p class="track-artist">by <%=track.artist %></p>
+		<% } %>
+
+	</div>
+
+	<div class="icon-container" id="icon-container-<%= track.id %>">
+		<div class="icon download" id="download-<%= track.id %>">
+			
+		</div>
+		<div class="icon" id="upvote-<%= track.id %>">
+			+<%=track.rating %>
+		</div>
+	</div>
+</div>

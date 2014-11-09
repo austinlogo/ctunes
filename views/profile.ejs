@@ -1,0 +1,94 @@
+<!DOCTYPE>
+
+<html>
+	<title>
+		<% if (account) { %>
+		<%= 	account.username %>
+		<% } %>
+	</title>
+	<head>
+		
+		<link href='http://fonts.gooleapis.com/css?family=Raleway:100,300,500,700,' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" type="text/css" href="/stylesheets/page.css">
+		<link rel="stylesheet" href="/stylesheets/profile.css">
+		<link rel="stylesheet" href="/stylesheets/icons.css">
+		<link rel="stylesheet" href="/stylesheets/nav.css">
+		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>		
+		
+		<script src="/javascript/profile.js"></script>
+
+	
+
+	</head>
+	<body>
+
+		<div id="upload" class="drop-down">					
+			<div class="form-container">
+				<form action="/upload" method="POST" enctype="multipart/form-data">
+					<input type="text" name="album" placeholder="Album">
+					<input type="text" name="genre" placeholder="Genre">
+					<input type="file" name="file" placeholder="File">
+					<input type="submit" name="upload">
+				</form>
+
+				<p id="upload-back">Back</p>
+			</div>
+		</div>
+
+		<div class="content">
+
+			<div class="mask"></div>
+			<% include includes/nav-main.ejs %>
+	 	
+			<div class="content-container">
+				<div class="third col">
+					<h2>Tracks</h2><br>		
+					
+					<% if (mine) { %>
+						<div class="track-container" id="upload-drop-down">
+							<h1 class="center">+</h1>
+						</div>	
+					<% } %>
+
+					<% 
+						if (tracks != undefined) {
+							for (var i = 0; i < tracks.length; i++) {
+								var track = tracks[i];
+					%>
+					<%			include includes/track.ejs %>
+					<%
+							}
+						}
+						
+					%>
+				</div>
+				
+				<div class="third col">
+					<h2>Updates</h2>
+	
+				</div>
+				
+				<div class="third col">
+					<h2>Collaborators</h2>
+					<%
+						if (users != undefined) {
+							for ( var i = 0; i < users.length; i++) {
+								var user = users[i];
+					%>
+					<% 			include includes/artist.ejs %>
+					<%
+							}
+						}
+					%>
+				</div>
+			</div>
+			<div class="footer"></div>
+		</div>
+
+		
+		<!-- // <script src="/javascript/common.js"></script> -->
+		<script src="/javascript/includes/upload-drop-down.js"></script>
+	</body>
+</html>

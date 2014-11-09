@@ -1,0 +1,44 @@
+MAINTAINABILITY
+* Routing get and post requests separately
+* user pages routing (needs to be after other routing)
+* less
+
+RESPONSIVENESS	
+Supported envs
+- desktop 		(D)
+- tablet  		(T)
+- mobile phone	(P)
+
+* TP nav-bar is a shell, need to fix that.
+
+CURRENT FEATURES (IN PROGRESS)
+* Control Room
+	* iterations
+		* select iteration and display tracks
+		* sanitize json strings
+* figure out home page, it needs to be overhauled to something useful
+	* What is that and how do I do it?
+
+FEATURE BACKLOG (no specific order)
+* Routing - clean up
+* Mocha
+* Monetization
+* Profile Page
+* voting restriction
+
+THINGS I'VE LEARNED THAT I SHOULD KEEP IN MIND
+* res.download(file);
+* res.json();
+* xmlHttpRequest
+	xmlHttp = new XMLHttpRequest();
+	xmlHttp.open( "POST", "/upvote", false );
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+    xmlHttp.send("id=" + trackId);
+    var response = xmlHttp.responseText;
+
+
+BUGS
+* EISDIROPEN error when adding tracks, we should handle that somehow
+* not picking a file when uploading a file is a crash
+	* I'm not sure what's causing it. Just look out and see what's going on.
+* Duplicate entry handling

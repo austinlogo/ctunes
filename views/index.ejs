@@ -1,0 +1,132 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		
+
+		<script src="/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+		
+		<title>collabTunes</title>
+		
+		<link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.gooleapis.com/css?family=Raleway:300,900,800' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" href="/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+
+		<link rel="stylesheet" type="text/css" href="/stylesheets/page.css">
+		<script src="/javascript/main.js"></script>
+		
+	</head>
+	<body>
+		
+		<% include includes/nav.ejs %>
+
+		<div id="home" class="page splash">
+			<div class="title">
+				CollabTunes
+			</div>
+
+			<ol>
+				<li class="splash-menu"><a href="#l-who">Who we are</a></li>
+				<li class="splash-menu"><a href="#l-what">What We do</a></li>
+				<li class="splash-menu"><a href="#l-start">Getting Started</a></li>
+			</ol>
+		</div>
+		<div id="who" class="page">
+			<div class="page-container">
+				<h1>Who Are We?</h1>
+				<h2 class="inline">Musicians</h2>
+				<p class="inline">
+					People who enjoy listening to & playing music.
+				</p>
+				<br><br>
+
+				<h2 class="inline">Composers </h2>
+				<p class="inline">
+					Writers and creators of music
+				</p>
+				<br><br>
+
+				<h2 class="inline">Collaborators </h2>
+				<p class="inline">
+					Seekers of another mind and different perspective	
+				</p>
+			</div>
+		</div>
+		
+		<div id="what" class="page">
+			<div class="page-container">
+				<h1>What we do</h1>
+				
+				<div class="block">
+					<div class="img-container">
+						<img src="/images/COMPOSE.png" alt="">
+					</div>
+					<div class="text-container">
+						<h2>Compose</h2>
+						<p>
+							Write a full song or just a track, by yourself or with others, and share it with the world.</p>
+
+					</div>
+				</div>
+
+				<div class="block">
+					<div class="img-container">
+						<img src="/images/COLLABORATE.png" alt="">
+					</div>
+					<div class="text-container">
+						<h2> Collaborate</h2>
+						<p>Mix and remix tracks with other artists around the world.</p>
+					</div>
+				</div>
+
+				<div class="block">
+					<div class="img-container">
+						<img src="/images/ITERATE.png" alt="">
+					</div>
+					<div class="text-container">
+						<h2>Iterate</h2>
+						<p>Create your own arrangements, remixes, and music using the same source material.</p>
+						<p>Use previous iterations of a piece as inspriation.</p>
+						<p>Create your own renditions and inspire others.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="start" class="page">
+			<div class="page-container">
+				<h1>Getting Started</h1>
+
+				<p class="center"> Getting Started is easy. If you don't have an account just sign up here.</p>
+				
+				<div class="form-container">
+					<form class="new-user-form" action="/add-user" method="POST">
+						<input type="text" name="username" placeholder="username">
+						<input type="text" name="email" placeholder="someone@email.com">
+						<input type="text" name="first" placeholder="First Name">
+						<input type="text" name="last" placeholder="Last Name">
+						<input type="text" name="genre" placeholder="Preferred Musical Genre">
+						<input type="password" name="password" placeholder="Password">
+						<input type="password" name="confirm" placeholder=" Confirm Password">
+						<button type="submit" name="submit">add account</button>
+					</form>
+				</div>
+
+				<p class="center">or</p>
+				<div class="form-container">
+					<form action="/user" method="POST" class="new-user-form">
+						<input type="text" name="username" placeholder="username">
+						<input type="password" name="password" placeholder="password">
+						<button type="submit" name="submit">sign in</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+
+		
+		
+	</body>
+</html>

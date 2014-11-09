@@ -1,0 +1,57 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title><%= account.username %> Projects</title>
+		<link href='http://fonts.gooleapis.com/css?family=Raleway:300,500,900,800' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" type="text/css" href="/stylesheets/page.css">
+		<link rel="stylesheet" href="/stylesheets/profile.css">
+		<link rel="stylesheet" href="/stylesheets/icons.css">
+		<link rel="stylesheet" href="/stylesheets/nav.css">
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="/javascript/includes/upload-drop-down.js"></script>
+		<script src="/javascript/includes/track-funcs.js"></script>
+		<script src="/javascript/profile.js"></script>
+		
+	</head>
+
+	<body>
+		<div id="upload" class="drop-down">					
+			<div class="form-container">
+				<form action="/new-project" method="POST">
+					<input type="text" name="projectTitle" placeholder="Title">
+					<input type="submit" name="upload">
+				</form>
+
+				<p id="upload-back">Back</p>
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="mask"></div>
+			<% include includes/nav-main.ejs %>
+
+			<div class="content-container">
+				<div class="container dark">
+					
+					<% if (mine) { %>
+						<div class="project-container" id="upload-drop-down">
+							<h1 class="center">+</h1>	
+						</div>
+					<% } %>	
+
+					<% 	for (var index in projects) { 
+							var project = projects[index];
+					%>
+					<% include includes/project.ejs %>
+					<% 	} %>	
+
+				</div>
+			</div>			
+		</div>
+		
+		<script src="/javascript/projects.js"></script>
+		<script src="/javascript/includes/upload-drop-down.js"></script>
+	</body>
+</html>
