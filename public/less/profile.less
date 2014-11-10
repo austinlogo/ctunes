@@ -161,8 +161,8 @@ h2 {
 	top: 0;
 	bottom: 0;
 	left: 0;
-	width: 70px;
-	height: 100%;
+	width: @card-height;
+	height: @card-height;
 
 	float: left;
 
@@ -232,19 +232,24 @@ h2 {
 }
 
 .track-info {
+	position: absolute;
 	
-	width: 40%;	
+	top: 0;
+	bottom: 0;
+	left: @card-height;
+	right: @icon-container-length;
+
 	overflow: hidden;
 	display: inline-block;
 }
 @media (max-width: @xl-screen) {
 	.track-info {
-		width: 60%;	
+		// width: 60%;	
 	}
 }
 @media (max-width: @lg-screen) {
 	.track-info {
-		width: 50%;	
+		// width: 50%;	
 	}
 }
 
