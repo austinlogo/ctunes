@@ -16,7 +16,7 @@
   top: 55px;
   display: block;
   left: 0px;
-  height: 1000px;
+  height: auto;
   overflow: hidden;
 }
 .search-item {

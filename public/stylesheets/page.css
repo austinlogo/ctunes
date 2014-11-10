@@ -69,6 +69,10 @@ button {
 .center {
   text-align: center;
 }
+.card {
+  line-height: 70px;
+  height: 70px;
+}
 .drop-down {
   position: fixed;
   z-index: 1;
