@@ -22,8 +22,8 @@ $(document).ready( function () {
   //           console.log("RESET");
   //       }, DELAY);
 
-		var button = $(this).find(" > .playback-control");
-		var css = button.css("background");	
+		var button = $(this).find(" > .play-control");
+		var css = button.css("display");	
 		var str = "container-";
 		var divId = $(this).attr('id');
 		var trackId = divId.substring(str.length, divId.length);
@@ -31,15 +31,17 @@ $(document).ready( function () {
 		var progressId = "progress-" + trackId;
 		var audioDiv = document.getElementById(playerId);
 
-		// console.log(css.indexOf("play.png"));
-		if ( css.indexOf("play.png") > -1) {
+		// if play is being displayed
+		if ( css.indexOf("none") <= -1) {
 			console.log("playing");
-			$(this).find(" > .playback-control").css("background", "url('/images/pause.png') no-repeat center center");
+			$(this).find(" > .play-control").css("display", "none");
+			$(this).find(" > .pause-control").css("display", "inline-block");
 			audioDiv.play();
 		}
 		else {
 			console.log("pausing");
-			$(this).find(" > .playback-control").css("background", "url('/images/play.png') no-repeat center center");			
+			$(this).find(" > .play-control").css("display", "inline-block");
+			$(this).find(" > .pause-control").css("display", "none");
 			audioDiv.pause();
 		}
 	});
@@ -126,9 +128,11 @@ $(document).ready( function () {
 				
 				getTrackId("player-", this, function (trackId) {
 					var progressId = "#progress-" + trackId;
-					var playback = "#playback-control-" + trackId;
+					var play = "#play-control-" + trackId;
+					var pause = "#play-control-" + trackId;
 					$(progressId).css("right", "100%");
-					$(playback).css("background", "url('/images/play.png') no-repeat center center");
+					$(this).find(" > .play-control").css("display", "inline-block");
+					$(this).find(" > .pause-control").css("display", "none");
 
 				});
 			});
@@ -138,7 +142,8 @@ $(document).ready( function () {
 				audio.pause();
 				audio.currentTime = 0;
 				console.log("hello");
-				$(this).find(" > .playback-control").css("background", "url('/images/play.png') no-repeat center center");
+				$(this).find(" > .play-control").css("display", "inline-block");
+				$(this).find(" > .pause-control").css("display", "block");
 			}, false);
 
 		});

@@ -60,7 +60,8 @@
 }
 
 .project-control,
-.playback-control {
+.play-control,
+.pause-control {
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -69,9 +70,19 @@
 	height: @card-height;
 	overflow: hidden;
 
+}
+
+.play-control {
 	background: url("/images/play.png") no-repeat;
 	background-position: center center;
+	display: inline-block;
+}
 
+.pause-control {
+	background: url("/images/pause.png") no-repeat;
+	background-position: center center;
+
+	display: none;
 }
 
 .project-title,
