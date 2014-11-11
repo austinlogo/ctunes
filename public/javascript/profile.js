@@ -123,6 +123,18 @@ $(document).ready( function () {
 				});
 			}
 
+			audioTrack.addEventListener('waiting', function() {
+				alert("It needs to load, just one minute");
+				$(this).data('loading', 'true');
+			});
+
+			audioTrack.addEventListener('playing', function() {
+				if ( $(this).data('loading') == 'true')
+					alert("now playing");
+				alert('playing');
+			})
+
+
 			audioTrack.addEventListener('ended', function (){
 				this.pause();
 				
