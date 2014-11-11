@@ -65,6 +65,11 @@ app.param("iterationid", function (req, res, next, id) {
 	next();
 });
 
+app.param("genre", function (req, res, next, id) {
+	next();
+});
+
+
 app.get("/", function (req, res) {
 	if (req.session.user) {
 		return res.redirect("/" + req.session.user);
@@ -376,6 +381,10 @@ app.get("/:user/tracks", function(req, res) {
 													}
 		);
 	});
+});
+
+app.get("/:user/tracks/genre/:genre", function(req, res) {
+	res.send(req.params.genre);
 });
 
 app.get("/:user/projects", function (req, res) {

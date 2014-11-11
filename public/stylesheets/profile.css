@@ -206,7 +206,7 @@ h2 {
 }
 .category-container {
   margin: 0 auto;
-  width: 370px;
+  width: 390px;
   height: 70px;
   background: rgba(0, 0, 0, 0.6);
   margin-bottom: 10px;
@@ -218,9 +218,10 @@ h2 {
   line-height: 70px;
   text-align: center;
   font-size: 24pt;
+  font-family: 'Raleway', sans-serif;
   font-weight: 500;
   color: #FFF;
-  pointer: hand;
+  cursor: pointer;
 }
 #track-items {
   display: block;

@@ -148,17 +148,6 @@ $(document).ready( function () {
 		});
 	});
 
-	// $('.category-container').click(function(e) {
-	// 	alert(hello);
-	// 	console.log(e.target.id);
-	// 	if (e.target.id = "trackBtn") {
-	// 		alert("ehllo");
-	// 	}
-	// 	else if (e.target.id = "albumBtn") {
-
-	// 	}
-	// });
-
 	$("#trackBtn").click(function() {
 		$("#track-items").css("display", "block");
 		$("#album-items").css("display", "none");
