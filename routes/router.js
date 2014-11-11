@@ -34,6 +34,12 @@ function route(req, res, webpage, options, cb) {
 				else res.send(ht);
 			});
 		break;
+		case "genres" : 
+			res.render("genres", options, function(err, ht) {
+				if(err) res.send("error:" + err);
+				else res.send(ht);
+			});
+		break;
 		default :
 			res.status(404).send("not found")
 		break;

@@ -366,25 +366,38 @@ app.get("/:user/tracks", function(req, res) {
 	function (err, result) {
 		if (err) throw err;
 
-		
-		var mineVal = (req.params.user == req.session.user);
 		console.log("results: " + JSON);
 		return router.route(req, res, "tracks",	{ 	
-														mine: mineVal,
-														user: req.params.user,
-														"loggedin": (req.session.user != undefined),
-														account: {username: req.params.user},
-														page: "tracks",
-														tracks: result[0],
-														albums: result[1],
-														genres: result[2]
-													}
+													mine: (req.params.user == req.session.user),
+													user: req.params.user,
+													"loggedin": (req.session.user != undefined),
+													page: "tracks",
+													tracks: result[0],
+													albums: result[1],
+													genres: result[2]
+												}
 		);
 	});
 });
 
 app.get("/:user/tracks/genre/:genre", function(req, res) {
-	res.send(req.params.genre);
+	var query = "SELECT * FROM tracks WHERE genre='" + req.params.genre + "';";
+	console.log(query);
+
+
+	connection.query(query, function (err, result) {
+		if (err) throw err;
+		console.log("hello: ");
+		return router.route(req, res, "genres", {
+													mine: (req.params.user == req.session.user),
+													user: req.params.user,
+													"loggedin": (req.session.user != undefined),
+													page: "tracks",
+													tracks: result,
+													genre: req.params.genre
+												}
+		);
+	});
 });
 
 app.get("/:user/projects", function (req, res) {
@@ -400,7 +413,6 @@ app.get("/:user/projects", function (req, res) {
 														mine: mineVal,
 														user: req.params.user,
 														"loggedin": (req.session.user != undefined),
-														account: {username: req.params.user},
 														page: "projects",
 														projects: result
 													}
@@ -429,7 +441,6 @@ app.get("/:user/projects/:projectid", function (req, res) {
 													mine: (req.params.user == req.session.user),
 													user: req.params.user,
 													"loggedin": (req.session.user != undefined),
-													account: {username: req.params.user},
 													page: "control",
 													tracks: undefined,
 													project: result[0],
