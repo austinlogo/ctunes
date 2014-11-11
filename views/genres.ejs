@@ -1,0 +1,62 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title><%= muser %> tracks</title>
+		<link href='http://fonts.gooleapis.com/css?family=Raleway:300,500,900,800' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" type="text/css" href="/stylesheets/genres.css">
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- // <script src="/javascript/includes/upload-drop-down.js"></script> -->
+		<script src="/javascript/includes/track-funcs.js"></script>
+		<script src="/javascript/profile.js"></script>
+		<!-- // <script src="/javascript/projects.js"></script> -->
+		
+	</head>
+
+	<body>
+		<div id="upload" class="drop-down">					
+			<div class="form-container">
+				<form action="/upload" method="POST" enctype="multipart/form-data">
+					<input type="text" name="album" placeholder="Album">
+					<input type="text" name="genre" placeholder="Genre" value="<%= genre %>">
+					<input type="file" name="file" placeholder="File">
+					<input type="submit" name="upload">
+				</form>
+
+				<p id="upload-back">Back</p>
+			</div>
+		</div>
+		
+		<div class="content">
+			<div class="mask"></div>
+			<% include includes/nav-main.ejs %>
+			
+			<h1>
+				<%= genre %> tracks
+			</h1>
+			<div class="content-container">
+				<div class="container dark" id="track-items">
+					
+					<% if (mine) { %>
+						<div class="project-container" id="upload-drop-down">
+							<h1 class="center card">+</h1>	
+						</div>
+					<% } %>	
+
+					<% 	for (var index in tracks) { 
+							var track = tracks[index];
+					%>
+					<% include includes/track.ejs %>
+					<% 	} %>	
+
+				</div>
+			</div>	
+
+				
+
+		</div>
+
+		<script src="/javascript/includes/upload-drop-down.js"></script>
+	</body>
+</html>

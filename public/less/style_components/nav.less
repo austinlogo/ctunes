@@ -1,0 +1,191 @@
+
+.nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+
+	height: 50px;
+	width: 100%;
+
+	background: rgba(0, 0, 0, .7);
+	color: @off-white;
+}
+
+#search-box {
+	position: relative;
+	cursor: pointer;
+}
+
+#search {
+	position: relative;
+	min-width: @search-min-width;
+
+}
+
+@media (max-width: @md-screen) and (min-width: @sm-screen) {
+	#search {
+		min-width: @search-min-width/2;
+	}
+}
+
+
+#logout {
+	color: #000;
+	font-size: 12pt;
+}
+
+.search-results {
+	position: absolute;
+	top: 55px;
+	display: block;
+	left: 0px;
+	height: auto;
+	overflow: hidden;
+	// z-index: 9;
+}
+
+.search-item {
+	display: block;
+	position: relative;
+	// z-index: 10;
+
+	height: @card-height;
+	top: 0;
+	width: 100%;
+	line-height: @card-height;
+	
+	// background: @off-white;
+	color: @black;
+	padding: 0;
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border-bottom: @black 1px solid;
+	cursor: hand;
+
+
+
+}
+
+.profile-pic {
+	margin: 0;
+	position: absolute;
+	float: left;
+	top: 0;
+	height: @card-height;
+	width: @card-height;
+
+	background-size: cover;
+	background-position: 50% 50%;
+
+
+}
+
+.user-text,
+.track-text,
+.project-text {
+	position: absolute;
+	display: inline-block;
+	margin-left: 10px;
+	right: 0;
+	left: @card-height;
+	
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.user-result {
+	background: @green-pastel;
+}
+
+.track-result {
+	background: @aqua;
+}
+
+.project-result {
+	background: @red-pastel;
+}
+
+.menu {
+	position: relative;
+	a,
+	.search-results {
+		font-family: 'Raleway', sans-serif;
+		font-weight: @normal;
+		font-size: @paragraph-size;
+		width: 100%;
+	}
+}
+
+#search-box {
+	padding-left: 5px;
+}
+
+.navbar-left { 
+	margin: 0;
+	position: fixed;
+	top: 0px;
+
+	overflow: hidden;
+
+}
+
+.navbar-right {
+	position: absolute;
+	margin: 0;
+	right: 0;
+	bottom: 0;
+	float: right;
+}
+
+.menu {
+	position: relative;
+	display: inline-block;
+	height: 50px;
+	line-height: 50px;
+	margin: 0 auto;
+	text-align: center;
+	width: 110px;	
+}
+
+.logo {
+	width: auto;
+	margin-right: 10px;
+}
+
+.navbar-left .menu { 
+	position: relative;
+	float: left;
+	padding-top: 0;
+}
+
+.navbar-right .menu {
+	position: relative;
+	float: left;
+	
+	margin: 0;
+	padding-top: 0;
+	margin-right: 50px;
+}
+
+
+.navbar-main { 
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 50px;
+	z-index: 10;
+	display: block;
+	opacity: 0;
+	background: @md-gray-a;
+	color: @off-white;
+	visibility: hidden;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+
+	-webkit-transition: opacity 1s linear;
+	transition: opacity 1s linear;
+}

@@ -1,0 +1,204 @@
+
+.card {
+	line-height: @card-height;
+	height: @card-height;
+}
+
+.artist-item {
+	position: relative;
+	margin: 20px;
+	height:	@card-height;
+	// line-height: @card-height;
+
+	overflow: hidden;
+	background: rgba(150, 150, 150, .8);
+
+}
+
+.artist-name {
+	margin-left: 15px;
+
+	color: #000;
+}
+
+
+.track-container {
+	cursor: pointer;
+}
+
+.project-container,
+.album-container,
+.genre-container,
+.track-container {
+	background: rgba(150, 150, 150, .8);
+
+	position: relative;
+	margin: 20px;
+	padding-left: 10px;
+
+	// width: 100%;
+	height: @card-height;
+	overflow: hidden;
+}
+
+.project-container {
+	padding-left: 5px;
+	overflow: hidden;
+}
+
+.project-control,
+.playback-control {
+	position: relative;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: @card-height;
+	height: @card-height;
+
+	float: left;
+
+	background: url("/images/play.png") no-repeat;
+	background-position: center center;
+
+}
+
+.project-title,
+.album-title,
+.genre-title,
+.track-title {
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: -7px;
+	
+	padding: 0;
+	width: 300px;
+
+	font-size: @paragraph-size;
+	font-weight: @bold;
+	white-space: nowrap;
+	
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: @black;
+}
+
+.album-title, 
+.genre-title {
+	line-height: @card-height/2;
+	
+}
+
+
+.project-artist,
+.track-artist {
+	position: relative;
+	/*left: 100px;*/
+	margin: 0;
+	font-size: @paragraph-size;
+	font-weight: @super-light;
+	color: @black;
+	width: 300px;
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+@media (min-width: @xl-screen) {
+	.project-artist,
+	.track-artist {
+		font-size: @paragraph-size;
+	}
+
+	.project-title,
+	.track-title {
+		font-size: @paragraph-size;
+	}
+}
+
+.track-title,
+.track-artist {
+	width: 100%;
+
+}
+
+.project-info {
+	position: relative;
+	display: inline-block;
+
+	height: 100%;
+	width: 10%;
+
+}
+
+.album-info,
+.genre-info,
+.track-info {
+	position: absolute;
+	
+	top: 0;
+	bottom: 0;
+	left: @card-height;
+	right: @icon-container-length;
+
+	overflow: hidden;
+	display: inline-block;
+}
+@media (max-width: @xl-screen) {
+	.track-info {
+		// width: 60%;	
+	}
+}
+@media (max-width: @lg-screen) {
+	.track-info {
+		// width: 50%;	
+	}
+}
+
+.progress {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 100%;
+
+	background: @gr-bl;
+
+
+}
+
+.category-container {
+	margin: 0 auto;
+	width: 390px;
+	height: @card-height;
+	background: @dk-gray-a;
+	
+	margin-bottom: 10px;
+}
+
+.category {
+	display: inline-block;
+	width: 120px;
+	height: @card-height;
+	line-height: @card-height;
+	// padding: 5px;
+	text-align: center;
+
+	font-size: @header2-size;
+	font-family: @sans-serif;
+	font-weight: @normal;
+	color: #FFF;
+
+	cursor: pointer;
+}
+
+#track-items {
+	display: block;
+}
+#album-items,
+#genre-items {
+	display: none;
+}
+
+.cselected {
+	background-color: @vivid-green;
+}
