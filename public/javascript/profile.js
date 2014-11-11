@@ -48,7 +48,7 @@ $(document).ready( function () {
 	var audioTrackList = $(".track-container"); //all divs .track-container
 	console.log(audioTrackList);
 	for (var i = 0; i < audioTrackList.length; i++) {
-		if (audioTrackList[i].id == "upload-drop-down")
+		if (audioTrackList[i].id.length >= 16 && audioTrackList[i].id.substring(0,16) == "upload-drop-down")
 			continue;
 
 
@@ -148,6 +148,48 @@ $(document).ready( function () {
 		});
 	});
 
+	// $('.category-container').click(function(e) {
+	// 	alert(hello);
+	// 	console.log(e.target.id);
+	// 	if (e.target.id = "trackBtn") {
+	// 		alert("ehllo");
+	// 	}
+	// 	else if (e.target.id = "albumBtn") {
+
+	// 	}
+	// });
+
+	$("#trackBtn").click(function() {
+		$("#track-items").css("display", "block");
+		$("#album-items").css("display", "none");
+		$("#genre-items").css("display", "none");
+
+		$("#trackBtn").removeClass("cselected").addClass("cselected");
+		$("#albumBtn").removeClass("cselected");
+		$("#genreBtn").removeClass("cselected");
+	});
+
+	$("#albumBtn").click(function() {
+		$("#album-items").css("display", "block");
+		$("#track-items").css("display", "none");
+		$("#genre-items").css("display", "none");
+
+		$("#trackBtn").removeClass("cselected");
+		$("#albumBtn").removeClass("cselected").addClass("cselected");
+		$("#genreBtn").removeClass("cselected");
+	});
+
+	$("#genreBtn").click(function() {
+		$("#genre-items").css("display", "block");
+		$("#album-items").css("display", "none");
+		$("#track-items").css("display", "none");
+
+		$("#trackBtn").removeClass("cselected");
+		$("#albumBtn").removeClass("cselected");
+		$("#genreBtn").removeClass("cselected").addClass("cselected");
+	});
+
+
 });
 
 function getTrackId (prefix, elt, cb) {
@@ -156,4 +198,8 @@ function getTrackId (prefix, elt, cb) {
 
 	return cb (trackId);
 
-}
+//category navigation
+
+
+
+} //document ready

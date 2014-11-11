@@ -21,7 +21,7 @@ h2 {
 
 .mask {
 	position: fixed;
-	z-index: 0;
+	z-index: -10;
 	left: 0;
 	top: 0;
 	bottom: 0;
@@ -140,11 +140,14 @@ h2 {
 }
 
 .project-container,
+.album-container,
+.genre-container,
 .track-container {
 	background: rgba(150, 150, 150, .8);
 
 	position: relative;
 	margin: 20px;
+	padding-left: 10px;
 
 	height: @card-height;
 	overflow: hidden;
@@ -172,6 +175,8 @@ h2 {
 }
 
 .project-title,
+.album-title,
+.genre-title,
 .track-title {
 	position: relative;
 	margin-top: 10px;
@@ -187,6 +192,12 @@ h2 {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	color: @black;
+}
+
+.album-title, 
+.genre-title {
+	line-height: @card-height/2;
+	
 }
 
 
@@ -231,6 +242,8 @@ h2 {
 
 }
 
+.album-info,
+.genre-info,
 .track-info {
 	position: absolute;
 	
@@ -274,3 +287,42 @@ h2 {
 #upload-back-iteration {
 	cursor: hand;
 }
+
+.category-container {
+	margin: 0 auto;
+	width: 370px;
+	height: @card-height;
+	background: @dk-gray-a;
+	
+	margin-bottom: 10px;
+}
+
+.category {
+	display: inline-block;
+	width: 120px;
+	height: @card-height;
+	line-height: @card-height;
+	// padding: 5px;
+	text-align: center;
+
+	font-size: @header2-size;
+	font-weight: @normal;
+	color: #FFF;
+
+	pointer: hand;
+}
+
+#track-items {
+	display: block;
+}
+#album-items,
+#genre-items {
+	display: none;
+}
+
+.cselected {
+	background-color: @vivid-green;
+}
+
+
+

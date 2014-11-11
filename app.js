@@ -336,26 +336,46 @@ app.get("/:user", function (req, res) {
 
 
 app.get("/:user/tracks", function(req, res) {
-	var query = "SELECT * from tracks where artist='" + req.params.user + "';";
-	// 
+	var query  = 	"SELECT * from tracks where artist='" + req.params.user + "';";
+	var aquery = 	"SELECT id, album FROM tracks GROUP BY album; ";
+	var gquery = 	"SELECT id, genre FROM tracks GROUP BY genre; ";
 
-	// return res.send("hi");
-	connection.query(query, function (err, result) {
+	
+	async.parallel([
+		function (cb) {
+			connection.query(query, function (err, result) {
+				return cb (err, result);
+			});
+		},
+		function (cb) {
+			connection.query(aquery, function (err, result) {
+				return cb (err, result);
+			});
+		},
+		function (cb) {
+			connection.query(gquery, function (err, result) {
+				return cb (err, result);
+			});
+		}
+	],
+	function (err, result) {
 		if (err) throw err;
 
 		
 		var mineVal = (req.params.user == req.session.user);
+		console.log("results: " + JSON);
 		return router.route(req, res, "tracks",	{ 	
 														mine: mineVal,
 														user: req.params.user,
 														"loggedin": (req.session.user != undefined),
 														account: {username: req.params.user},
 														page: "tracks",
-														tracks: result
+														tracks: result[0],
+														albums: result[1],
+														genres: result[2]
 													}
 		);
-		
-	});	
+	});
 });
 
 app.get("/:user/projects", function (req, res) {

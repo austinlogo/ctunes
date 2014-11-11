@@ -7,6 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/page.css">
 		<link rel="stylesheet" href="/stylesheets/profile.css">
 		<link rel="stylesheet" href="/stylesheets/icons.css">
+		<link rel="stylesheet" href="/stylesheets/nav.css">
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<!-- // <script src="/javascript/includes/upload-drop-down.js"></script> -->
@@ -33,9 +34,14 @@
 		<div class="content">
 			<div class="mask"></div>
 			<% include includes/nav-main.ejs %>
-
+			
+			<div class="category-container">
+				<div class="category cselected" id="trackBtn">Tracks</div>
+				<div class="category" id="albumBtn">Albums</div>
+				<div class="category" id="genreBtn">Genres</div>
+			</div>
 			<div class="content-container">
-				<div class="container dark">
+				<div class="container dark" id="track-items">
 					
 					<% if (mine) { %>
 						<div class="project-container" id="upload-drop-down">
@@ -50,7 +56,41 @@
 					<% 	} %>	
 
 				</div>
-			</div>			
+
+				<div class="container dark" id="album-items">
+					
+					<% if (mine) { %>
+						<div class="project-container" id="upload-drop-down">
+							<h1 class="center card">+</h1>	
+						</div>
+					<% } %>	
+
+					<% 	for (var index in albums) { 
+							var album = albums[index];
+					%>
+					<% include includes/album.ejs %>
+					<% 	} %>						
+				</div>
+
+				<div class="container dark" id="genre-items">
+					
+					<% if (mine) { %>
+						<div class="project-container" id="upload-drop-down">
+							<h1 class="center card">+</h1>	
+						</div>
+					<% } %>	
+
+					<% 	for (var index in genres) { 
+							var genre = genres[index];
+					%>
+					<% include includes/genre.ejs %>
+					<% 	} %>	
+
+				</div>
+			</div>	
+
+				
+
 		</div>
 
 		<script src="/javascript/includes/upload-drop-down.js"></script>
