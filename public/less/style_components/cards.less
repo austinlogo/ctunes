@@ -61,14 +61,13 @@
 
 .project-control,
 .playback-control {
-	position: relative;
+	position: absolute;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	width: @card-height;
 	height: @card-height;
-
-	float: left;
+	overflow: hidden;
 
 	background: url("/images/play.png") no-repeat;
 	background-position: center center;

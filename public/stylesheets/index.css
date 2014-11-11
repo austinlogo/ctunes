@@ -400,13 +400,13 @@ button {
   overflow: hidden;
 }
 .project-control, .playback-control {
-  position: relative;
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   width: 70px;
   height: 70px;
-  float: left;
+  overflow: hidden;
   background: url("/images/play.png") no-repeat;
   background-position: center center;
 }
