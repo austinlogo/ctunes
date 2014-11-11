@@ -435,27 +435,67 @@ app.get("/:user/projects/:projectid", function (req, res) {
 	if (req.params.projectid == undefined) res.send(req);
 
 	var query = "SELECT * FROM projects WHERE id=" + req.params.projectid + ";";
-	
-	connection.query(query, function(err, result) {
-		if (err) throw err;
-		
-		
 
-		var iter = JSON.parse(result[0].iterations);
+
+	async.waterfall([
+		function (cb) {
+			connection.query(query, function(err, result) {
+				if (err) throw err;
+
+				var iter = JSON.parse(result[0].iterations);
+				var iter_query = "SELECT * FROM tracks WHERE";
+				console.log(iter);
+				for ( var iterIndex = 0; iterIndex < iter.length; iterIndex++) {
+					var iteration = iter[iterIndex];
+					for (var trackIndex in iteration.tracks) {
+						iter_query += " id=" + iteration.tracks[trackIndex];
+
+						if (!(iterIndex == iter.length - 1 && trackIndex == iteration.tracks.length - 1))
+							iter_query += " OR ";
+					}
+				}
+				iter_query += ";";
+				console.log(iter_query);
+				cb (err,result[0], iter, iter_query);
+			});
+		},
+		function (project, iter, iter_query, cb) {
+			connection.query(iter_query, function (err, result) {
+				if (err) throw err;
+				var track_results = {};
+				for (var trackIndex in result) {
+					var track = result[trackIndex];
+					console.log("track: " + track);
+					track_results[track.id] = track;
+				}
+				// console.log("track results: ");
+				// console.log(track_results);
+				// console.log(track_results['1']);
+				cb (err, project, iter, track_results)
+			});
+		}
+	], 
+	function (err, project, iter, track_results) {
+		if (err) throw err;
+		console.log("project");
+		// console.log(project);
+		console.log("iter");
+		// console.log(iter);
+		console.log("track_results");
+		console.log(track_results);
 
 		return router.route(req, res, "control",	{
-													mine: (req.params.user == req.session.user),
-													muser: req.params.user,
-													"loggedin": (req.session.user != undefined),
-													page: "control",
-													tracks: undefined,
-													project: result[0],
-													projectid: req.params.projectid,
-													iterations: iter
-												}
+											mine: (req.params.user == req.session.user),
+											muser: req.params.user,
+											"loggedin": (req.session.user != undefined),
+											page: "control",
+											tracks: track_results,
+											project: project,
+											projectid: req.params.projectid,
+											iterations: iter
+										}
 		);
-		
-	});	
+	});
 });
  
 // sample

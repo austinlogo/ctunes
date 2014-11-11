@@ -30,6 +30,7 @@
 .project-container,
 .album-container,
 .genre-container,
+.iteration-container,
 .track-container {
 	background: rgba(150, 150, 150, .8);
 
@@ -46,19 +47,12 @@
 	border-left: @vivid-green 5px solid;
 }
 
-.album-container {
-	border-left: @blue-mellow 5px solid;
-}
-
 .project-container {
 	border-left: @red-pastel 5px solid;
 }
-
-.genre-container {
-	border-left: @blue-pastel 5px solid;
+.iteration-container {
+	border-left: @blue-mellow 5px solid;
 }
-
-
 
 .project-container {
 	padding-left: 5px;
@@ -84,6 +78,7 @@
 .project-title,
 .album-title,
 .genre-title,
+.iteration-title,
 .track-title {
 	position: relative;
 	margin-top: 10px;
@@ -98,7 +93,7 @@
 	
 	overflow: hidden;
 	text-overflow: ellipsis;
-	color: @black;
+	color: @black !important;
 }
 
 .album-title, 
@@ -107,6 +102,10 @@
 	
 }
 
+.track-title,
+.track-artist {
+	width: 100%;
+}
 
 .project-artist,
 .track-artist {
@@ -134,12 +133,6 @@
 	}
 }
 
-.track-title,
-.track-artist {
-	width: 100%;
-
-}
-
 .project-info {
 	position: relative;
 	display: inline-block;
@@ -151,6 +144,7 @@
 
 .album-info,
 .genre-info,
+.iteration-info,
 .track-info {
 	position: absolute;
 	
@@ -221,4 +215,12 @@
 .cselected {
 	background-color: @vivid-green;
 	color: @dk-gray;
+}
+
+.iteration-tracks {
+	display: none;
+}
+
+.it-selected {
+	display: inline-block;
 }

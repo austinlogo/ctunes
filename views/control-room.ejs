@@ -41,9 +41,8 @@
 					</div>	
 					<% 
 						if (iterations) {
-							for (var i = iterations.length - 1; i >=0 ; track = iterations[i--]) {
-								var track = iterations[i];
-								console.log(track);
+							for (var i = iterations.length - 1; i >=0 ; i--) {
+								var iteration = iterations[i];								
 					%>
 					<%			include includes/iteration.ejs %>
 					<%
@@ -52,54 +51,32 @@
 						
 					%>
 				</div>
-
-				<div class="third col">
-					<h2>Tracks</h2>
-
-					<% 
-						if (tracks) {
-							for (var i = 0; i < tracks.length; i++) {
-								var track = tracks[i];
-					%>
-					<%			include includes/track.ejs %>
-					<%
-							}
+				<% 
+					if (iterations) { 
+						for (var index = iterations.length - 1; index >= 0; index--) {
+							var iteration = iterations[index];
+				%>
+							<div class="third col iteration-tracks" id="iteration-tracks-<%= iteration.id %>" >
+								<%
+									for (var j = 0; j < iteration.tracks.length; j++) {
+										var trackIndex = iteration.tracks[j];
+										var track = tracks[trackIndex];
+										if (track) {  
+								%>
+								<%	include includes/track.ejs %>
+								<%= trackIndex %>
+								<% 
+										} 
+									}
+								%>
+							</div>
+				<% 
 						}
-						
-					%>
-
-				</div>
+					} 
+				%>
 			</div>
 		</div>
 		
-		<script>
-			var project = {
-				title : "hello",
-				iterations : [
-					{
-						number : 1,
-						date : "OCT 3",
-						tracks : [
-							"hello.mp3",
-							"goodbye.mp3"
-						]
-					},
-					{
-						number : 2,
-						date : "OCT 5",
-						tracks : [
-							"hello.mp3"
-						]
-					}
-				]
-			};
-
-			var pstring = JSON.stringify(project);
-
-			// console.log(project);
-			// console.log(pstring);
-			// console.log(JSON.parse(pstring));
-		</script>
 		<script src="/javascript/projects.js"></script>
 		<script src="/javascript/includes/upload-drop-down.js"></script>
 	</body>

@@ -1,17 +1,14 @@
-<div class="track-container" id="container-<%= track.id %>">
-	<div id="progress-<%= track.id %>" class="progress"></div>
-	<div class="playback-control" id="playback-control-<%= track.id %>"></div>
-	<audio id="player-<%= track.id %>" src="<%= track.content%>"></audio>
-	<div class="track-info">
-		<p class="track-title"><%=track.title %></p>
+<div class="track-container iteration-container" id="container-<%= iteration.id %>">
+	<div id="progress-<%= iteration.id %>" class="progress"></div>
+	<div class="playback-control" id="playback-control-<%= iteration.id %>"></div>
+	<audio id="player-<%= iteration.id %>" src="<%= iteration.content%>"></audio>
+	<div class="iteration-info">
+		<p class="iteration-title"><%=iteration.title %></p>
 	</div>
 
-	<div class="icon-container" id="icon-container-<%= track.id %>">
-		<div class="icon download" id="iteration-download-<%= track.id %>">
-			
+	<div class="icon-container" id="icon-container-<%= iteration.id %>">
+		<div class="icon download" id="iteration-download-<%= iteration.id %>">
+		
 		</div>
-		<!-- <div class="icon" id="upvote-<%= track.id %>">
-			+<%=track.rating %>
-		</div> -->
 	</div>
 </div>
