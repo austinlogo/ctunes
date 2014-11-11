@@ -4,11 +4,7 @@
 		<title>Control Room</title>
 		<link href='http://fonts.gooleapis.com/css?family=Raleway:300,500,900,800' rel='stylesheet' type='text/css'>
 
-		<link rel="stylesheet" type="text/css" href="/stylesheets/page.css">
-		<link rel="stylesheet" href="/stylesheets/profile.css">
-		<link rel="stylesheet" href="/stylesheets/icons.css">
-		<link rel="stylesheet" href="/stylesheets/forms.css">
-		<link rel="stylesheet" href="/stylesheets/nav.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/profile.css">
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="/javascript/includes/upload-drop-down.js"></script>
@@ -38,7 +34,7 @@
 
 			<div class="content-container">
 				<div class="half col">
-					<h2>Iterations: <%= project.title %></h2>
+					<h2><%= project.title %></h2>
 
 					<div class="track-container" id="upload-drop-down-iteration">
 							<h1 class="center card">+</h1>
@@ -47,6 +43,7 @@
 						if (iterations) {
 							for (var i = iterations.length - 1; i >=0 ; track = iterations[i--]) {
 								var track = iterations[i];
+								console.log(track);
 					%>
 					<%			include includes/iteration.ejs %>
 					<%

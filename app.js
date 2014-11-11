@@ -325,12 +325,18 @@ app.get("/:user", function (req, res) {
 		if (err) {
 			router.route(req, res, "error", undefined);
 		}
-		return router.route(req, res, "profile", {	"mine": mine, 
-											"loggedin": (req.session.user != undefined),
-											"account": {username: req.params.user}, 
+
+		console.log(req.session.user);
+
+		return router.route(req, res, "profile", {	
+											"mine": mine, 
+											muser: req.session.user,
+											"loggedin": !(req.session.user == undefined),
+											"page_user": req.params.user,
 											"tracks": result[1], 
 											"users": result[2], 
 											"page": "user",
+											"account": "hello",
 											"dup": req.query.dup
 										}
 		);
@@ -369,7 +375,7 @@ app.get("/:user/tracks", function(req, res) {
 		console.log("results: " + JSON);
 		return router.route(req, res, "tracks",	{ 	
 													mine: (req.params.user == req.session.user),
-													user: req.params.user,
+													muser: req.params.user,
 													"loggedin": (req.session.user != undefined),
 													page: "tracks",
 													tracks: result[0],
@@ -390,7 +396,7 @@ app.get("/:user/tracks/genre/:genre", function(req, res) {
 		console.log("hello: ");
 		return router.route(req, res, "genres", {
 													mine: (req.params.user == req.session.user),
-													user: req.params.user,
+													muser: req.params.user,
 													"loggedin": (req.session.user != undefined),
 													page: "tracks",
 													tracks: result,
@@ -411,7 +417,7 @@ app.get("/:user/projects", function (req, res) {
 		var mineVal = (req.params.user == req.session.user);
 		return router.route(req, res, "projects",	{ 	
 														mine: mineVal,
-														user: req.params.user,
+														muser: req.params.user,
 														"loggedin": (req.session.user != undefined),
 														page: "projects",
 														projects: result
@@ -439,7 +445,7 @@ app.get("/:user/projects/:projectid", function (req, res) {
 
 		return router.route(req, res, "control",	{
 													mine: (req.params.user == req.session.user),
-													user: req.params.user,
+													muser: req.params.user,
 													"loggedin": (req.session.user != undefined),
 													page: "control",
 													tracks: undefined,
