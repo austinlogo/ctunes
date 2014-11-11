@@ -445,6 +445,9 @@ app.get("/:user/projects/:projectid", function (req, res) {
 				var iter = JSON.parse(result[0].iterations);
 				var iter_query = "SELECT * FROM tracks WHERE";
 				console.log(iter);
+				if (iter.length == 0) {
+					return cb (err, result[0], undefined, undefined);
+				}
 				for ( var iterIndex = 0; iterIndex < iter.length; iterIndex++) {
 					var iteration = iter[iterIndex];
 					for (var trackIndex in iteration.tracks) {
@@ -460,6 +463,8 @@ app.get("/:user/projects/:projectid", function (req, res) {
 			});
 		},
 		function (project, iter, iter_query, cb) {
+			if (iter_query == undefined)
+				return cb (null, project, iter, undefined);
 			connection.query(iter_query, function (err, result) {
 				if (err) throw err;
 				var track_results = {};

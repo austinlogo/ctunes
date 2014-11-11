@@ -9,20 +9,19 @@ $(document).ready( function () {
 		if ( $(e.target).hasClass('icon'))
 			return;
 
-		if (clicks++ == 1) {
-				var audio = this.getElementsByTagName('audio')[0];
-				audio.pause();
-				audio.currentTime = 0;
-				clicks = 0;
-				console.log("hello");
-				return;
-		}
+		// if (clicks++ == 1) {
+		// 		var audio = this.getElementsByTagName('audio')[0];
+		// 		audio.pause();
+		// 		audio.currentTime = 0;
+		// 		clicks = 0;
+		// 		return;
+		// }
 
-		timer = setTimeout(function() {
-            clicks = 0;
-        }, DELAY);
+		// timer = setTimeout(function() {
+  //           clicks = 0;
+  //           console.log("RESET");
+  //       }, DELAY);
 
-		console.log("ehllo");
 		var button = $(this).find(" > .playback-control");
 		var css = button.css("background");	
 		var str = "container-";
@@ -32,21 +31,23 @@ $(document).ready( function () {
 		var progressId = "progress-" + trackId;
 		var audioDiv = document.getElementById(playerId);
 
-		console.log(css.indexOf("play.png"));
+		// console.log(css.indexOf("play.png"));
 		if ( css.indexOf("play.png") > -1) {
+			console.log("playing");
 			$(this).find(" > .playback-control").css("background", "url('/images/pause.png') no-repeat center center");
 			audioDiv.play();
 		}
 		else {
-			console.log("hi");
+			console.log("pausing");
 			$(this).find(" > .playback-control").css("background", "url('/images/play.png') no-repeat center center");			
 			audioDiv.pause();
 		}
 	});
 
+	//ADD ALL THE EVENT LISTENERS TO THE CARDS
 	var j = 0;
 	var audioTrackList = $(".track-container"); //all divs .track-container
-	console.log(audioTrackList);
+	// console.log(audioTrackList);
 	for (var i = 0; i < audioTrackList.length; i++) {
 		if (audioTrackList[i].id.length >= 16 && audioTrackList[i].id.substring(0,16) == "upload-drop-down")
 			continue;
@@ -63,14 +64,14 @@ $(document).ready( function () {
 			var progressId = "progress-" + trackId;
 
 			audioTrack.addEventListener('timeupdate', function (e){
-				console.log(e.target);
+				// console.log(e.target);
 			// audioTrack.addEventListener('timeupdate', function (){
 				var audio = this;
 								
 				getTrackId("player-", this, function (trackId) {
 					var progressId = "progress-" + trackId;
 					var percent = 100 - ( (audio.currentTime * 100) / audio.duration);
-					console.log(progressId + ": " + percent);
+					// console.log(progressId + ": " + percent);
 				    $("#" + progressId).css("right", percent + "%");
 				}, false);
 			});
@@ -79,7 +80,7 @@ $(document).ready( function () {
 			var iteration_downloadId = "iteration-download-" + trackId; 
 			var voteId = "upvote-" + trackId;
 
-			console.log(trackId);
+			// console.log(trackId);
 			// console.log(project);
 	
 			var downloadBtn = document.getElementById(downloadId);
@@ -113,9 +114,9 @@ $(document).ready( function () {
 				    console.log("rating: " + rating);
 				    rating = rating.substring(1, rating.length);
 				    ratingInt = parseInt(rating) + 1;
-				    console.log(ratingInt);
+				    // console.log(ratingInt);
 				    $(this).html("+" + ratingInt);
-				    console.log($(this).html());
+				    // console.log($(this).html());
 
 				});
 			}
@@ -137,6 +138,7 @@ $(document).ready( function () {
 				audio.pause();
 				audio.currentTime = 0;
 				console.log("hello");
+				$(this).find(" > .playback-control").css("background", "url('/images/play.png') no-repeat center center");
 			}, false);
 
 		});
