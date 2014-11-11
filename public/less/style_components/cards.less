@@ -26,6 +26,7 @@
 	cursor: pointer;
 }
 
+.add-container,
 .project-container,
 .album-container,
 .genre-container,
@@ -40,6 +41,24 @@
 	height: @card-height;
 	overflow: hidden;
 }
+
+.track-container {
+	border-left: @vivid-green 5px solid;
+}
+
+.album-container {
+	border-left: @blue-mellow 5px solid;
+}
+
+.project-container {
+	border-left: @red-pastel 5px solid;
+}
+
+.genre-container {
+	border-left: @blue-pastel 5px solid;
+}
+
+
 
 .project-container {
 	padding-left: 5px;
@@ -170,7 +189,6 @@
 	margin: 0 auto;
 	width: 390px;
 	height: @card-height;
-	background: @dk-gray-a;
 	
 	margin-bottom: 10px;
 }
@@ -180,8 +198,9 @@
 	width: 120px;
 	height: @card-height;
 	line-height: @card-height;
-	// padding: 5px;
 	text-align: center;
+	background: @dk-gray-a;
+
 
 	font-size: @header2-size;
 	font-family: @sans-serif;
@@ -201,4 +220,5 @@
 
 .cselected {
 	background-color: @vivid-green;
+	color: @dk-gray;
 }
