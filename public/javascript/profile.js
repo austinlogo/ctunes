@@ -138,6 +138,7 @@ $(document).ready( function () {
 				audio.pause();
 				audio.currentTime = 0;
 				console.log("hello");
+				$(this).find(" > .playback-control").css("background", "url('/images/play.png') no-repeat center center");
 			}, false);
 
 		});
