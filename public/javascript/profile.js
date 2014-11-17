@@ -32,7 +32,7 @@ $(document).ready( function () {
 		var audioDiv = document.getElementById(playerId);
 
 		// console.log(css.indexOf("play.png"));
-		if ( css.indexOf("play.png") <= -1) {
+		if ( css.indexOf("play.png") > -1) {
 			console.log("playing");
 			$(this).find(" > .playback-control").css("background", "url('/images/pause.png') no-repeat center center");
 			audioDiv.play();
