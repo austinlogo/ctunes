@@ -38,7 +38,10 @@ THINGS I'VE LEARNED THAT I SHOULD KEEP IN MIND
 
 
 BUGS
+* Stream ended unexpectedly
 * EISDIROPEN error when adding tracks, we should handle that somehow
 * not picking a file when uploading a file is a crash
 	* I'm not sure what's causing it. Just look out and see what's going on.
 * Duplicate entry handling
+
+* enable ranged requests

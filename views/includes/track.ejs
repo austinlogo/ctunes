@@ -1,7 +1,8 @@
 <div class="track-container" id="container-<%= track.id %>">
 	<div id="progress-<%= track.id %>" class="progress"></div>
 	<div class="playback-control" id="playback-control-<%= track.id %>"></div>
-	<audio id="player-<%= track.id %>" src="<%= track.content%>"></audio>
+	<audio id="player-<%= track.id %>" src=""></audio>
+	<a href="<%= track.content%>">Song 1</a>
 	<div class="track-info">
 		<p class="track-title"><%=track.title %></p>
 		<% if (track.album != "undefined")  {  %>
