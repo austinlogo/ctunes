@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   width: 100%;
   min-width: 500px;
   height: 100%;
@@ -69,9 +70,7 @@ button {
   position: fixed;
   z-index: 1;
   /*width: 100%;*/
-
   /*height: 100%;*/
-
   background: rgba(0, 0, 0, 0.2);
   top: 0;
   bottom: 0;
@@ -99,7 +98,6 @@ button {
   background: #EEE;
   /*padding-left: 20%;
 	padding-right: 20%;*/
-
   padding-top: 60px;
 }
 .container {
@@ -113,7 +111,8 @@ button {
   height: 100%;
 }
 @media (max-width: 1300px) {
-  .container, .page-container {
+  .container,
+  .page-container {
     width: 100%;
   }
 }
@@ -178,7 +177,8 @@ button {
   width: 47%;
 }
 @media (max-width: 1300px) and (min-width: 700px) {
-  .third, .half {
+  .third,
+  .half {
     width: 100%;
     margin: 2%;
     float: none;
@@ -187,12 +187,14 @@ button {
     width: 60%;
     margin: 0 auto;
   }
-  #logout, .logo {
+  #logout,
+  .logo {
     display: none;
   }
 }
 @media (max-width: 700px) {
-  .third, .half {
+  .third,
+  .half {
     width: 400px;
     margin: 2%;
     float: none;
@@ -201,7 +203,8 @@ button {
     width: 70%;
     margin: 0 auto;
   }
-  #logout, .logo {
+  #logout,
+  .logo {
     display: none;
   }
 }
@@ -269,7 +272,9 @@ button {
   background-size: cover;
   background-position: 50% 50%;
 }
-.user-text, .track-text, .project-text {
+.user-text,
+.track-text,
+.project-text {
   position: absolute;
   display: inline-block;
   margin-left: 10px;
@@ -291,7 +296,8 @@ button {
 .menu {
   position: relative;
 }
-.menu a, .menu .search-results {
+.menu a,
+.menu .search-results {
   font-family: 'Raleway', sans-serif;
   font-weight: 500;
   font-size: 16pt;
@@ -399,7 +405,9 @@ button {
   padding-left: 5px;
   overflow: hidden;
 }
-.project-control, .play-control, .pause-control {
+.project-control,
+.play-control,
+.pause-control {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -435,16 +443,18 @@ button {
   text-overflow: ellipsis;
   color: #000000 !important;
 }
-.album-title, .genre-title {
+.album-title,
+.genre-title {
   line-height: 35px;
 }
-.track-title, .track-artist {
+.track-title,
+.track-artist {
   width: 100%;
 }
-.project-artist, .track-artist {
+.project-artist,
+.track-artist {
   position: relative;
   /*left: 100px;*/
-
   margin: 0;
   font-size: 16pt;
   font-weight: 100;
@@ -455,10 +465,12 @@ button {
   text-overflow: ellipsis;
 }
 @media (min-width: 1300px) {
-  .project-artist, .track-artist {
+  .project-artist,
+  .track-artist {
     font-size: 16pt;
   }
-  .project-title, .track-title {
+  .project-title,
+  .track-title {
     font-size: 16pt;
   }
 }
@@ -479,12 +491,6 @@ button {
   right: 100px;
   overflow: hidden;
   display: inline-block;
-}
-@media (max-width: 1300px) {
-  
-}
-@media (max-width: 960px) {
-  
 }
 .progress {
   position: absolute;
@@ -516,18 +522,19 @@ button {
 #track-items {
   display: block;
 }
-#album-items, #genre-items {
+#album-items,
+#genre-items {
   display: none;
 }
 .cselected {
   background-color: #2ecc71;
   color: #333333;
 }
-.iteration-tracks {
+.iteration-track {
   display: none;
 }
 .it-selected {
-  display: inline-block;
+  display: block;
 }
 .icon {
   position: relative;
@@ -539,7 +546,6 @@ button {
   width: 40px;
   top: -20px;
   /* we're going to center vertically via js */
-
   line-height: 40px;
   text-align: center;
   background-color: rgba(80, 80, 80, 0.8);
@@ -622,7 +628,6 @@ input[type=checkbox] {
 .img-container {
   display: inline-block;
   /*width: 200px;*/
-
   width: 30%;
   height: auto;
   vertical-align: top;

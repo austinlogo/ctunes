@@ -1,8 +1,15 @@
-<div class="track-container" id="container-<%= track.id %>">
+<%
+	var track_class = "track-container";
+	if (add_class) {
+		track_class += " " + add_class;
+	}
+%>
+
+<div class="<%= track_class %>" id="container-<%= track.id %>">
 	<div id="progress-<%= track.id %>" class="progress"></div>
 	<div class="play-control" id="play-control-<%= track.id %>"></div>
 	<div class="pause-control" id="pause-control-<%= track.id %>"></div>
-	<audio id="player-<%= track.id %>" src="<%= track.content%>"></audio>
+	<audio id="player-<%= track.id %>" src="<%= track.content%>" type="audio/mpeg"></audio>
 	<div class="track-info">
 		<p class="track-title"><%=track.title %></p>
 		<% if (track.album != "undefined")  {  %>

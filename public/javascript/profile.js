@@ -1,4 +1,12 @@
 
+function getTrackId (prefix, elt, cb) {
+	eltId = elt.id;
+	var trackId = eltId.substring(prefix.length, eltId.length);
+
+	return cb (trackId);
+}
+
+
 $(document).ready( function () {
 
 	var DELAY = 600,
@@ -33,13 +41,13 @@ $(document).ready( function () {
 
 		// if play is being displayed
 		if ( css.indexOf("none") <= -1) {
-			console.log("playing");
+			// console.log("playing");
 			$(this).find(" > .play-control").css("display", "none");
 			$(this).find(" > .pause-control").css("display", "inline-block");
 			audioDiv.play();
 		}
 		else {
-			console.log("pausing");
+			// console.log("pausing");
 			$(this).find(" > .play-control").css("display", "inline-block");
 			$(this).find(" > .pause-control").css("display", "none");
 			audioDiv.pause();
@@ -124,15 +132,29 @@ $(document).ready( function () {
 			}
 
 			audioTrack.addEventListener('waiting', function() {
-				alert("It needs to load, just one minute");
-				$(this).data('loading', 'true');
+				console.log("It needs to load, just one minute");
 			});
 
-			audioTrack.addEventListener('playing', function() {
-				if ( $(this).data('loading') == 'true')
-					alert("now playing");
-				alert('playing');
-			})
+			audioTrack.addEventListener('suspend', function() {
+				// console.log("suspending");
+				// console.log($(this));
+			});
+
+			audioTrack.addEventListener('stalled', function() {
+				// console.log("stalled");
+				// console.log($(this));
+				this.load();
+
+				this.play();
+				this.pause();
+
+			});
+
+			// audioTrack.addEventListener('playing', function() {
+			// 	if ( $(this).data('loading') == 'true')
+			// 		alert("now playing");
+			// 	// alert('playing');
+			// })
 
 
 			audioTrack.addEventListener('ended', function (){
@@ -155,7 +177,7 @@ $(document).ready( function () {
 				audio.currentTime = 0;
 				console.log("hello");
 				$(this).find(" > .play-control").css("display", "inline-block");
-				$(this).find(" > .pause-control").css("display", "block");
+				$(this).find(" > .pause-control").css("display", "none");
 			}, false);
 
 		});
@@ -199,15 +221,3 @@ $(document).ready( function () {
 
 
 });
-
-function getTrackId (prefix, elt, cb) {
-	eltId = elt.id;
-	var trackId = eltId.substring(prefix.length, elt.length);
-
-	return cb (trackId);
-
-//category navigation
-
-
-
-} //document ready
