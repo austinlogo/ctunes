@@ -157,6 +157,34 @@ app.post("/upvote", function (req, res) {
 	})
 });
 
+app.post("/follow", function (req, res) {
+	var id = req.body.id;
+
+	var query = "SELECT following FROM users WHERE user = '" + req.session.user + "';";
+
+	connection.query(query, function (err, result) {
+		if (err) throw err;
+
+		result = result[0].following;
+		console.log(result);
+		result = JSON.parse(result);
+		console.log(result);
+		if (result.indexOf(id) < 0) {
+			result.push(id);
+		}
+		console.log(result);
+		result = JSON.stringify(result);
+		var newQuery = "UPDATE users SET following='" + result + "' WHERE user='" + req.session.user + "';";
+		console.log(newQuery);
+		connection.query(newQuery, function(err, result) {
+			if (err) res.send(err);
+			res.send(result);
+		}); 
+		return;
+	});
+	return;
+});
+
 app.post("/search", function (req, res) {
 	var prefix = req.body.query + "%";
 	var users_query = "SELECT user, first, last, pic FROM users WHERE " +
@@ -181,7 +209,7 @@ app.post("/search", function (req, res) {
 			connection.query(users_query, function (err, result) {
 				if (err) throw err;
 
-				
+		
 
 				if (result) {
 					cb( null, result);

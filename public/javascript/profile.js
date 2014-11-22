@@ -142,10 +142,10 @@ $(document).ready( function () {
 			});
 
 			audioTrack.addEventListener('stalled', function() {
-				console.log("stalled");
-				console.log($(this));
+				// console.log("stalled");
+				// console.log($(this));
 				// this.load();
-				console.log(this.buffered);
+				// console.log(this.buffered);
 
 				// this.play();
 				// this.pause();
