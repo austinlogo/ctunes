@@ -132,7 +132,8 @@ $(document).ready( function () {
 			}
 
 			audioTrack.addEventListener('waiting', function() {
-				console.log("It needs to load, just one minute");
+				// console.log("It needs to load, just one minute");
+				// this.load();
 			});
 
 			audioTrack.addEventListener('suspend', function() {
@@ -141,12 +142,13 @@ $(document).ready( function () {
 			});
 
 			audioTrack.addEventListener('stalled', function() {
-				// console.log("stalled");
-				// console.log($(this));
-				this.load();
+				console.log("stalled");
+				console.log($(this));
+				// this.load();
+				console.log(this.buffered);
 
-				this.play();
-				this.pause();
+				// this.play();
+				// this.pause();
 
 			});
 

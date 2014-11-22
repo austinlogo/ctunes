@@ -6,7 +6,8 @@ function initialize(connection) {
 		"last VARCHAR(20) NOT NULL, " +
 		"genre VARCHAR(15) NOT NULL, " +
 		"pic VARCHAR(100) NOT NULL, " +
-		"hashed_password VARCHAR(100)" +
+		"hashed_password VARCHAR(100), " +
+		"following VARCHAR(1000)" +
 		");";
 
 	var music_table = "CREATE TABLE IF NOT EXISTS tracks (" + 
