@@ -308,7 +308,7 @@ app.post("/logincheck", function (req, res) {
 
 app.get("/:user", function (req, res) {
 
-	var usersQuery = "SELECT user FROM users WHERE user ='" + req.params.user + "';";
+	var usersQuery = "SELECT user,following FROM users WHERE user ='" + req.params.user + "';";
 	var tracksQuery = "SELECT * FROM tracks WHERE artist='" + req.params.user + "';";
 	var userQuery = "SELECT * FROM users;";
 	var mine = (req.session.user && req.session.user == req.params.user);
@@ -355,6 +355,7 @@ app.get("/:user", function (req, res) {
 		}
 
 		console.log(req.session.user);
+		console.log(result[0][0].following);
 
 		return router.route(req, res, "profile", {	
 											"mine": mine, 
@@ -363,6 +364,7 @@ app.get("/:user", function (req, res) {
 											"page_user": req.params.user,
 											"tracks": result[1], 
 											"users": result[2], 
+											"following": JSON.parse(result[0][0].following),
 											"page": "user",
 											"account": "hello",
 											"dup": req.query.dup

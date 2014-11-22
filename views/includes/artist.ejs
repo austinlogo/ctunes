@@ -6,9 +6,15 @@
 			</div>
 		</a>
 		<div class="icon-container" id="icon-container-<%= user.user %>">
-			<div class="icon" id="following-<%= user.user %>">
-				+
-			</div>
+			<% if (following.indexOf("following-" + user.user) < 0 ) { %>
+				<div class="icon" id="following-<%= user.user %>">
+					+
+				</div>
+			<% } else { %>
+				<div class="icon tagged" id="following-<%= user.user %>">
+					-
+				</div>
+			<% } %>
 		</div>
 	</div>
 <% } %>
