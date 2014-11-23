@@ -17,19 +17,6 @@ $(document).ready( function () {
 		if ( $(e.target).hasClass('icon'))
 			return;
 
-		// if (clicks++ == 1) {
-		// 		var audio = this.getElementsByTagName('audio')[0];
-		// 		audio.pause();
-		// 		audio.currentTime = 0;
-		// 		clicks = 0;
-		// 		return;
-		// }
-
-		// timer = setTimeout(function() {
-  //           clicks = 0;
-  //           console.log("RESET");
-  //       }, DELAY);
-
 		var button = $(this).find(" > .play-control");
 		var css = button.css("display");	
 		var str = "container-";
@@ -38,19 +25,25 @@ $(document).ready( function () {
 		var playerId = "player-" + trackId;
 		var progressId = "progress-" + trackId;
 		var audioDiv = document.getElementById(playerId);
+		var aud = new Audio();
+		aud.src = "/content/austinlg/OneRepublic - Counting Stars.mp3";
+		aud.play();
 
-		// if play is being displayed
+		// playing
 		if ( css.indexOf("none") <= -1) {
 			// console.log("playing");
 			$(this).find(" > .play-control").css("display", "none");
 			$(this).find(" > .pause-control").css("display", "inline-block");
 			audioDiv.play();
+			
 		}
 		else {
-			// console.log("pausing");
+			// pausing
 			$(this).find(" > .play-control").css("display", "inline-block");
 			$(this).find(" > .pause-control").css("display", "none");
 			audioDiv.pause();
+			// audioDiv.currentTime = 0;
+			// audioDiv.load();
 		}
 	});
 
@@ -134,30 +127,17 @@ $(document).ready( function () {
 			audioTrack.addEventListener('waiting', function() {
 				// console.log("It needs to load, just one minute");
 				// this.load();
-			});
+			});                           
 
-			audioTrack.addEventListener('suspend', function() {
-				// console.log("suspending");
-				// console.log($(this));
+			audioTrack.addEventListener('canplay', function(e) {
+				console.log("cp");
+				console.log($(this));
 			});
 
 			audioTrack.addEventListener('stalled', function() {
-				// console.log("stalled");
-				// console.log($(this));
-				// this.load();
-				// console.log(this.buffered);
 
-				// this.play();
-				// this.pause();
 
 			});
-
-			// audioTrack.addEventListener('playing', function() {
-			// 	if ( $(this).data('loading') == 'true')
-			// 		alert("now playing");
-			// 	// alert('playing');
-			// })
-
 
 			audioTrack.addEventListener('ended', function (){
 				this.pause();
@@ -177,7 +157,7 @@ $(document).ready( function () {
 				var audio = this.getElementsByTagName('audio')[0];
 				audio.pause();
 				audio.currentTime = 0;
-				console.log("hello");
+				// console.log("hello");
 				$(this).find(" > .play-control").css("display", "inline-block");
 				$(this).find(" > .pause-control").css("display", "none");
 			}, false);
@@ -220,6 +200,5 @@ $(document).ready( function () {
 		$("#albumBtn").removeClass("cselected");
 		$("#genreBtn").removeClass("cselected").addClass("cselected");
 	});
-
 
 });

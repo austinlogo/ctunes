@@ -2,7 +2,7 @@
 
 <html>
 	<title>
-		<%= muser %>
+		<%= page_user %>
 	</title>
 	<head>
 		
@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/profile.css">
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>		
-		
+
 		<script src="/javascript/profile.js"></script>
 
 	
@@ -52,6 +52,10 @@
 							for (var i = 0; i < tracks.length; i++) {
 								var track = tracks[i];
 								var add_class = undefined;
+
+								if (following.indexOf(track.artist) < 0 && track.artist != muser)
+									continue;
+
 					%>
 					<%			include includes/track.ejs %>
 					<%

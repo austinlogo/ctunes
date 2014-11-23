@@ -50,7 +50,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.param("user", function (req, res, next, id) {
 	next();
-	console.log("user called");
 });
 
 app.param("downloadid", function (req, res, next, id) {
@@ -160,29 +159,64 @@ app.post("/upvote", function (req, res) {
 app.post("/follow", function (req, res) {
 	var id = req.body.id;
 
-	var query = "SELECT following FROM users WHERE user = '" + req.session.user + "';";
+	
 
-	connection.query(query, function (err, result) {
+	async.parallel([
+		function (cb) {
+			var query = "SELECT following FROM users WHERE user = '" + req.session.user + "';";
+			connection.query(query, function (err, result) {
+				if (err) throw err;
+
+				result = result[0].following;
+				// console.log(result);
+				result = JSON.parse(result);
+				// console.log(result);
+				if (result.indexOf(id) < 0) {
+					result.push(id);
+				}
+				// console.log(result);
+				result = JSON.stringify(result);
+				var newQuery = "UPDATE users SET following='" + result + "' WHERE user='" + req.session.user + "';";
+				console.log(newQuery);
+
+				connection.query(newQuery, function(err, result) {
+					if (err) res.send(err);
+
+					return cb(err, result);
+				}); 
+			});
+
+		},
+		function (cb) {
+			var query = "SELECT followers FROM users WHERE user='" + id + "';";
+			connection.query(query, function(err, result) {
+				if (err) throw err;
+
+				result = result[0].followers;
+				result = JSON.parse(result);
+
+				if (result.indexOf(req.session.user) < 0) {
+					result.push(req.session.user);
+				} 
+
+				result = JSON.stringify(result);
+				var newQuery = "UPDATE users SET followers='" + result + "' WHERE user='" + id + "';";
+				console.log(newQuery);
+				connection.query(newQuery, function(err, result) {
+					if (err) res.send(err);
+
+					return cb(err, result);
+				});
+			});
+		}
+	],
+	function (err, result) {
 		if (err) throw err;
 
-		result = result[0].following;
-		console.log(result);
-		result = JSON.parse(result);
-		console.log(result);
-		if (result.indexOf(id) < 0) {
-			result.push(id);
-		}
-		console.log(result);
-		result = JSON.stringify(result);
-		var newQuery = "UPDATE users SET following='" + result + "' WHERE user='" + req.session.user + "';";
-		console.log(newQuery);
-		connection.query(newQuery, function(err, result) {
-			if (err) res.send(err);
-			res.send(result);
-		}); 
-		return;
+		res.send(result);
 	});
-	return;
+
+	
 });
 
 app.post("/search", function (req, res) {
@@ -355,7 +389,6 @@ app.get("/:user", function (req, res) {
 		}
 
 		console.log(req.session.user);
-		console.log(result[0][0].following);
 
 		return router.route(req, res, "profile", {	
 											"mine": mine, 

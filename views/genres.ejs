@@ -39,13 +39,14 @@
 				<div class="container dark" id="track-items">
 					
 					<% if (mine) { %>
-						<div class="project-container" id="upload-drop-down">
+						<div class="add-container" id="upload-drop-down">
 							<h1 class="center card">+</h1>	
 						</div>
 					<% } %>	
 
 					<% 	for (var index in tracks) { 
 							var track = tracks[index];
+							var add_class = undefined;
 					%>
 					<% include includes/track.ejs %>
 					<% 	} %>	

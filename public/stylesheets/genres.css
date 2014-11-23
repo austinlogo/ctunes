@@ -528,6 +528,13 @@ button {
 .it-selected {
   display: block;
 }
+.readyMask {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+}
 .icon {
   position: relative;
   display: inline-block;
@@ -546,6 +553,7 @@ button {
   float: right;
   color: #000000;
   font-weight: 800;
+  cursor: pointer;
 }
 .icon-content {
   margin: 5px;
