@@ -20,7 +20,7 @@ $('.search-results').click(function(e) {
     console.log (e.target);
 
     if ($(e.target).hasClass('user-result') || $(e.target).hasClass('user-text') ) {
-        var str = "" + "/" + e.target.id;
+        var str = "" + "/" + $(e.target).html();
         window.location.href = str;
     } else if ($(e.target).hasClass('track-result') || $(e.target).hasClass('track-text') )  {
         window.location.href = "/" + e.target.id + "/tracks";
