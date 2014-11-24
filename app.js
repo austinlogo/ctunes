@@ -579,6 +579,7 @@ app.get("/:user/projects/:projectid", function (req, res) {
 											muser: req.params.user,
 											"loggedin": (req.session.user != undefined),
 											page: "control",
+											liUser: req.session.user,
 											tracks: track_results,
 											project: project,
 											projectid: req.params.projectid,
