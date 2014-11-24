@@ -176,6 +176,9 @@ button {
 .half {
   width: 47%;
 }
+.two-third {
+  width: 63%;
+}
 @media (max-width: 1300px) and (min-width: 700px) {
   .third,
   .half {
@@ -225,14 +228,22 @@ button {
 #search-box {
   position: relative;
   cursor: pointer;
+  width: 400px;
 }
 #search {
   position: relative;
-  min-width: 200px;
+  min-width: 400px;
+  width: 400px;
+}
+#search:focus {
+  min-width: 400px;
+}
+#search-box:focus {
+  min-width: 400px;
 }
 @media (max-width: 700px) and (min-width: 480px) {
   #search {
-    min-width: 100px;
+    min-width: 200px;
   }
 }
 #logout {
