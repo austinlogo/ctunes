@@ -8,9 +8,10 @@
 <div class="<%= track_class %>" id="container-<%= track.id %>">
 	<div class="readyMask"></div>
 	<div id="progress-<%= track.id %>" class="progress"></div>
-	<div class="play-control" id="play-control-<%= track.id %>"></div>
+<!-- 	<div class="play-control" id="play-control-<%= track.id %>"></div>
 	<div class="pause-control" id="pause-control-<%= track.id %>"></div>
-	<audio id="player-<%= track.id %>" src="<%= track.content%>"></audio>
+ -->	
+ 	<div class="player-info" id="player-<%= track.id %>" src="<%= track.content%>"></div>
 	
 	<div class="track-info">
 		<p class="track-title"><%=track.title %></p>
@@ -25,7 +26,7 @@
 		<div class="icon download" id="download-<%= track.id %>">
 			
 		</div>
-		<div class="icon" id="upvote-<%= track.id %>">
+		<div class="icon rating" id="upvote-<%= track.id %>">
 			+<%=track.rating %>
 		</div>
 	</div>

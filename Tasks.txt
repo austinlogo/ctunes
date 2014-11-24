@@ -12,6 +12,8 @@ Supported envs
 * TP nav-bar is a shell, need to fix that.
 
 CURRENT FEATURES (IN PROGRESS)
+* playback
+	* multiple audio Tags creates an issue make one and dynamically change the source
 * Control Room
 	* iterations
 		* select iteration and display tracks
