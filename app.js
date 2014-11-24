@@ -345,7 +345,6 @@ app.get("/:user", function (req, res) {
 	var usersQuery = "SELECT user,following FROM users WHERE user ='" + req.params.user + "';";
 	var tracksQuery = "SELECT * FROM tracks WHERE artist='" + req.params.user + "';";
 	var userQuery = "SELECT * FROM users;";
-	var mine = (req.session.user && req.session.user == req.params.user);
 
 	async.parallel([
 		function (cb) {
@@ -391,10 +390,9 @@ app.get("/:user", function (req, res) {
 		console.log(req.session.user);
 
 		return router.route(req, res, "profile", {	
-											"mine": mine, 
-											muser: req.session.user,
+											"mine": (req.session.user && req.session.user == req.params.user),     
+											muser: req.params.user,
 											"loggedin": !(req.session.user == undefined),
-											"page_user": req.params.user,
 											"tracks": result[1], 
 											"users": result[2], 
 											"following": JSON.parse(result[0][0].following),
@@ -464,6 +462,25 @@ app.get("/:user/tracks/genre/:genre", function(req, res) {
 													page: "tracks",
 													tracks: result,
 													genre: req.params.genre
+												}
+		);
+	});
+});
+
+app.get("/:user/tracks/album/:album", function(req, res) {
+	var query = "SELECT * FROM tracks WHERE album='" + req.params.album + "';";
+	console.log(query);
+
+
+	connection.query(query, function (err, result) {
+		if (err) throw err;
+		return router.route(req, res, "albums", {
+													mine: (req.params.user == req.session.user),
+													muser: req.params.user,
+													"loggedin": (req.session.user != undefined),
+													page: "tracks",
+													tracks: result,
+													album: req.params.album
 												}
 		);
 	});
