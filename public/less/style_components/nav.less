@@ -15,12 +15,23 @@
 #search-box {
 	position: relative;
 	cursor: pointer;
+
+	width: @search-min-width;
 }
 
 #search {
 	position: relative;
 	min-width: @search-min-width;
+	width: @search-min-width;
 
+}
+
+#search:focus {
+	min-width: @search-min-width;
+}
+
+#search-box:focus {
+	min-width: @search-min-width;
 }
 
 @media (max-width: @md-screen) and (min-width: @sm-screen) {
