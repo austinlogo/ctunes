@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   width: 100%;
   min-width: 500px;
   height: 100%;
@@ -69,9 +70,7 @@ button {
   position: fixed;
   z-index: 1;
   /*width: 100%;*/
-
   /*height: 100%;*/
-
   background: rgba(0, 0, 0, 0.2);
   top: 0;
   bottom: 0;
@@ -99,7 +98,6 @@ button {
   background: #EEE;
   /*padding-left: 20%;
 	padding-right: 20%;*/
-
   padding-top: 60px;
 }
 .container {
@@ -113,7 +111,8 @@ button {
   height: 100%;
 }
 @media (max-width: 1300px) {
-  .container, .page-container {
+  .container,
+  .page-container {
     width: 100%;
   }
 }
@@ -154,7 +153,7 @@ button {
   left: 0%;
   height: 80px;
   width: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  display: none;
 }
 .content-container {
   margin: 0 auto;
@@ -178,7 +177,8 @@ button {
   width: 47%;
 }
 @media (max-width: 1300px) and (min-width: 700px) {
-  .third, .half {
+  .third,
+  .half {
     width: 100%;
     margin: 2%;
     float: none;
@@ -187,12 +187,14 @@ button {
     width: 60%;
     margin: 0 auto;
   }
-  #logout, .logo {
+  #logout,
+  .logo {
     display: none;
   }
 }
 @media (max-width: 700px) {
-  .third, .half {
+  .third,
+  .half {
     width: 400px;
     margin: 2%;
     float: none;
@@ -201,7 +203,8 @@ button {
     width: 70%;
     margin: 0 auto;
   }
-  #logout, .logo {
+  #logout,
+  .logo {
     display: none;
   }
 }
@@ -269,7 +272,9 @@ button {
   background-size: cover;
   background-position: 50% 50%;
 }
-.user-text, .track-text, .project-text {
+.user-text,
+.track-text,
+.project-text {
   position: absolute;
   display: inline-block;
   margin-left: 10px;
@@ -291,7 +296,8 @@ button {
 .menu {
   position: relative;
 }
-.menu a, .menu .search-results {
+.menu a,
+.menu .search-results {
   font-family: 'Raleway', sans-serif;
   font-weight: 500;
   font-size: 16pt;
@@ -359,17 +365,6 @@ button {
   line-height: 70px;
   height: 70px;
 }
-.artist-item {
-  position: relative;
-  margin: 20px;
-  height: 70px;
-  overflow: hidden;
-  background: rgba(150, 150, 150, 0.8);
-}
-.artist-name {
-  margin-left: 15px;
-  color: #000;
-}
 .track-container {
   cursor: pointer;
 }
@@ -378,6 +373,7 @@ button {
 .album-container,
 .genre-container,
 .iteration-container,
+.artist-item,
 .track-container {
   background: rgba(150, 150, 150, 0.8);
   position: relative;
@@ -399,17 +395,28 @@ button {
   padding-left: 5px;
   overflow: hidden;
 }
-.project-control, .playback-control {
-  position: relative;
+.project-control,
+.play-control,
+.pause-control {
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   width: 70px;
   height: 70px;
-  float: left;
+  overflow: hidden;
+}
+.play-control {
   background: url("/images/play.png") no-repeat;
   background-position: center center;
+  display: inline-block;
 }
+.pause-control {
+  background: url("/images/pause.png") no-repeat;
+  background-position: center center;
+  display: none;
+}
+.artist-name,
 .project-title,
 .album-title,
 .genre-title,
@@ -427,16 +434,18 @@ button {
   text-overflow: ellipsis;
   color: #000000 !important;
 }
-.album-title, .genre-title {
+.album-title,
+.genre-title {
   line-height: 35px;
 }
-.track-title, .track-artist {
+.track-title,
+.track-artist {
   width: 100%;
 }
-.project-artist, .track-artist {
+.project-artist,
+.track-artist {
   position: relative;
   /*left: 100px;*/
-
   margin: 0;
   font-size: 16pt;
   font-weight: 100;
@@ -447,10 +456,12 @@ button {
   text-overflow: ellipsis;
 }
 @media (min-width: 1300px) {
-  .project-artist, .track-artist {
+  .project-artist,
+  .track-artist {
     font-size: 16pt;
   }
-  .project-title, .track-title {
+  .project-title,
+  .track-title {
     font-size: 16pt;
   }
 }
@@ -460,6 +471,7 @@ button {
   height: 100%;
   width: 10%;
 }
+.artist-info,
 .album-info,
 .genre-info,
 .iteration-info,
@@ -467,16 +479,10 @@ button {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 70px;
-  right: 100px;
+  left: 10px;
+  right: 104px;
   overflow: hidden;
   display: inline-block;
-}
-@media (max-width: 1300px) {
-  
-}
-@media (max-width: 960px) {
-  
 }
 .progress {
   position: absolute;
@@ -508,18 +514,26 @@ button {
 #track-items {
   display: block;
 }
-#album-items, #genre-items {
+#album-items,
+#genre-items {
   display: none;
 }
 .cselected {
   background-color: #2ecc71;
   color: #333333;
 }
-.iteration-tracks {
+.iteration-track {
   display: none;
 }
 .it-selected {
-  display: inline-block;
+  display: block;
+}
+.readyMask {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
 }
 .icon {
   position: relative;
@@ -531,7 +545,6 @@ button {
   width: 40px;
   top: -20px;
   /* we're going to center vertically via js */
-
   line-height: 40px;
   text-align: center;
   background-color: rgba(80, 80, 80, 0.8);
@@ -540,6 +553,7 @@ button {
   float: right;
   color: #000000;
   font-weight: 800;
+  cursor: pointer;
 }
 .icon-content {
   margin: 5px;
@@ -548,7 +562,7 @@ button {
   position: relative;
   margin: 0 auto;
   float: right;
-  width: 100px;
+  width: 104px;
   top: 50%;
 }
 #new-project-button {
@@ -614,7 +628,6 @@ input[type=checkbox] {
 .img-container {
   display: inline-block;
   /*width: 200px;*/
-
   width: 30%;
   height: auto;
   vertical-align: top;

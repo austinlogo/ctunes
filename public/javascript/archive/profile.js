@@ -1,4 +1,12 @@
 
+function getTrackId (prefix, elt, cb) {
+	eltId = elt.id;
+	var trackId = eltId.substring(prefix.length, eltId.length);
+
+	return cb (trackId);
+}
+
+
 $(document).ready( function () {
 
 	var DELAY = 600,
@@ -9,21 +17,8 @@ $(document).ready( function () {
 		if ( $(e.target).hasClass('icon'))
 			return;
 
-		// if (clicks++ == 1) {
-		// 		var audio = this.getElementsByTagName('audio')[0];
-		// 		audio.pause();
-		// 		audio.currentTime = 0;
-		// 		clicks = 0;
-		// 		return;
-		// }
-
-		// timer = setTimeout(function() {
-  //           clicks = 0;
-  //           console.log("RESET");
-  //       }, DELAY);
-
-		var button = $(this).find(" > .playback-control");
-		var css = button.css("background");	
+		var button = $(this).find(" > .play-control");
+		var css = button.css("display");	
 		var str = "container-";
 		var divId = $(this).attr('id');
 		var trackId = divId.substring(str.length, divId.length);
@@ -31,16 +26,24 @@ $(document).ready( function () {
 		var progressId = "progress-" + trackId;
 		var audioDiv = document.getElementById(playerId);
 
-		// console.log(css.indexOf("play.png"));
-		if ( css.indexOf("play.png") > -1) {
-			console.log("playing");
-			$(this).find(" > .playback-control").css("background", "url('/images/pause.png') no-repeat center center");
+		// playing
+		if ( css.indexOf("none") <= -1) {
+			// console.log("playing");
+			$(this).find(" > .play-control").css("display", "none");
+			$(this).find(" > .pause-control").css("display", "inline-block");
 			audioDiv.play();
+			console.log(audioDiv.buffered.start(0) + " to " + audioDiv.buffered.end(0) + " : " + audioDiv.currentTime);
+			
 		}
 		else {
-			console.log("pausing");
-			$(this).find(" > .playback-control").css("background", "url('/images/play.png') no-repeat center center");			
+			// pausing
+			// $(this).find(" > .play-control").css("display", "inline-block");
+			// $(this).find(" > .pause-control").css("display", "none");
+			$('.play-control').css("display", "inline-block");
+			$('.pause-control').css("display", "none");
 			audioDiv.pause();
+			// audioDiv.currentTime = 0;
+			// audioDiv.load();
 		}
 	});
 
@@ -108,7 +111,7 @@ $(document).ready( function () {
 				    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
 				    xmlHttp.send("id=" + trackId);
 				    var response = xmlHttp.responseText;
-				    console.log(response);
+				    // console.log(response);
 
 				    var rating = $(this).html();
 				    console.log("rating: " + rating);
@@ -121,14 +124,31 @@ $(document).ready( function () {
 				});
 			}
 
+			audioTrack.addEventListener('waiting', function() {
+				// console.log("It needs to load, just one minute");
+				// this.load();
+			});                           
+
+			// audioTrack.addEventListener('canplay', function(e) {
+				// console.log("cp");
+				// console.log($(this));
+			// });
+
+			audioTrack.addEventListener('stalled', function() {
+
+
+			});
+
 			audioTrack.addEventListener('ended', function (){
 				this.pause();
 				
 				getTrackId("player-", this, function (trackId) {
 					var progressId = "#progress-" + trackId;
-					var playback = "#playback-control-" + trackId;
+					var play = "#play-control-" + trackId;
+					var pause = "#play-control-" + trackId;
 					$(progressId).css("right", "100%");
-					$(playback).css("background", "url('/images/play.png') no-repeat center center");
+					$(this).find(" > .play-control").css("display", "inline-block");
+					$(this).find(" > .pause-control").css("display", "none");
 
 				});
 			});
@@ -137,59 +157,11 @@ $(document).ready( function () {
 				var audio = this.getElementsByTagName('audio')[0];
 				audio.pause();
 				audio.currentTime = 0;
-				console.log("hello");
+				// console.log("hello");
+				$(this).find(" > .play-control").css("display", "inline-block");
+				$(this).find(" > .pause-control").css("display", "none");
 			}, false);
 
 		});
 	}
-
-	$('ul.navbar-right > #logout').click(function() {
-		$.post("/logout", function () {
-
-		});
-	});
-
-	$("#trackBtn").click(function() {
-		$("#track-items").css("display", "block");
-		$("#album-items").css("display", "none");
-		$("#genre-items").css("display", "none");
-
-		$("#trackBtn").removeClass("cselected").addClass("cselected");
-		$("#albumBtn").removeClass("cselected");
-		$("#genreBtn").removeClass("cselected");
-	});
-
-	$("#albumBtn").click(function() {
-		$("#album-items").css("display", "block");
-		$("#track-items").css("display", "none");
-		$("#genre-items").css("display", "none");
-
-		$("#trackBtn").removeClass("cselected");
-		$("#albumBtn").removeClass("cselected").addClass("cselected");
-		$("#genreBtn").removeClass("cselected");
-	});
-
-	$("#genreBtn").click(function() {
-		$("#genre-items").css("display", "block");
-		$("#album-items").css("display", "none");
-		$("#track-items").css("display", "none");
-
-		$("#trackBtn").removeClass("cselected");
-		$("#albumBtn").removeClass("cselected");
-		$("#genreBtn").removeClass("cselected").addClass("cselected");
-	});
-
-
 });
-
-function getTrackId (prefix, elt, cb) {
-	eltId = elt.id;
-	var trackId = eltId.substring(prefix.length, elt.length);
-
-	return cb (trackId);
-
-//category navigation
-
-
-
-} //document ready

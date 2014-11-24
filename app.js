@@ -50,7 +50,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.param("user", function (req, res, next, id) {
 	next();
-	console.log("user called");
 });
 
 app.param("downloadid", function (req, res, next, id) {
@@ -157,6 +156,69 @@ app.post("/upvote", function (req, res) {
 	})
 });
 
+app.post("/follow", function (req, res) {
+	var id = req.body.id;
+
+	
+
+	async.parallel([
+		function (cb) {
+			var query = "SELECT following FROM users WHERE user = '" + req.session.user + "';";
+			connection.query(query, function (err, result) {
+				if (err) throw err;
+
+				result = result[0].following;
+				// console.log(result);
+				result = JSON.parse(result);
+				// console.log(result);
+				if (result.indexOf(id) < 0) {
+					result.push(id);
+				}
+				// console.log(result);
+				result = JSON.stringify(result);
+				var newQuery = "UPDATE users SET following='" + result + "' WHERE user='" + req.session.user + "';";
+				console.log(newQuery);
+
+				connection.query(newQuery, function(err, result) {
+					if (err) res.send(err);
+
+					return cb(err, result);
+				}); 
+			});
+
+		},
+		function (cb) {
+			var query = "SELECT followers FROM users WHERE user='" + id + "';";
+			connection.query(query, function(err, result) {
+				if (err) throw err;
+
+				result = result[0].followers;
+				result = JSON.parse(result);
+
+				if (result.indexOf(req.session.user) < 0) {
+					result.push(req.session.user);
+				} 
+
+				result = JSON.stringify(result);
+				var newQuery = "UPDATE users SET followers='" + result + "' WHERE user='" + id + "';";
+				console.log(newQuery);
+				connection.query(newQuery, function(err, result) {
+					if (err) res.send(err);
+
+					return cb(err, result);
+				});
+			});
+		}
+	],
+	function (err, result) {
+		if (err) throw err;
+
+		res.send(result);
+	});
+
+	
+});
+
 app.post("/search", function (req, res) {
 	var prefix = req.body.query + "%";
 	var users_query = "SELECT user, first, last, pic FROM users WHERE " +
@@ -181,7 +243,7 @@ app.post("/search", function (req, res) {
 			connection.query(users_query, function (err, result) {
 				if (err) throw err;
 
-				
+		
 
 				if (result) {
 					cb( null, result);
@@ -280,10 +342,9 @@ app.post("/logincheck", function (req, res) {
 
 app.get("/:user", function (req, res) {
 
-	var usersQuery = "SELECT user FROM users WHERE user ='" + req.params.user + "';";
+	var usersQuery = "SELECT user,following FROM users WHERE user ='" + req.params.user + "';";
 	var tracksQuery = "SELECT * FROM tracks WHERE artist='" + req.params.user + "';";
 	var userQuery = "SELECT * FROM users;";
-	var mine = (req.session.user && req.session.user == req.params.user);
 
 	async.parallel([
 		function (cb) {
@@ -329,12 +390,12 @@ app.get("/:user", function (req, res) {
 		console.log(req.session.user);
 
 		return router.route(req, res, "profile", {	
-											"mine": mine, 
-											muser: req.session.user,
+											"mine": (req.session.user && req.session.user == req.params.user),     
+											muser: req.params.user,
 											"loggedin": !(req.session.user == undefined),
-											"page_user": req.params.user,
 											"tracks": result[1], 
 											"users": result[2], 
+											"following": JSON.parse(result[0][0].following),
 											"page": "user",
 											"account": "hello",
 											"dup": req.query.dup
@@ -401,6 +462,25 @@ app.get("/:user/tracks/genre/:genre", function(req, res) {
 													page: "tracks",
 													tracks: result,
 													genre: req.params.genre
+												}
+		);
+	});
+});
+
+app.get("/:user/tracks/album/:album", function(req, res) {
+	var query = "SELECT * FROM tracks WHERE album='" + req.params.album + "';";
+	console.log(query);
+
+
+	connection.query(query, function (err, result) {
+		if (err) throw err;
+		return router.route(req, res, "albums", {
+													mine: (req.params.user == req.session.user),
+													muser: req.params.user,
+													"loggedin": (req.session.user != undefined),
+													page: "tracks",
+													tracks: result,
+													album: req.params.album
 												}
 		);
 	});

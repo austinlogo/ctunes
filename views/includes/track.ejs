@@ -1,7 +1,14 @@
-<div class="track-container" id="container-<%= track.id %>">
-	<div id="progress-<%= track.id %>" class="progress"></div>
-	<div class="playback-control" id="playback-control-<%= track.id %>"></div>
-	<audio id="player-<%= track.id %>" src="<%= track.content %>"></audio>
+<%
+	var track_class = "track-container";
+	if (add_class) {
+		track_class += " " + add_class;
+	}
+%>
+
+<div class="<%= track_class %>" id="container-<%= track.id %>">
+	<div class="readyMask"></div>
+	<div id="progress-<%= track.id %>" class="progress"></div>	
+ 	<div class="player-info" id="player-<%= track.id %>" src="<%= track.content%>"></div>
 	<div class="track-info">
 		<p class="track-title"><%=track.title %></p>
 		<% if (track.album != "undefined")  {  %>
@@ -11,12 +18,11 @@
 		<% } %>
 
 	</div>
-
 	<div class="icon-container" id="icon-container-<%= track.id %>">
 		<div class="icon download" id="download-<%= track.id %>">
 			
 		</div>
-		<div class="icon" id="upvote-<%= track.id %>">
+		<div class="icon rating" id="upvote-<%= track.id %>">
 			+<%=track.rating %>
 		</div>
 	</div>
