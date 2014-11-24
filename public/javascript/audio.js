@@ -38,6 +38,8 @@ $('.track-container').click(function (e) {
 	else {
 		playing.playing ? audioPlayer.pause() : audioPlayer.play();
 		playing.playing = !playing.playing;
+
+
 	}
 });
 
@@ -74,9 +76,10 @@ $(".download").click(function (e) {
 });
 
 audioPlayer.addEventListener('ended', function (){	
-		var progressId = "#progress-" + playingId;
-		this.pause();
-		$(progressId).css("right", "100%");
+	console.log("ended");
+	var progressId = "#progress-" + playing.id;
+	this.pause();
+	$(progressId).css("right", "100%");
 });
 
 

@@ -153,7 +153,7 @@ button {
   left: 0%;
   height: 80px;
   width: 100%;
-  background: none;
+  display: none;
 }
 .content-container {
   margin: 0 auto;
