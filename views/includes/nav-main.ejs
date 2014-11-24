@@ -31,8 +31,18 @@
 </style>
 <div class="nav">
 	<div class="navbar-left">
-		<div class="menu logo"><img src="/images/text_logo_tc.png" height="50px" align="bottom" /></div>
-		<div class="menu" id="home"><a href="/<%= muser %>">Home</a></div>
+		<% if (loggedin) { %>
+			<div class="menu logo">
+				<a href="/<% liUser %>">
+					<img src="/images/text_logo_tc.png" height="50px" align="bottom" />
+				</a>
+			</div>
+		<% } else { %>
+			<div class="menu logo">
+				<img src="/images/text_logo_tc.png" height="50px" align="bottom" />
+			</div>
+		<% } %>
+		<div class="menu" id="home"><a href="/<%= muser %>">Profile</a></div>
 		<div class="menu" id="tracks"><a href="/<%= muser %>/tracks">Tracks</a></div>
 		<div class="menu" id="projects"><a href="/<%= muser %>/projects">Projects</a></div>
 		

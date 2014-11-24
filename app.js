@@ -390,16 +390,17 @@ app.get("/:user", function (req, res) {
 		console.log(req.session.user);
 
 		return router.route(req, res, "profile", {	
-											"mine": (req.session.user && req.session.user == req.params.user),     
-											muser: req.params.user,
-											"loggedin": !(req.session.user == undefined),
-											"tracks": result[1], 
-											"users": result[2], 
-											"following": JSON.parse(result[0][0].following),
-											"page": "user",
-											"account": "hello",
-											"dup": req.query.dup
-										}
+													liUser: req.session.user,
+													"mine": (req.session.user && req.session.user == req.params.user),     
+													muser: req.params.user,
+													"loggedin": !(req.session.user == undefined),
+													"tracks": result[1], 
+													"users": result[2], 
+													"following": JSON.parse(result[0][0].following),
+													"page": "user",
+													"account": "hello",
+													"dup": req.query.dup
+												}
 		);
 	});
 });
@@ -435,6 +436,7 @@ app.get("/:user/tracks", function(req, res) {
 
 		console.log("results: " + JSON);
 		return router.route(req, res, "tracks",	{ 	
+													liUser: req.session.user,
 													mine: (req.params.user == req.session.user),
 													muser: req.params.user,
 													"loggedin": (req.session.user != undefined),
@@ -456,6 +458,7 @@ app.get("/:user/tracks/genre/:genre", function(req, res) {
 		if (err) throw err;
 		console.log("hello: ");
 		return router.route(req, res, "genres", {
+													liUser: req.session.user,
 													mine: (req.params.user == req.session.user),
 													muser: req.params.user,
 													"loggedin": (req.session.user != undefined),
@@ -475,6 +478,7 @@ app.get("/:user/tracks/album/:album", function(req, res) {
 	connection.query(query, function (err, result) {
 		if (err) throw err;
 		return router.route(req, res, "albums", {
+													liUser: req.session.user,
 													mine: (req.params.user == req.session.user),
 													muser: req.params.user,
 													"loggedin": (req.session.user != undefined),
