@@ -9,7 +9,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="/javascript/includes/upload-drop-down.js"></script>
 		<script src="/javascript/includes/track-funcs.js"></script>
-		<script src="/javascript/profile.js"></script>
+		<!-- // <script src="/javascript/profile.js"></script> -->
 		
 	</head>
 
@@ -33,7 +33,7 @@
 			<% include includes/nav-main.ejs %>
 
 			<div class="content-container">
-				<div class="half col">
+				<div class="two-third col">
 					<h2><%= project.title %></h2>
 
 					<div class="add-container" id="upload-drop-down-iteration">
@@ -64,6 +64,7 @@
 									var trackIndex = iteration.tracks[j];
 									var track = tracks[trackIndex];
 									if (track) {
+										track.id = j + "i" + track.id;
 										var add_class = "iteration-track iteration-" + iteration.id;
 							%>
 										<%	include includes/track.ejs %>
@@ -78,9 +79,10 @@
 				</div>
 
 			</div>
+			<% include includes/footer.ejs %>
 		</div>
 		
 		<script src="/javascript/projects.js"></script>
-		<script src="/javascript/includes/upload-drop-down.js"></script>
+		<% include includes/standardJS.ejs %>	
 	</body>
 </html>
