@@ -4,24 +4,6 @@
 	height: @card-height;
 }
 
-// .artist-item {
-// 	position: relative;
-// 	margin: 20px;
-// 	height:	@card-height;
-// 	// line-height: @card-height;
-
-// 	overflow: hidden;
-// 	background: rgba(150, 150, 150, .8);
-
-// }
-
-// .artist-name {
-// 	margin-left: 15px;
-
-// 	color: #000;
-// }
-
-
 .track-container {
 	cursor: pointer;
 }
@@ -31,7 +13,7 @@
 .album-container,
 .genre-container,
 .iteration-container,
-.artist-item,
+.artist-container,
 .track-container {
 	background: rgba(150, 150, 150, .8);
 
@@ -45,14 +27,17 @@
 }
 
 .track-container {
-	border-left: @vivid-green 5px solid;
+	border-left: @blue-mellow 5px solid;
 }
 
 .project-container {
 	border-left: @red-pastel 5px solid;
 }
 .iteration-container {
-	border-left: @blue-mellow 5px solid;
+	border-left: @red-pastel-dk 5px solid;
+}
+.artist-container {
+	border-left: @vivid-green 5px solid;
 }
 
 .project-container {
@@ -97,7 +82,7 @@
 	margin-bottom: -7px;
 	
 	padding: 0;
-	width: 300px;
+	width: 100%;
 
 	font-size: @paragraph-size;
 	font-weight: @bold;
@@ -128,7 +113,7 @@
 	font-size: @paragraph-size;
 	font-weight: @super-light;
 	color: @black;
-	width: 300px;
+	width: 100%;
 
 	white-space: nowrap;
 	overflow: hidden;
@@ -146,15 +131,16 @@
 	}
 }
 
-.project-info {
-	position: relative;
-	display: inline-block;
+// .project-info {
+// 	position: relative;
+// 	display: inline-block;
 
-	height: 100%;
-	width: 10%;
+// 	height: 100%;
+// 	width: 10%;
 
-}
+// }
 
+.project-info,
 .artist-info,
 .album-info,
 .genre-info,
