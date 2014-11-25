@@ -22,6 +22,8 @@ CURRENT FEATURES (IN PROGRESS)
 	* What is that and how do I do it?
 
 FEATURE BACKLOG (no specific order)
+* timeline iteration history
+	* visualize when things are added
 * Routing - clean up
 * Mocha
 * Monetization
