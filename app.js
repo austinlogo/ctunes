@@ -500,8 +500,8 @@ app.get("/:user/projects", function (req, res) {
 		
 		var mineVal = (req.params.user == req.session.user);
 		return router.route(req, res, "projects",	{ 	
-														mine: mineVal,
 														liUser: req.session.user,
+														mine: mineVal,
 														muser: req.params.user,
 														"loggedin": (req.session.user != undefined),
 														page: "projects",
