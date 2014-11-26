@@ -6,7 +6,7 @@ body {
   position: relative;
   margin: 0 auto;
   z-index: 0;
-  background: #eeeeee url('/images/turntables.jpg') fixed;
+  background: #eeeeee url('/images/bg.png') fixed bottom;
   background-size: cover;
   padding-top: 70px;
 }
