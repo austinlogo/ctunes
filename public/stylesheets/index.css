@@ -399,6 +399,7 @@ button {
 .project-container {
   border-left: #ff7777 5px solid;
 }
+.iTrack-container,
 .iteration-container {
   border-left: #dd5555 5px solid;
 }

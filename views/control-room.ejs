@@ -68,10 +68,10 @@
 
 									if (iTrack) {
 										oldITID = iTrack.id;
-										iTrack.id = j + "i" + iTrack.id + "i";
+										iTrack.id = j + "i" + iTrack.id;
 										var add_class = "iteration-track iteration-" + iteration.id;
 							%>
-							<%			include includes/iteration.ejs %>
+							<%			include includes/iTrack.ejs %>
 							<%
 										iTrack.id = oldITID;
 									}
@@ -79,9 +79,7 @@
 								for (var j = 0; j < iteration.tracks.length; j++) {
 
 									var trackIndex = iteration.tracks[j];
-									console.log(index + " : " + j + " : " + trackIndex);
 									var track = tracks[trackIndex];
-									console.log(iterations);
 									if (track) {
 										oldId = track.id;
 										track.id = j + "i" + track.id;
