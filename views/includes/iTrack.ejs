@@ -1,0 +1,20 @@
+<%
+	var track_class = "track-container iTrack-container";
+	if (add_class != null) {
+		track_class += " " + add_class;
+	}
+%>
+
+<div class="<%= track_class %>" id="container-<%= iTrack.id %>i">
+	<div id="progress-<%= iTrack.id %>i" class="progress"></div>
+	<div class="player-info" id="player-<%= iTrack.id %>i" src="<%= iteration.content%>"></div>
+	<div class="iteration-info">
+		<p class="iteration-title"><%=iteration.title %></p>
+	</div>
+
+	<div class="icon-container" id="icon-container-<%= iTrack.id %>">
+		<div class="icon download" id="iteration-download-<%= iTrack.id %>">
+		
+		</div>
+	</div>
+</div>
