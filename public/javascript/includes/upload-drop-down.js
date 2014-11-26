@@ -26,26 +26,46 @@
 	    response = JSON.parse(response);
 
 	    //populate user
-	    var insert = "<h2>User</h2>\n";
+	    var blacklist = [];
+	    var insert = "<h2>Iterations</h2>\n";
+	    
+	    //projects
+	    for (var i = 0; i < response.project.length; i++) {
+	    	var item = response.project[i];
+	    	
+	    	insert += "<div>";
+	    	insert += "<input type='checkbox' name='iterations' id='" + item.id + "i' value='"+ item.id +"'>";
+	    	insert += "<label for='"+ item.id +"'>" +item.title + "</label>";
+	    	insert += "</div>\n";
+	    }
+
+	   	$('#project-checkbox').html(insert);
+
+	   	insert = "<h2>Raw</h2>\n";
+	    //user library
 	    for (var i = 0; i < response.user.length; i++) {
 	    	var item = response.user[i];
+	    	if (blacklist.indexOf(item.id) < 0) {
+	    		blacklist.push(item.id);
+	    	}
+	    	else {
+	    		continue;
+	    	}
+
 	    	insert += "<div>";
 	    	insert += "<input type='checkbox' name='tracks' id='" + item.id + "' value='"+ item.id +"'>";
 	    	insert += "<label for='"+ item.id +"'>" +item.title + "</label>";
 	    	insert += "</div>\n";
 	    }
-	    $('#user-checkbox').html(insert);
+	    // $('#user-checkbox').html(insert);
 
 	    //populate project
-	    insert ="<h2>Project</h2>\n";
-		for (var i = 0; i < response.project.length; i++) {
-	    	var item = response.user[i];
-	    	insert += "<div>";
-	    	insert += "<input type='checkbox' name='tracks' id='" + item.id + "' value='"+ item.id +"'>";
-	    	insert += "<label for='"+ item.id +"'>" +item.title + "</label>";
-	    	insert += "</div>\n";
-	    }
-	    $('#project-checkbox').html(insert);    
+	    // insert ="<h2>Project</h2>\n";
+		
+    
+
+   	    $('#user-checkbox').html(insert);
+
 
 	});
 

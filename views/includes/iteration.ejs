@@ -1,4 +1,11 @@
-<div class="track-container iteration-container" id="container-<%= iteration.id %>i">
+<%
+	var track_class = "track-container iteration-container";
+	if (add_class != null) {
+		track_class += " " + add_class;
+	}
+%>
+
+<div class="<%= track_class %>" id="container-<%= iteration.id %>i">
 	<div id="progress-<%= iteration.id %>i" class="progress"></div>
 	<div class="player-info" id="player-<%= iteration.id %>i" src="<%= iteration.content%>"></div>
 	<div class="iteration-info">

@@ -399,6 +399,7 @@ button {
 .project-container {
   border-left: #ff7777 5px solid;
 }
+.iTrack-container,
 .iteration-container {
   border-left: #dd5555 5px solid;
 }
@@ -587,7 +588,7 @@ button {
   width: 49%;
   margin: 0 auto;
   margin-bottom: 10px;
-  height: 250px;
+  height: 200px;
   float: left;
   overflow-y: auto;
   overflow-x: hidden;

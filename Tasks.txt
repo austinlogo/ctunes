@@ -12,20 +12,16 @@ Supported envs
 * TP nav-bar is a shell, need to fix that.
 
 CURRENT FEATURES (IN PROGRESS)
-* playback
-	* multiple audio Tags creates an issue make one and dynamically change the source
 * Control Room
-	* iterations
-		* select iteration and display tracks
-		* sanitize json strings
+	* sanitize json strings
 * figure out home page, it needs to be overhauled to something useful
 	* What is that and how do I do it?
+* add str.toLowercase for certain data entry fields
 
 FEATURE BACKLOG (no specific order)
-* Routing - clean up
-* Mocha
+* timeline iteration history
+	* visualize when things are added
 * Monetization
-* Profile Page
 * voting restriction
 
 THINGS I'VE LEARNED THAT I SHOULD KEEP IN MIND
