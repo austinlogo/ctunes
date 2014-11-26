@@ -1,4 +1,4 @@
-	$("#upload-drop-down").click(function () {
+	$(".upload-drop-down").click(function () {
 		$("#upload").css("display", "block");
 		$(".content").css("-webkit-filter", "blur(10px)");	
 		$('.mask').css("background", "rgba(0,0,0, .9");
