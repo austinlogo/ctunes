@@ -529,7 +529,7 @@ app.get("/:user/projects/:projectid", function (req, res) {
 
 				var iter = JSON.parse(result[0].iterations);
 				var iter_query = "SELECT * FROM tracks WHERE";
-				console.log(iter);
+				// console.log(iter);
 				if (iter.length == 0) {
 					return cb (err, result[0], undefined, undefined);
 				}
@@ -543,7 +543,7 @@ app.get("/:user/projects/:projectid", function (req, res) {
 					}
 				}
 				iter_query += ";";
-				console.log(iter_query);
+				// console.log(iter_query);
 				cb (err,result[0], iter, iter_query);
 			});
 		},
@@ -555,7 +555,7 @@ app.get("/:user/projects/:projectid", function (req, res) {
 				var track_results = {};
 				for (var trackIndex in result) {
 					var track = result[trackIndex];
-					console.log("track: " + track);
+					// console.log("track: " + track);
 					track_results[track.id] = track;
 				}
 				// console.log("track results: ");
@@ -567,12 +567,12 @@ app.get("/:user/projects/:projectid", function (req, res) {
 	], 
 	function (err, project, iter, track_results) {
 		if (err) throw err;
-		console.log("project");
+		// console.log("project");
 		// console.log(project);
-		console.log("iter");
+		// console.log("iter");
 		// console.log(iter);
-		console.log("track_results");
-		console.log(track_results);
+		// console.log("track_results");
+		// console.log(track_results);
 
 		return router.route(req, res, "control",	{
 											mine: (req.params.user == req.session.user),
@@ -747,8 +747,13 @@ app.post("/:user/projects/:projectid/add-iteration", function (req, res) {
 			form.parse(req, function(err, fields_param, files) {
 				if (err) throw err;
 
-				new_iteration.title 	= fields_param.iteration_title[0];
-				new_iteration.tracks 	= fields_param.tracks;		
+				new_iteration.title 		= fields_param.iteration_title[0];
+				new_iteration.tracks 		= (fields_param.tracks != undefined) ? fields_param.tracks : [];
+				new_iteration.iTracks	 	= (fields_param.iterations != undefined) ? fields_param.iterations : []; 
+				// if (fields_param.iterations != undefined) 
+				// 	new_iteration.iTracks		= fields_param.iterations;	
+				// else
+				// 	new_iteration.iTracks		= [];	
 
 				return cb(null, null);
 			});

@@ -27,21 +27,21 @@
 
 	    //populate user
 	    var blacklist = [];
-	    var insert = "<h2>Included Project Tracks</h2>\n";
+	    var insert = "<h2>Iterations</h2>\n";
 	    
 	    //projects
 	    for (var i = 0; i < response.project.length; i++) {
 	    	var item = response.project[i];
 	    	
 	    	insert += "<div>";
-	    	insert += "<input type='checkbox' name='tracks' id='" + item.id + "i' value='"+ item.id +"'>";
+	    	insert += "<input type='checkbox' name='iterations' id='" + item.id + "i' value='"+ item.id +"'>";
 	    	insert += "<label for='"+ item.id +"'>" +item.title + "</label>";
 	    	insert += "</div>\n";
 	    }
 
 	   	$('#project-checkbox').html(insert);
 
-	   	insert = "<h2>Included Raw Tracks</h2>\n";
+	   	insert = "<h2>Raw</h2>\n";
 	    //user library
 	    for (var i = 0; i < response.user.length; i++) {
 	    	var item = response.user[i];

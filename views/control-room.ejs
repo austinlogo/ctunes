@@ -52,26 +52,49 @@
 					%>
 				</div>
 
-				<div class="third col iteration-tracks it-selected" >
+				<div class="third col iteration-tracks" >
 
 				<% 
 					if (iterations) { 
 						for (var index = iterations.length - 1; index >= 0; index--) {
 							var iteration = iterations[index];
 				%>
+					
 							<%
+								for (var j = 0; j < iteration.iTracks.length; j++) {
+									console.log("iteration: " + index);
+									var iterationIndex 	= iteration.iTracks[j];
+									var iTrack	 		= iterations[iterationIndex];
+
+									if (iTrack) {
+										oldITID = iTrack.id;
+										iTrack.id = j + "i" + iTrack.id + "i";
+										var add_class = "iteration-track iteration-" + iteration.id;
+							%>
+							<%			include includes/iteration.ejs %>
+							<%
+										iTrack.id = oldITID;
+									}
+								}
 								for (var j = 0; j < iteration.tracks.length; j++) {
+
 									var trackIndex = iteration.tracks[j];
+									console.log(index + " : " + j + " : " + trackIndex);
 									var track = tracks[trackIndex];
+									console.log(iterations);
 									if (track) {
+										oldId = track.id;
 										track.id = j + "i" + track.id;
+
 										var add_class = "iteration-track iteration-" + iteration.id;
 							%>
 										<%	include includes/track.ejs %>
 							<% 
+										track.id = oldId;
 									}
 								}
 							%>
+						
 				<% 
 						}
 					} 
