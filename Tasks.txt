@@ -18,6 +18,7 @@ CURRENT FEATURES (IN PROGRESS)
 	* What is that and how do I do it?
 * add str.toLowercase for certain data entry fields
 
+
 FEATURE BACKLOG (no specific order)
 * timeline iteration history
 	* visualize when things are added
@@ -36,10 +37,6 @@ THINGS I'VE LEARNED THAT I SHOULD KEEP IN MIND
 
 
 BUGS
-* Stream ended unexpectedly
+* download project is not working
 * EISDIROPEN error when adding tracks, we should handle that somehow
-* not picking a file when uploading a file is a crash
-	* I'm not sure what's causing it. Just look out and see what's going on.
 * Duplicate entry handling
-
-* enable ranged requests
