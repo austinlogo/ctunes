@@ -9,7 +9,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<!-- // <script src="/javascript/includes/upload-drop-down.js"></script> -->
 		<script src="/javascript/includes/track-funcs.js"></script>
-		<script src="/javascript/profile.js"></script>
+		<!-- // <script src="/javascript/profile.js"></script> -->
 		<!-- // <script src="/javascript/projects.js"></script> -->
 		
 	</head>
@@ -18,7 +18,7 @@
 		<div id="upload" class="drop-down">					
 			<div class="form-container">
 				<form action="/upload" method="POST" enctype="multipart/form-data">
-					<input type="text" name="album" placeholder="Album" value="<% album %>">
+					<input type="text" name="album" placeholder="Album" value="<%= album %>">
 					<input type="text" name="genre" placeholder="Genre">
 					<input type="file" name="file" placeholder="File">
 					<input type="submit" name="upload">
@@ -39,7 +39,7 @@
 				<div class="container dark" id="track-items">
 					
 					<% if (mine) { %>
-						<div class="add-container" id="upload-drop-down">
+						<div class="add-container upload-drop-down">
 							<h1 class="center card">+</h1>	
 						</div>
 					<% } %>	

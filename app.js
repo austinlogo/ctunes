@@ -129,6 +129,25 @@ app.get("/download/:downloadid", function (req, res) {
 
 });
 
+app.get("/:userid/projects/:project/download-iteration/:downloadid", function (req, res) {
+	var id = req.params.project;
+	var iterationIndex = req.params.downloadid
+
+	var query = "SELECT iterations FROM projects WHERE id=" + id + ";";
+
+	connection.query (query, function (err, result) {
+		if (err) throw err;
+		result = JSON.parse(result[0]['iterations']);
+
+
+		var file = __dirname + "/public/" + result[iterationIndex].content;
+		return res.download(file);
+
+		
+	});
+
+});
+
 app.get("/:userid/projects/:projectid/:iterationid", function (req, res) {
 	var query = "SELECT iterations FROM projects WHERE id=" + req.params.projectid + ";";
 

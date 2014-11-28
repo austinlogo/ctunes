@@ -6,7 +6,7 @@ body {
   position: relative;
   margin: 0 auto;
   z-index: 0;
-  background: #eeeeee url('/images/turntables.jpg') fixed;
+  background: rgba(255, 255, 255, 0.5) url('/images/turntables.jpg') fixed;
   background-size: cover;
   padding-top: 70px;
 }
@@ -138,7 +138,7 @@ button {
   top: 0;
   bottom: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.2);
 }
 .content {
   margin: 0 auto;
@@ -296,13 +296,16 @@ button {
   text-overflow: ellipsis;
 }
 .user-result {
-  background: #77ff77;
+  border-left: #77ff77 5px solid;
+  background: #eeeeee;
 }
 .track-result {
-  background: #88ffff;
+  border-left: #88ffff 5px solid;
+  background: #eeeeee;
 }
 .project-result {
-  background: #ff7777;
+  border-left: #ff7777 5px solid;
+  background: #eeeeee;
 }
 .menu {
   position: relative;
@@ -383,9 +386,17 @@ button {
   overflow-x: hidden;
   color: #eeeeee;
 }
+input {
+  padding-left: 5px;
+}
 input[type=checkbox] {
   width: 20px;
   display: inline-block;
+}
+input[type=submit] {
+  background: #2ecc71;
+  color: #eeeeee;
+  font-weight: 700;
 }
 .form-container form {
   position: relative;
@@ -400,5 +411,8 @@ input[type=checkbox] {
   cursor: hand;
 }
 #upload-back-iteration {
+  cursor: hand;
+}
+.upload-drop-down {
   cursor: hand;
 }

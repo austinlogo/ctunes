@@ -6,7 +6,7 @@ body {
   position: relative;
   margin: 0 auto;
   z-index: 0;
-  background: #eeeeee url('/images/turntables.jpg') fixed;
+  background: rgba(255, 255, 255, 0.5) url('/images/turntables.jpg') fixed;
   background-size: cover;
   padding-top: 70px;
 }
@@ -138,7 +138,7 @@ button {
   top: 0;
   bottom: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.2);
 }
 .content {
   margin: 0 auto;
@@ -296,13 +296,16 @@ button {
   text-overflow: ellipsis;
 }
 .user-result {
-  background: #77ff77;
+  border-left: #77ff77 5px solid;
+  background: #eeeeee;
 }
 .track-result {
-  background: #88ffff;
+  border-left: #88ffff 5px solid;
+  background: #eeeeee;
 }
 .project-result {
-  background: #ff7777;
+  border-left: #ff7777 5px solid;
+  background: #eeeeee;
 }
 .menu {
   position: relative;
@@ -447,7 +450,7 @@ button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #000000 !important;
+  color: #ffffff !important;
 }
 .album-title,
 .genre-title {
@@ -465,7 +468,7 @@ button {
   margin: 0;
   font-size: 16pt;
   font-weight: 100;
-  color: #000000;
+  color: #ffffff;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -559,10 +562,9 @@ button {
   line-height: 40px;
   text-align: center;
   background-color: rgba(80, 80, 80, 0.8);
-  color: #ffffff;
   font-size: 16px;
   float: right;
-  color: #000000;
+  color: #ffffff;
   font-weight: 800;
   cursor: pointer;
 }
@@ -580,8 +582,9 @@ button {
   cursor: hand;
 }
 .download {
-  background: rgba(80, 80, 80, 0.8) url("/images/icons/download.png") no-repeat;
+  background: rgba(80, 80, 80, 0.8) url("/images/icons/download_icon.png") no-repeat;
   background-position: center center;
+  background-size: 100%;
 }
 .checkbox {
   position: relative;
@@ -594,9 +597,17 @@ button {
   overflow-x: hidden;
   color: #eeeeee;
 }
+input {
+  padding-left: 5px;
+}
 input[type=checkbox] {
   width: 20px;
   display: inline-block;
+}
+input[type=submit] {
+  background: #2ecc71;
+  color: #eeeeee;
+  font-weight: 700;
 }
 .form-container form {
   position: relative;
@@ -611,5 +622,8 @@ input[type=checkbox] {
   cursor: hand;
 }
 #upload-back-iteration {
+  cursor: hand;
+}
+.upload-drop-down {
   cursor: hand;
 }
