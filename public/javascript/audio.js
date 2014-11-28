@@ -71,7 +71,28 @@ $(".rating").click(function (e) {
 
 $(".download").click(function (e) {
 	getTrackId ("download-", e.target, function (trackId) {
-		window.location.href = "/download/" + trackId;
+		var pIndex = trackId.charAt(trackId.length - 1) == 'i';
+		var iIndex = trackId.indexOf('i');
+		if (pIndex) {
+			if (iIndex < trackId.length - 1)
+				trackId = trackId.substring(iIndex + 1, trackId.length - 1);
+			else
+				trackId = trackId.substring(0, trackId.length - 1);
+			console.log(trackId);
+			window.location.href = window.location.href + "/download-iteration/" + trackId;
+
+		}
+		else {
+			if (iIndex < 0) {
+				window.location.href = "/download/" + trackId;
+			}
+			else {
+				console.log(iIndex);
+				trackId = trackId.substring(iIndex + 1, trackId.length);
+				console.log(trackId);
+				window.location.href = "/download/" + trackId;
+			}
+		}
 	});
 });
 
