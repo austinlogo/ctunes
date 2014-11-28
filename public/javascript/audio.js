@@ -71,7 +71,13 @@ $(".rating").click(function (e) {
 
 $(".download").click(function (e) {
 	getTrackId ("download-", e.target, function (trackId) {
-		window.location.href = "/download/" + trackId;
+		iIndex = trackId.indexOf('i');
+		if (iIndex < 0)
+			window.location.href = "/download/" + trackId;
+		else {
+			trackId = trackId.substring(iIndex + 1, trackId.length);
+			console.log("trackId: "  + trackId);
+		}
 	});
 });
 

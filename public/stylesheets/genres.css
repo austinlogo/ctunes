@@ -398,7 +398,7 @@ button {
 .iteration-container,
 .artist-container,
 .track-container {
-  background: rgba(200, 200, 200, 0.8);
+  background: #3498db;
   position: relative;
   margin: 20px;
   padding-left: 10px;
@@ -406,20 +406,21 @@ button {
   overflow: hidden;
 }
 .add-container {
+  background: rgba(160, 160, 160, 0.8);
   color: #000000;
 }
 .track-container {
-  border-left: #43a9ad 5px solid;
+  bacground: #3498db !important;
 }
 .project-container {
-  border-left: #ff7777 5px solid;
+  bacground: #ff7777;
 }
 .iTrack-container,
 .iteration-container {
-  border-left: #dd5555 5px solid;
+  background: #dd5555;
 }
 .artist-container {
-  border-left: #2ecc71 5px solid;
+  background: #2ecc71;
 }
 .project-container {
   padding-left: 5px;
