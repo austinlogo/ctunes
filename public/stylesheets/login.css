@@ -296,13 +296,16 @@ button {
   text-overflow: ellipsis;
 }
 .user-result {
-  background: #77ff77;
+  border-left: #77ff77 5px solid;
+  background: #eeeeee;
 }
 .track-result {
-  background: #88ffff;
+  border-left: #88ffff 5px solid;
+  background: #eeeeee;
 }
 .project-result {
-  background: #ff7777;
+  border-left: #ff7777 5px solid;
+  background: #eeeeee;
 }
 .menu {
   position: relative;
