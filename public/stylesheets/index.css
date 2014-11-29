@@ -406,6 +406,9 @@ button {
   border-left: #3498db 5px solid;
   background: rgba(133, 159, 255, 0.5);
 }
+.track-container .progress {
+  background: #3498db;
+}
 .project-container {
   background: rgba(255, 149, 173, 0.5);
   border-left: #ff7777 5px solid;
@@ -414,6 +417,10 @@ button {
 .iteration-container {
   background: rgba(255, 149, 173, 0.5);
   border-left: #dd5555 5px solid;
+}
+.iTrack-container .progress,
+.iteration-container .progress {
+  background: #dd5555;
 }
 .artist-container {
   background: rgba(146, 255, 136, 0.5);
@@ -512,9 +519,8 @@ button {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 0px;
   right: 100%;
-  background: #00eeee;
 }
 .category-container {
   margin: 0 auto;
