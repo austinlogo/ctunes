@@ -3,29 +3,32 @@
 <style>
 	<% if (page === "user") { %>
 		#home {
-			background-color: #2ECC71;
+			/*background-color: #2ECC71;*/
 			
 		}
 		#home > a {
-			color: #333;
+			color: #2ECC71;
+			font-weight: 700;
 		}
 	<% } %>
 
 	<% if (page === "tracks") { %>
 		#tracks {
-			background-color: #2ECC71;
+			/*background-color: #2ECC71;*/
 		}
 		#tracks > a {
-			color: #333;
+			color: #2ECC71;
+			font-weight: 700;
 		}
 	<% } %>
 
 	<% if (page === "projects" || page === "control") { %>
 		#projects {
-			background-color: #2ECC71;
+			/*background-color: #2ECC71;*/
 		}
 		#projects > a {
-			color: #333;
+			color: #2ECC71;
+			font-weight: 700;
 		}
 	<% } %>
 </style>
@@ -34,7 +37,8 @@
 		<% if (loggedin) { %>
 			<div class="menu logo">
 				<a href="/<% liUser %>">
-					<img src="/images/text_logo_tc.png" height="50px" align="bottom" />
+					<img src="/images/text_logo_tc.png" id="lg-logo" height="50px" align="bottom" />
+					<img src="/images/icons/nav_logo.png" id="sm-logo" height="50px" align="bottom" />
 				</a>
 			</div>
 		<% } else { %>

@@ -407,7 +407,6 @@ app.get("/:user", function (req, res) {
 		}
 
 		console.log(req.session.user);
-
 		return router.route(req, res, "profile", {	
 													liUser: req.session.user,
 													"mine": (req.session.user && req.session.user == req.params.user),     
