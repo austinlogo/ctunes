@@ -81,7 +81,6 @@ button {
 }
 .center {
   text-align: center;
-  color: #000000;
 }
 .inline {
   display: inline;
@@ -181,6 +180,7 @@ button {
 }
 @media (max-width: 960px) and (min-width: 700px) {
   .third,
+  .two-third,
   .half {
     width: 100%;
     margin: 2%;
@@ -229,12 +229,6 @@ button {
 #search {
   position: relative;
   min-width: 300px;
-}
-#search:focus {
-  min-width: 400px;
-}
-#search-box:focus {
-  min-width: 400px;
 }
 #sm-logo {
   display: none;
@@ -401,7 +395,7 @@ button {
 .iteration-container,
 .artist-container,
 .track-container {
-  background: #3498db;
+  background: rgba(160, 160, 160, 0.8);
   position: relative;
   margin: 20px;
   padding-left: 10px;
@@ -413,17 +407,17 @@ button {
   color: #000000;
 }
 .track-container {
-  bacground: #3498db !important;
+  border-left: #3498db 5px solid;
 }
 .project-container {
-  bacground: #ff7777;
+  border-left: #ff7777 5px solid;
 }
 .iTrack-container,
 .iteration-container {
-  background: #dd5555;
+  border-left: #dd5555 5px solid;
 }
 .artist-container {
-  background: #2ecc71;
+  border-left: #2ecc71 5px solid;
 }
 .project-container {
   padding-left: 5px;
@@ -537,7 +531,7 @@ button {
   font-size: 16pt;
   font-family: 'Raleway', sans-serif;
   font-weight: 500;
-  color: #FFF;
+  color: #eeeeee;
   cursor: pointer;
 }
 #track-items {
@@ -548,8 +542,8 @@ button {
   display: none;
 }
 .cselected {
-  background-color: #2ecc71;
-  color: #333333;
+  color: #2ecc71;
+  font-weight: 700;
 }
 .iteration-track {
   display: none;

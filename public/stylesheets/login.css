@@ -81,7 +81,6 @@ button {
 }
 .center {
   text-align: center;
-  color: #000000;
 }
 .inline {
   display: inline;
@@ -181,6 +180,7 @@ button {
 }
 @media (max-width: 960px) and (min-width: 700px) {
   .third,
+  .two-third,
   .half {
     width: 100%;
     margin: 2%;
@@ -229,12 +229,6 @@ button {
 #search {
   position: relative;
   min-width: 300px;
-}
-#search:focus {
-  min-width: 400px;
-}
-#search-box:focus {
-  min-width: 400px;
 }
 #sm-logo {
   display: none;
