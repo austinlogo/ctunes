@@ -15,7 +15,8 @@
 .iteration-container,
 .artist-container,
 .track-container {
-	background: rgba(150, 150, 150, .8);
+	// background: @off-white-a;
+	background: @blue-mellow;
 
 	position: relative;
 	margin: 20px;
@@ -26,20 +27,24 @@
 	overflow: hidden;
 }
 
+.add-container {
+	background: @lt-gray-a;
+	color: @black;
+}
 .track-container {
-	border-left: @blue-mellow 5px solid;
+	bacground: @blue-mellow !important;
 }
 
 .project-container {
-	border-left: @red-pastel 5px solid;
+	bacground: @red-pastel;
 }
 
 .iTrack-container,
 .iteration-container {
-	border-left: @red-pastel-dk 5px solid;
+	background: @red-pastel-dk;
 }
 .artist-container {
-	border-left: @vivid-green 5px solid;
+	background: @vivid-green;
 }
 
 .project-container {
@@ -195,10 +200,10 @@
 	height: @card-height;
 	line-height: @card-height;
 	text-align: center;
-	background: @dk-gray-a;
+	// background: @dk-gray-a;
 
 
-	font-size: @header2-size;
+	font-size: @paragraph-size;
 	font-family: @sans-serif;
 	font-weight: @normal;
 	color: #FFF;
@@ -236,6 +241,6 @@
 	height: 100%;
 	z-index: 10;
 
-	background: @dk-gray-a;
+	background: @lt-gray-a;
 	display: none;
 }
