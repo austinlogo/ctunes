@@ -387,11 +387,8 @@ app.get("/:user", function (req, res) {
 
 				
 			});
-
-			
 		},
 		function (cb) {
-			
 			connection.query(userQuery, function (err, result) {
 				return cb (null, result);
 
@@ -826,7 +823,7 @@ app.post("/add-user", function (req, res) {
 		},
 		function (cb) {
 			if (!hash_err) {
-				query = "INSERT INTO users (user, email, first, last, genre, pic, hashed_password) " + 
+				query = "INSERT INTO users (user, email, first, last, genre, pic, hashed_password, following, followers) " + 
 					"VALUES ('" + 
 					post.username + "', '" + 
 					post.email + "', '" + 
@@ -834,7 +831,10 @@ app.post("/add-user", function (req, res) {
 					post.last + "', '" + 
 					post.genre + "', '" +
 					"/content/common/download.png" + "', '" +  
-					hash + "');";				
+					hash + "', '" + 
+					"[] " + "', '" +
+					"[] " +
+					"');";				
 			}		
 			return cb(hash_err, undefined);
 		},
