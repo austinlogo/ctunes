@@ -20,6 +20,7 @@ CURRENT FEATURES (IN PROGRESS)
 
 
 FEATURE BACKLOG (no specific order)
+* nothing in feed feedback
 * timeline iteration history
 	* visualize when things are added
 * Monetization
@@ -37,6 +38,6 @@ THINGS I'VE LEARNED THAT I SHOULD KEEP IN MIND
 
 
 BUGS
-* download project is not working
+* ratings on project page
 * EISDIROPEN error when adding tracks, we should handle that somehow
 * Duplicate entry handling
