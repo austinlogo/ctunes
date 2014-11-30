@@ -1,10 +1,10 @@
 function initialize(connection) {
 	var user_table = "CREATE TABLE IF NOT EXISTS users (" + 
-		"user VARCHAR(20) NOT NULL PRIMARY KEY," +
+		"user VARCHAR(30) NOT NULL PRIMARY KEY," +
 		"email VARCHAR(30) NOT NULL, " +
-		"first VARCHAR(15) NOT NULL, " +
-		"last VARCHAR(20) NOT NULL, " +
-		"genre VARCHAR(15) NOT NULL, " +
+		"first VARCHAR(30) NOT NULL, " +
+		"last VARCHAR(30) NOT NULL, " +
+		"genre VARCHAR(20) NOT NULL, " +
 		"pic VARCHAR(100) NOT NULL, " +
 		"hashed_password VARCHAR(100), " +
 		"following VARCHAR(1000), " +
@@ -13,11 +13,11 @@ function initialize(connection) {
 
 	var music_table = "CREATE TABLE IF NOT EXISTS tracks (" + 
 		"id INT NOT NULL AUTO_INCREMENT," +
-		"title VARCHAR(30) NOT NULL, " +
-		"album VARCHAR(20), " +
-		"artist VARCHAR(20) NOT NULL, " +
+		"title VARCHAR(100) NOT NULL, " +
+		"album VARCHAR(50), " +
+		"artist VARCHAR(30) NOT NULL, " +
 		"collaborators VARCHAR(300) NOT NULL, " +
-		"genre VARCHAR(15) NOT NULL, " +
+		"genre VARCHAR(20) NOT NULL, " +
 		"content VARCHAR(200) NOT NULL, " + 
 		"rating INT NOT NULL, " + 
 		"PRIMARY KEY(id), " +
