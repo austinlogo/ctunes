@@ -16,7 +16,9 @@
 .artist-container,
 .track-container {
 	// background: @off-white-a;
-	background: @lt-gray-a;
+	background: @md-gray-a;
+
+	// border: @black 1px solid;
 
 	position: relative;
 	margin: 20px;
@@ -28,23 +30,36 @@
 }
 
 .add-container {
-	background: @lt-gray-a;
+	// background: @lt-gray-a;
 	color: @black;
 }
 .track-container {
-	border-left: @blue-mellow 5px solid;
+	 // border: @blue-mellow	 1px solid;
+	border-left: @blue-mellow @band-width solid;
+	background: @sky-blue-a;
+
+	.progress {
+		background: @blue-mellow;
+	}
 }
 
 .project-container {
-	border-left: @red-pastel 5px solid;
+	background: @sky-red-a;
+	border-left: @red-pastel @band-width solid;
 }
 
 .iTrack-container,
 .iteration-container {
-	border-left: @red-pastel-dk 5px solid;
+	background: @sky-red-a;
+	border-left: @red-pastel-dk @band-width solid;
+
+	.progress {
+		background: @red-pastel-dk;
+	}
 }
 .artist-container {
-	border-left: @vivid-green 5px solid;
+	background: @sky-green-a;
+	border-left: @vivid-green @band-width solid;
 }
 
 .project-container {
@@ -178,10 +193,10 @@
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	left: 0;
+	left: 0px;
 	right: 100%;
 
-	background: @gr-bl;
+	// background: @gr-bl;
 
 
 }
@@ -190,7 +205,7 @@
 	margin: 0 auto;
 	width: 390px;
 	height: @card-height;
-	
+	text-align: center;
 	margin-bottom: 10px;
 }
 

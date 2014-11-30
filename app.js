@@ -428,8 +428,8 @@ app.get("/:user", function (req, res) {
 
 app.get("/:user/tracks", function(req, res) {
 	var query  = 	"SELECT * from tracks where artist='" + req.params.user + "';";
-	var aquery = 	"SELECT id, album FROM tracks GROUP BY album; ";
-	var gquery = 	"SELECT id, genre FROM tracks GROUP BY genre; ";
+	var aquery = 	"SELECT id, album FROM tracks where artist='" + req.params.user + "' GROUP BY album;";
+	var gquery =  	"SELECT id, genre FROM tracks where artist='" + req.params.user + "' GROUP BY genre;";
 
 	
 	async.parallel([

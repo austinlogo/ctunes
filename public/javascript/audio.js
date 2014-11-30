@@ -54,6 +54,11 @@ audioPlayer.addEventListener('timeupdate', function (e){
 $(".rating").click(function (e) {
 
 	getTrackId("upvote-", e.target, function (trackId) {
+		var iIndex = trackId.indexOf("i");
+		if (iIndex >= 0) {
+			trackId = trackId.substring(iIndex + 1, trackId.length);
+		}
+		
 		xmlHttp = new XMLHttpRequest();
 		xmlHttp.open( "POST", "/upvote", false );
 	    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
