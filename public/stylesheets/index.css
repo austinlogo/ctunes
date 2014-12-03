@@ -1,9 +1,13 @@
-html, body {
+html,
+body {
   width: 100%;
   min-width: 500px;
   height: 100%;
   position: relative;
   margin: 0 auto;
+}
+body {
+  padding-top: 70px;
   z-index: 0;
   background: rgba(255, 255, 255, 0.5) url('/images/turntables.jpg') fixed;
   background-size: cover;
@@ -67,9 +71,7 @@ button {
   position: fixed;
   z-index: 1;
   /*width: 100%;*/
-
   /*height: 100%;*/
-
   background: rgba(0, 0, 0, 0.2);
   top: 0;
   bottom: 0;
@@ -95,7 +97,6 @@ button {
   background: #EEE;
   /*padding-left: 20%;
 	padding-right: 20%;*/
-
 }
 .container {
   margin: 0 auto;
@@ -108,7 +109,8 @@ button {
   height: 100%;
 }
 @media (max-width: 1100px) {
-  .container, .page-container {
+  .container,
+  .page-container {
     width: 100%;
   }
 }
@@ -175,7 +177,9 @@ button {
   width: 60%;
 }
 @media (max-width: 960px) and (min-width: 700px) {
-  .third, .two-third, .half {
+  .third,
+  .two-third,
+  .half {
     width: 100%;
     margin: 2%;
     float: none;
@@ -186,7 +190,8 @@ button {
   }
 }
 @media (max-width: 700px) {
-  .third, .half {
+  .third,
+  .half {
     width: 400px;
     margin: 2%;
     float: none;
@@ -195,7 +200,8 @@ button {
     width: 70%;
     margin: 0 auto;
   }
-  #logout, .logo {
+  #logout,
+  .logo {
     display: none;
   }
 }
@@ -281,7 +287,9 @@ button {
   background-size: cover;
   background-position: 50% 50%;
 }
-.user-text, .track-text, .project-text {
+.user-text,
+.track-text,
+.project-text {
   position: absolute;
   display: inline-block;
   margin-left: 10px;
@@ -306,7 +314,8 @@ button {
 .menu {
   position: relative;
 }
-.menu a, .menu .search-results {
+.menu a,
+.menu .search-results {
   font-family: 'Raleway', sans-serif;
   font-weight: 500;
   font-size: 16pt;
@@ -405,11 +414,13 @@ button {
   background: rgba(255, 149, 173, 0.5);
   border-left: #ff7777 5px solid;
 }
-.iTrack-container, .iteration-container {
+.iTrack-container,
+.iteration-container {
   background: rgba(255, 149, 173, 0.5);
   border-left: #dd5555 5px solid;
 }
-.iTrack-container .progress, .iteration-container .progress {
+.iTrack-container .progress,
+.iteration-container .progress {
   background: #dd5555;
 }
 .artist-container {
@@ -420,7 +431,9 @@ button {
   padding-left: 5px;
   overflow: hidden;
 }
-.project-control, .play-control, .pause-control {
+.project-control,
+.play-control,
+.pause-control {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -457,16 +470,19 @@ button {
   text-overflow: ellipsis;
   color: #ffffff !important;
 }
-.album-title, .genre-title {
+.album-title,
+.genre-title {
   line-height: 35px;
 }
-.track-title, .track-artist {
+.track-title,
+.track-artist {
   width: 100%;
 }
-.artist-genre, .project-artist, .track-artist {
+.artist-genre,
+.project-artist,
+.track-artist {
   position: relative;
   /*left: 100px;*/
-
   margin: 0;
   font-size: 16pt;
   font-weight: 100;
@@ -477,10 +493,12 @@ button {
   text-overflow: ellipsis;
 }
 @media (min-width: 1100px) {
-  .project-artist, .track-artist {
+  .project-artist,
+  .track-artist {
     font-size: 16pt;
   }
-  .project-title, .track-title {
+  .project-title,
+  .track-title {
     font-size: 16pt;
   }
 }
@@ -497,12 +515,6 @@ button {
   right: 104px;
   overflow: hidden;
   display: inline-block;
-}
-@media (max-width: 1100px) {
-  
-}
-@media (max-width: 960px) {
-  
 }
 .progress {
   position: absolute;
@@ -533,7 +545,8 @@ button {
 #track-items {
   display: block;
 }
-#album-items, #genre-items {
+#album-items,
+#genre-items {
   display: none;
 }
 .cselected {
@@ -563,7 +576,6 @@ button {
   width: 40px;
   top: -20px;
   /* we're going to center vertically via js */
-
   line-height: 40px;
   text-align: center;
   background-color: rgba(40, 40, 40, 0.7);
@@ -620,10 +632,6 @@ input[type=submit] {
   width: 100%;
   margin: 0 auto;
 }
-.new-user-form {
-  padding-right: 30%;
-  padding-left: 30%;
-}
 #upload-back {
   cursor: hand;
 }
@@ -632,6 +640,10 @@ input[type=submit] {
 }
 .upload-drop-down {
   cursor: hand;
+}
+html,
+body {
+  padding-top: 0px;
 }
 #who {
   background: #000000 url('/images/cello.jpg') no-repeat;
@@ -659,7 +671,6 @@ input[type=submit] {
 .img-container {
   display: inline-block;
   /*width: 200px;*/
-
   width: 30%;
   height: auto;
   vertical-align: top;

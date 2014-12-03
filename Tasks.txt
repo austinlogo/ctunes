@@ -20,7 +20,7 @@ CURRENT FEATURES (IN PROGRESS)
 
 
 FEATURE BACKLOG (no specific order)
-* PARSING	
+* PARSING
 * nothing in feed feedback
 * timeline iteration history
 	* visualize when things are added
