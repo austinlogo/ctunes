@@ -5,10 +5,12 @@ body {
   height: 100%;
   position: relative;
   margin: 0 auto;
+}
+body {
+  padding-top: 70px;
   z-index: 0;
   background: rgba(255, 255, 255, 0.5) url('/images/turntables.jpg') fixed;
   background-size: cover;
-  padding-top: 70px;
 }
 a {
   text-decoration: none;
@@ -95,7 +97,6 @@ button {
   background: #EEE;
   /*padding-left: 20%;
 	padding-right: 20%;*/
-  padding-top: 60px;
 }
 .container {
   margin: 0 auto;
@@ -630,10 +631,6 @@ input[type=submit] {
   position: relative;
   width: 100%;
   margin: 0 auto;
-}
-.new-user-form {
-  padding-right: 30%;
-  padding-left: 30%;
 }
 #upload-back {
   cursor: hand;

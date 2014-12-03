@@ -5,10 +5,12 @@ body {
   height: 100%;
   position: relative;
   margin: 0 auto;
+}
+body {
+  padding-top: 70px;
   z-index: 0;
   background: rgba(255, 255, 255, 0.5) url('/images/turntables.jpg') fixed;
   background-size: cover;
-  padding-top: 70px;
 }
 a {
   text-decoration: none;
@@ -95,7 +97,6 @@ button {
   background: #EEE;
   /*padding-left: 20%;
 	padding-right: 20%;*/
-  padding-top: 60px;
 }
 .container {
   margin: 0 auto;
@@ -631,10 +632,6 @@ input[type=submit] {
   width: 100%;
   margin: 0 auto;
 }
-.new-user-form {
-  padding-right: 30%;
-  padding-left: 30%;
-}
 #upload-back {
   cursor: hand;
 }
@@ -643,6 +640,10 @@ input[type=submit] {
 }
 .upload-drop-down {
   cursor: hand;
+}
+html,
+body {
+  padding-top: 0px;
 }
 #who {
   background: #000000 url('/images/cello.jpg') no-repeat;
@@ -664,7 +665,7 @@ input[type=submit] {
 .splash {
   width: 100%;
   padding: 10px;
-  background: #111111 url('/images/note-bg.png') no-repeat;
+  background: #111111 url('/images/splash.jpg') no-repeat;
   background-size: cover;
 }
 .img-container {
