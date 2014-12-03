@@ -368,13 +368,16 @@ app.get("/:user", function (req, res) {
 	async.parallel([
 		function (cb) {
 			connection.query(usersQuery, function (err, result) {
-				// console.log("myquery: " + usersQuery);
+
 				if (err) throw err;
+
 				if (result.length == 0) {
 					return cb (true, result);
 				} 
-				else 
+				else  {
 					return cb (null, result);
+					console.log(result);
+				}
 
 				
 			});
@@ -403,7 +406,8 @@ app.get("/:user", function (req, res) {
 			router.route(req, res, "error", undefined);
 		}
 
-		console.log(req.session.user);
+		var following_var = result[0][0] == undefined ? [] : result[0][0].following;
+
 		return router.route(req, res, "profile", {	
 													liUser: req.session.user,
 													"mine": (req.session.user && req.session.user == req.params.user),     
@@ -411,7 +415,7 @@ app.get("/:user", function (req, res) {
 													"loggedin": !(req.session.user == undefined),
 													"tracks": result[1], 
 													"users": result[2], 
-													"following": JSON.parse(result[0][0].following),
+													"following": following_var,
 													"page": "user",
 													"account": "hello",
 													"dup": req.query.dup
