@@ -9,7 +9,7 @@ body {
 body {
   padding-top: 70px;
   z-index: 0;
-  background: rgba(255, 255, 255, 0.5) url('/images/turntables.jpg') fixed;
+  background: #222;
   background-size: cover;
 }
 a {

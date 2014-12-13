@@ -547,14 +547,17 @@ app.get("/:user/projects/:projectid", function (req, res) {
 				if (err) throw err;
 
 				var iter = JSON.parse(result[0].iterations);
+				console.log(iter);
 				var iter_query = "SELECT * FROM tracks WHERE";
 				// console.log(iter);
 				if (iter.length == 0) {
 					return cb (err, result[0], undefined, undefined);
 				}
 				for ( var iterIndex = 0; iterIndex < iter.length; iterIndex++) {
+					console.log("iterIndex: " + iterIndex);
 					var iteration = iter[iterIndex];
 					for (var trackIndex in iteration.tracks) {
+						console.log("trackIndex: " + trackIndex);
 						iter_query += " id=" + iteration.tracks[trackIndex];
 
 						if (!(iterIndex == iter.length - 1 && trackIndex == iteration.tracks.length - 1))
@@ -567,6 +570,7 @@ app.get("/:user/projects/:projectid", function (req, res) {
 			});
 		},
 		function (project, iter, iter_query, cb) {
+			console.log(iter_query);
 			if (iter_query == undefined)
 				return cb (null, project, iter, undefined);
 			connection.query(iter_query, function (err, result) {
@@ -637,7 +641,9 @@ function insert_track(req, res, form, insert, main_cb) {
 	async.waterfall([
 		function (cb) {
 			form.parse(req, function(err, fields_param, files) {
-				if (err) throw err;
+				if (err) {
+					throw err;
+				}
 				console.log(files);
 				file = files.file[0];
 				user = req.session.user;
@@ -703,6 +709,8 @@ app.post("/projects/upload-iteration", function (req, res) {
 	var user_tracks = "SELECT DISTINCT title, id FROM tracks WHERE artist='" + user + "' GROUP BY title;";
 	var proj_tracks = "SELECT iterations FROM projects WHERE id=" + id + " GROUP BY title;";
 
+	console.log(user_tracks);
+	console.log(proj_tracks);
 	async.parallel([
 		function (cb) {
 			connection.query(user_tracks, function (err, result) {
@@ -736,10 +744,11 @@ app.post("/:user/projects/:projectid/add-iteration", function (req, res) {
 
 
 
+
 	async.parallel([
 		function (cb) {
 			var form = new multiparty.Form();
-		
+			console.log(form);
 			insert_track(req, res, form, true, function (err, path, result) {
 				if (err && err.errno != 1062) { //DUP ENTRY
 					return router.route(req, res, "error", err);
@@ -774,6 +783,7 @@ app.post("/:user/projects/:projectid/add-iteration", function (req, res) {
 				// else
 				// 	new_iteration.iTracks		= [];	
 
+
 				return cb(null, null);
 			});
 		}
@@ -781,20 +791,29 @@ app.post("/:user/projects/:projectid/add-iteration", function (req, res) {
 	function (err, result) {
 		var path = result[0];
 		var iterations = result[1];
-
+		// console.log(iterations);
 		new_iteration.content = path;
 
-		iterations.push(new_iteration);
-		
-		iterations = JSON.stringify(iterations);
-		var update = "UPDATE projects SET iterations = '" + iterations + "' WHERE id=" + req.params.projectid + ";";
-		
-		connection.query(update, function(err2, result2){
-			if (err2) throw err;
-			
+		console.log("new_iteration~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`");
+		if (new_iteration.tracks.length == 0 && new_iteration.iTracks.length == 0) {
+			console.log("Me again");
 			res.redirect("/" + req.params.user + "/projects" + "/" + req.params.projectid);
-		});
-
+			return;
+		}
+		else {
+			console.log("hello");
+			iterations.push(new_iteration);
+			
+			iterations = JSON.stringify(iterations);
+			var update = "UPDATE projects SET iterations = '" + iterations + "' WHERE id=" + req.params.projectid + ";";
+			
+			connection.query(update, function(err2, result2) {
+				if (err2) throw err;
+				
+				res.redirect("/" + req.params.user + "/projects" + "/" + req.params.projectid);
+				return
+			});
+		}
 	});
 
 	
