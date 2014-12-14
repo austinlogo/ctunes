@@ -650,7 +650,15 @@ function insert_track(req, res, form, insert, main_cb) {
 				folderPath = contentPath + user + "/";
 				fields = fields_param;
 
-				return cb(null);
+				var len = file.originalFilename.length;
+				var extension = file.originalFilename.substring(len - 4, len);
+				console.log("655: " + extension);
+				if (extension == ".mp3" || extension == ".wav") {
+					return cb(null);
+				}
+				else {
+					return cb({ "ext" : true});
+				}
 			});
 		},
 		function (cb) {
@@ -680,11 +688,16 @@ function insert_track(req, res, form, insert, main_cb) {
 		}
 	],
 	function (err, databasePath) {
-		if(err) throw err;
+		if(err) {
+			console.log(err);
+			if(err.ext) return;
+			else throw err;
+		}
 
 		if (!insert) return;
+
 		// inserting iterations should not be inserted into 
-        var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating)" +
+        var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated)" +
         			"VALUES ('" 
         			+ file.originalFilename + "', '" 
         			+ fields.album + "', '" 
@@ -692,7 +705,8 @@ function insert_track(req, res, form, insert, main_cb) {
         			+ "{}" + "', '" 
         			+ fields.genre + "', '" 
         			+ databasePath + "', "
-        			+ 0
+        			+ 0 + ", "
+        			+ "'[]'"
         			+ ");";
 	
    		connection.query(tracksQuery, function (err, result) {
