@@ -39,6 +39,7 @@ THINGS I'VE LEARNED THAT I SHOULD KEEP IN MIND
 
 
 BUGS
+* type checking
 * new logo screwed up the nav bar mobile
 * PARSING!!!!!
 * EISDIROPEN error when adding tracks, we should handle that somehow

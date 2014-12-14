@@ -77,5 +77,6 @@ function validateIteration() {
 		alert("6");
 		bad = true;
 	}
-	return false;
+
+	bad ? return false : return true;
 }
