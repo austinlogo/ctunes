@@ -20,6 +20,7 @@ function initialize(connection) {
 		"genre VARCHAR(20) NOT NULL, " +
 		"content VARCHAR(200) NOT NULL, " + 
 		"rating INT NOT NULL, " + 
+		"rated varchar(1000) NOT NULL, " + 
 		"PRIMARY KEY(id), " +
 		"UNIQUE KEY(title, album, artist)" +
 		");";
