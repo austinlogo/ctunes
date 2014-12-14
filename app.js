@@ -690,7 +690,7 @@ function insert_track(req, res, form, insert, main_cb) {
 	function (err, databasePath) {
 		if(err) {
 			console.log(err);
-			if(err.ext) return;
+			if(err.ext) return main_cb(true, undefined, undefined);
 			else throw err;
 		}
 
