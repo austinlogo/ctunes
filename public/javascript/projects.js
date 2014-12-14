@@ -52,8 +52,6 @@ for (var iterationIndex = 0; iterationIndex < iteration_containers.length; itera
 	};
 }
 
-
-
 function getProjectTrackId (prefix, elt, cb) {
 	eltId = elt.id;
 	var trackId = eltId.substring(prefix.length, eltId.length - 1);
@@ -61,3 +59,23 @@ function getProjectTrackId (prefix, elt, cb) {
 	return cb (trackId);
 }
 
+function validateIteration() {
+	var f = document.forms['uploadIteration']['iteration_title'];
+	alert(f);
+	var bad = false;
+	if (f.value == null || f.value == "") {
+		alert(f);
+		$(f).css("border", "1px #F00 solid");
+		alert("4");
+		bad = true;
+	}
+
+	f = document.forms['uploadIteration']['file'];
+	if (f.value == null || f.value == "") {
+		alert("5")
+		$(f).css("border", "1px #F00 solid");
+		alert("6");
+		bad = true;
+	}
+	return false;
+}
