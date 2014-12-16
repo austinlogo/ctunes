@@ -14,6 +14,8 @@ Supported envs
 CURRENT FEATURES (IN PROGRESS)
 * limit ratings
 * enable ratings for projects (with limits)
+* loading screen
+* sanitize .mp3 / .wav files client side
 * Control Room
 	* sanitize json strings
 * add str.toLowercase for certain data entry fields
