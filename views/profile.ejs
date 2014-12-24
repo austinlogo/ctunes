@@ -14,7 +14,6 @@
 
 	</head>
 	<body>
-
 		<div id="upload" class="drop-down">					
 			<div class="form-container">
 				<form name="trackSubmit" action="/upload" method="POST" enctype="multipart/form-data" onsubmit="return trackValidate()">
@@ -23,6 +22,9 @@
 					<input type="file" name="file" placeholder="File">
 					<input type="submit" name="upload">
 				</form>
+				<!-- <div class="progress">
+					
+				</div> -->
 
 				<p id="upload-back">Back</p>
 			</div>
@@ -78,9 +80,5 @@
 			<% include includes/footer.ejs %>
 		</div>		
 		<% include includes/standardJS.ejs %>
-
-		<!-- // <script src="/javascript/includes/upload-drop-down.js"></script> -->
-		<!-- // <script src="/javascript/artist.js"></script> -->
-		<!-- // <script src="/javascript/audio.js"></script> -->
 	</body>
 </html>

@@ -163,21 +163,29 @@ app.get("/:userid/projects/:projectid/:iterationid", function (req, res) {
  
 app.post("/upvote", function (req, res) {
 	var id = req.body.id;
+	var query =  "SELECT rated FROM tracks where id=" + id + ";";
 
-	var update = "UPDATE tracks SET rating = rating + 1 WHERE id=" + id + ";";
-
-	connection.query(update, function (err, result) {
+	connection.query(query, function (err, result) {
 		if (err) throw err;
-
-		return res.send(result);
-
-		
+		result = JSON.parse(result[0]['rated']);
+		if (result.indexOf(req.session.user) < 0) {
+			result.push(req.session.user);
+			result = JSON.stringify(result);
+			console.log(result);
+			var update = "UPDATE tracks SET rating= rating + 1, rated='" + result + "' WHERE id=" + id + ";";
+			console.log(update);
+			connection.query(update, function (err, result) {
+				if (err)  throw err;
+				return res.send(result);	
+			});
+		}
+	
 	})
 });
 
 app.post("/follow", function (req, res) {
 	var id = req.body.id;
-
+ 
 	
 
 	async.parallel([

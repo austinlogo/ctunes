@@ -12,7 +12,6 @@ Supported envs
 * TP nav-bar is a shell, need to fix that.
 
 CURRENT FEATURES (IN PROGRESS)
-* limit ratings
 * enable ratings for projects (with limits)
 * loading screen
 * sanitize .mp3 / .wav files client side
@@ -27,6 +26,10 @@ FEATURE BACKLOG (no specific order)
 	* visualize when things are added
 * Monetization
 * voting restriction
+
+DONE FEATURES (NOT TESTED)
+* limit ratings
+* 
 
 BUGS
 * new logo screwed up the nav bar mobile

@@ -89,21 +89,25 @@ function trackValidate() {
 	// console.log("1");
 	if (f.value == null || f.value == "") {
 		$(f).css("border", "1px #F00 solid");
-		bad = true;
+		return false;
 	}
 	// console.log("1");
 	f = document.forms['trackSubmit']['genre'];
 	if (f.value == null || f.value == "") {
 		$(f).css("border", "1px #F00 solid");
-		bad = true;
+		return false;
 	}
 
 	f = document.forms['trackSubmit']['file'];
 	if (f.value == null || f.value == "") {
 		$(f).css("border", "1px #F00 solid");
-		bad = true;
+		return false;
+	}
+	var extension = f.value.substring(f.value.length - 4, f.value.length);
+	if (extension != ".mp3" && extension != ".wav" ) {
+		return false;
 	}
 	
 	// console("1");
-	return bad ? false : true;
+	return true;
 }

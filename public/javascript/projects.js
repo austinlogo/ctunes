@@ -78,5 +78,5 @@ function validateIteration() {
 		bad = true;
 	}
 
-	bad ? return false : return true;
+	return bad ? false : true;
 }
