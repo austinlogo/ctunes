@@ -47,6 +47,11 @@
 
 					<% 
 						if (tracks != undefined) {
+							if (tracks.length == 0) {
+					%>
+							<p>Oh No! There's nothing here.</p>
+					<%
+							}
 							for (var i = 0; i < tracks.length; i++) {
 								var track = tracks[i];
 								var add_class = undefined;
@@ -67,6 +72,11 @@
 					<h2>Collaborators</h2>
 					<%
 						if (users != undefined) {
+							if (users.length == 0) {
+					%>
+								<p>Oh No! there's nothing here</p>
+					<%
+							}
 							for ( var i = 0; i < users.length; i++) {
 								var user = users[i];
 					%>

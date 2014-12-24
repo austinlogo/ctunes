@@ -12,16 +12,14 @@ Supported envs
 * TP nav-bar is a shell, need to fix that.
 
 CURRENT FEATURES (IN PROGRESS)
+* nothing in feed feedback
 * enable ratings for projects (with limits)
 * loading screen
-* sanitize .mp3 / .wav files client side
 * Control Room
 	* sanitize json strings
-* add str.toLowercase for certain data entry fields
 
 
 FEATURE BACKLOG (no specific order)
-* nothing in feed feedback
 * timeline iteration history
 	* visualize when things are added
 * Monetization
@@ -29,7 +27,6 @@ FEATURE BACKLOG (no specific order)
 
 DONE FEATURES (NOT TESTED)
 * limit ratings
-* 
 
 BUGS
 * new logo screwed up the nav bar mobile
