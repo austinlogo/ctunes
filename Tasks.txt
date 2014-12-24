@@ -2,21 +2,26 @@ MAINTAINABILITY
 * Routing get and post requests separately
 * user pages routing (needs to be after other routing)
 * less
+-----------------------------------------------------------------------
 
 RESPONSIVENESS	
 Supported envs
 - desktop 		(D)
 - tablet  		(T)
 - mobile phone	(P)
+-----------------------------------------------------------------------
+
 
 * TP nav-bar is a shell, need to fix that.
+-----------------------------------------------------------------------
 
 CURRENT FEATURES (IN PROGRESS)
-* nothing in feed feedback
+* not too in feed feedback
 * enable ratings for projects (with limits)
 * loading screen
 * Control Room
 	* sanitize json strings
+-----------------------------------------------------------------------
 
 
 FEATURE BACKLOG (no specific order)
@@ -25,13 +30,16 @@ FEATURE BACKLOG (no specific order)
 * Monetization
 * voting restriction
 
+-----------------------------------------------------------------------
+
 DONE FEATURES (NOT TESTED)
-* limit ratings
+-----------------------------------------------------------------------
 
 BUGS
 * new logo screwed up the nav bar mobile
 * PARSING!!!!!
 * EISDIROPEN error when adding tracks, we should handle that somehow
+-----------------------------------------------------------------------
 
 THINGS I'VE LEARNED THAT I SHOULD KEEP IN MIND
 * res.download(file);
@@ -42,3 +50,4 @@ THINGS I'VE LEARNED THAT I SHOULD KEEP IN MIND
     xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
     xmlHttp.send("id=" + trackId);
     var response = xmlHttp.responseText;
+-----------------------------------------------------------------------

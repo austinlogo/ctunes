@@ -72,9 +72,9 @@
 					<h2>Collaborators</h2>
 					<%
 						if (users != undefined) {
-							if (users.length == 0) {
+							if (users.length == 0 || users.length == 1 && mine) {
 					%>
-								<p>Oh No! there's nothing here</p>
+								<p class="center"x>Oh No! there's no one here</p>
 					<%
 							}
 							for ( var i = 0; i < users.length; i++) {
