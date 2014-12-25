@@ -14,7 +14,6 @@ Supported envs
 -----------------------------------------------------------------------|
 
 CURRENT FEATURES (IN PROGRESS)
-* enable ratings for projects (with limits)
 * loading screen
 * Control Room
 	* sanitize json strings
@@ -25,11 +24,11 @@ FEATURE BACKLOG (no specific order)
 * timeline iteration history
 	* visualize when things are added
 * Monetization
-* voting restriction
 
 -----------------------------------------------------------------------|
 
 DONE FEATURES (NOT TESTED)
+* enable ratings for projects (with limits)
 -----------------------------------------------------------------------|
 
 BUGS
