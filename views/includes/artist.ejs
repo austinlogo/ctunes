@@ -8,7 +8,7 @@
 		</a>
 		<% if (loggedin == true) { %>
 			<div class="icon-container" id="icon-container-<%= user.user %>">
-				<% if (following.indexOf(user.user) < 0 ) { %>
+				<% if (myFollowing.indexOf(user.user) < 0 ) { %>
 					<div class="icon following" id="<%= user.user %>">
 						+
 					</div>

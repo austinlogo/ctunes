@@ -32,5 +32,8 @@ $(".following").click (function (e) {
     xmlHttp.send("id=" + this.id);
     var response = xmlHttp.responseText;
 
+    console.log	($(this).html());
+    var status = $(this).html().indexOf("+") < 0 ? "+" : "-";
+
     $(this).html(status);
 });

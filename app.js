@@ -402,11 +402,12 @@ app.post("/logincheck", function (req, res) {
 app.get("/:user", function (req, res) {
 
 	var usersQuery = "SELECT user,following FROM users WHERE user ='" + req.params.user + "';";
+	var myQuery = "SELECT user,following FROM users WHERE user ='" + req.session.user + "';";
 	var tracksQuery = "SELECT * FROM tracks WHERE artist='" + req.params.user + "';";
 	var userQuery = "SELECT * FROM users;";
 
 	async.parallel([
-		function (cb) {
+		function (cb) { // 0
 			connection.query(usersQuery, function (err, result) {
 
 				if (err) throw err;
@@ -422,8 +423,7 @@ app.get("/:user", function (req, res) {
 				
 			});
 		},
-		function (cb) {
-			
+		function (cb) { // 1
 			connection.query(tracksQuery, function (err, result) {
 				if (err) throw err;
 				return cb (null, result);
@@ -431,13 +431,15 @@ app.get("/:user", function (req, res) {
 				
 			});
 		},
-		function (cb) {
+		function (cb) { // 2
 			connection.query(userQuery, function (err, result) {
 				return cb (null, result);
-
-				
 			});
-			
+		},
+		function (cb) { // 3
+			connection.query(myQuery, function (err, result) {
+				return cb (null, result);
+			});
 		}
 	],
 	function (err, result) {
@@ -447,6 +449,7 @@ app.get("/:user", function (req, res) {
 		}
 
 		var following_var = result[0][0] == undefined ? [] : result[0][0].following;
+		var my_following = result[3][0] == undefined ? [] : result[3][0].following;
 
 		return router.route(req, res, "profile", {	
 													liUser: req.session.user,
@@ -456,6 +459,7 @@ app.get("/:user", function (req, res) {
 													"tracks": result[1], 
 													"users": result[2], 
 													"following": following_var,
+													"myFollowing" : my_following,
 													"page": "user",
 													"account": "hello",
 													"dup": req.query.dup
