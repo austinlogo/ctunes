@@ -80,11 +80,13 @@ app.get("/", function (req, res) {
 app.post("/new-project", function(req, res) { 
 	var post = req.body;
 
-	query = "INSERT INTO projects (title, creator, iterations) " + 
+	query = "INSERT INTO projects (title, creator, iterations, rating, rated) " + 
 		"VALUES ('" + 
 		post.projectTitle + "', '" + 
 		req.session.user + "', '" + 
-		"[]" + "'" + //iterations
+		"[]" + "', " + //iterations
+		"1" + ", '" +
+		"[]" + "' " +
 		");";				
 
 	connection.query(query, function (err, result) {
@@ -174,11 +176,35 @@ app.post("/upvote", function (req, res) {
 			console.log(result);
 			var update = "UPDATE tracks SET rating= rating + 1, rated='" + result + "' WHERE id=" + id + ";";
 			console.log(update);
-			connection.query(update, function (err, result) {
+			connection.query(update, function (err, result2) {
 				if (err)  throw err;
-				return res.send(result);	
+				return res.send(result2);	
 			});
 		}
+		return res.send(undefined);
+	
+	})
+});
+
+app.post("/projUpvote", function (req, res) {
+	var id = req.body.id;
+	var query =  "SELECT rated FROM projects where id=" + id + ";";
+
+	connection.query(query, function (err, result) {
+		if (err) throw err;
+		result = JSON.parse(result[0]['rated']);
+		if (result.indexOf(req.session.user) < 0) {
+			result.push(req.session.user);
+			result = JSON.stringify(result);
+			console.log(result);
+			var update = "UPDATE projects SET rating= rating + 1, rated='" + result + "' WHERE id=" + id + ";";
+			console.log(update);
+			connection.query(update, function (err, result) {
+				if (err)  throw err;
+				return res.send(result2);	
+			});
+		}
+		return res.send(undefined);
 	
 	})
 });

@@ -8,7 +8,7 @@ var playing = {
 }
 
 var audioPlayer = $('.player')[0];
-console.log(audioPlayer);
+// console.log(audioPlayer);
 
 $('.track-container').click(function (e) {
 	if ($(e.target).hasClass("icon")) return;
@@ -43,12 +43,14 @@ $('.track-container').click(function (e) {
 	}
 });
 
-audioPlayer.addEventListener('timeupdate', function (e){
-		var progressId = "progress-" + playing.id;
-		var percent = 100 - ( (audioPlayer.currentTime * 100) / audioPlayer.duration);
-		// console.log(progressId + ": " + percent);
-	    $("#" + progressId).css("right", percent + "%");
-});
+if (audioPlayer) {
+	audioPlayer.addEventListener('timeupdate', function (e){
+			var progressId = "progress-" + playing.id;
+			var percent = 100 - ( (audioPlayer.currentTime * 100) / audioPlayer.duration);
+			// console.log(progressId + ": " + percent);
+		    $("#" + progressId).css("right", percent + "%");
+	});
+}
 
 
 $(".rating").click(function (e) {
@@ -65,6 +67,7 @@ $(".rating").click(function (e) {
 	    xmlHttp.send("id=" + trackId);
 	    var response = xmlHttp.responseText;
 	    // console.log(response);
+	    if (response == "") return;
 
 	    var rating = $(e.target).html();
 	    // console.log("rating: " + rating);
@@ -100,13 +103,14 @@ $(".download").click(function (e) {
 		}
 	});
 });
-
-audioPlayer.addEventListener('ended', function (){	
-	console.log("ended");
-	var progressId = "#progress-" + playing.id;
-	this.pause();
-	$(progressId).css("right", "100%");
-});
+if (audioPlayer) {
+	audioPlayer.addEventListener('ended', function (){	
+		console.log("ended");
+		var progressId = "#progress-" + playing.id;
+		this.pause();
+		$(progressId).css("right", "100%");
+	});
+}
 
 
 function getTrackId (prefix, elt, cb) {

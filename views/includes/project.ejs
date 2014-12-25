@@ -1,13 +1,11 @@
-<a href="projects/<%= project.id %>">
-	<div class="project-container" id="container-<%= project.id %>">
-		<div class="project-info">
-			<p class="project-title"><%= project.title %></p>
-			<p class="project-artist"> <%= project.creator %></p>
-		</div>
-		<div class="icon-container" id="icon-container-<%= project.id %>">
-			<div class="icon rating" id="upvote-<%= project.id %>">
-				+1
-			</div>
+<div class="project-container" id="container-<%= project.id %>">
+	<div class="project-info">
+		<p class="project-title"><%= project.title %></p>
+		<p class="project-artist"> <%= project.creator %></p>
+	</div>
+	<div class="icon-container" id="icon-container-<%= project.id %>">
+		<div class="icon prating" id="upvote-<%= project.id %>">
+			+<%=project.rating%>
 		</div>
 	</div>
-</a>
+</div>

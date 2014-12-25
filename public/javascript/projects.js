@@ -1,31 +1,45 @@
-var projects = $(".project-container");
+// var projects = $(".project-container");
 	//the first element is going to be the add button
-for (var index = 1; index < projects.length; index++) {
-	var project = projects[index];
 
-
-
-	getProjectTrackId("container-", project, function (trackId) {
-		var downloadId = "download-" + trackId;
-		var voteId = "upvote-" + trackId;
-
-
-
-		$(project).click(function() {
-			window.location.href = window.location.href + "/" + trackId;
+$(".project-container").click( function (e) {
+	// console.log(e.target);
+	if ($(e.target).hasClass("icon")) {
+		console.log("hello");
+		return;
+	}
+	else { 
+		getTrackId("container-", $(e.target).parent().parent()[0], function (trackId) {
+			console.log($(e.target).parent().parent()[0]);
+			window.location.href = window.location.href + "" + trackId;
 		});
+	}
+});
 
-		console.log(trackId);
-		console.log(project);
+$(".prating").click(function (e) {
 
-		var voteBtn = document.getElementById(voteId);
-		voteBtn.addEventListener("click", function() {
-			// console.log("vote: " + voteId);
-		});
+	getTrackId("upvote-", e.target, function (trackId) {
+		var iIndex = trackId.indexOf("i");
+		if (iIndex >= 0) {
+			trackId = trackId.substring(iIndex + 1, trackId.length);
+		}
+		
+		xmlHttp = new XMLHttpRequest();
+		xmlHttp.open( "POST", "/projUpvote", false );
+	    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+	    xmlHttp.send("id=" + trackId);
+	    var response = xmlHttp.responseText;
+	    // console.log(response);
+
+	    if (response == "") return;
+
+	    var rating = $(e.target).html();
+	    // console.log("rating: " + rating);
+	    rating = rating.substring(1, rating.length);
+	    ratingInt = parseInt(rating) + 1;
+	    $(e.target).html("+" + ratingInt);
 	});
+});
 
-
-}
 
 var iteration_containers = $('.iteration-container');
 // var iteration_tracks = $('.iteration-tracks');

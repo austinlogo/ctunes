@@ -29,7 +29,8 @@ function initialize(connection) {
 		"title VARCHAR(40) NOT NULL, " +
 		"creator VARCHAR(20) NOT NULL, " +
 		"iterations VARCHAR(500) NOT NULL, " +
-		// "collaborators VARCHAR(500) NOT NULL, " +
+		"rating INT NOT NULL, " + 
+		"rated varchar(1000) NOT NULL, " + 
 		"PRIMARY KEY(id)" +
 		");";
 
