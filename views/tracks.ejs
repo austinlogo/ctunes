@@ -47,12 +47,21 @@
 						</div>
 					<% } %>	
 
-					<% 	for (var index in tracks) { 
+					<% 	
+						var empty = true;
+						for (var index in tracks) { 
+							empty = false;
 							var track = tracks[index];
 							var add_class = undefined;
 					%>
 					<% include includes/track.ejs %>
-					<% 	} %>	
+					<% 	} 
+						if (empty) {
+					%>
+						<p class="center">Oh No! There's nothing here</p>
+					<%
+						}
+					%>	
 
 				</div>
 
@@ -64,11 +73,19 @@
 						</div>
 					<% } %>	
 
-					<% 	for (var index in albums) { 
+					<% 	var empty = true;
+						for (var index in albums) { 
+							empty = false;
 							var album = albums[index];
 					%>
 					<% include includes/album.ejs %>
-					<% 	} %>						
+					<% 	} 
+						if (empty) {
+					%>
+						<p class="center">Oh No! There's nothing here</p>
+					<%
+						}
+					%>						
 				</div>
 
 				<div class="container" id="genre-items">
@@ -79,13 +96,21 @@
 						</div>
 					<% } %>	
 
-					<% 	for (var index in genres) { 
+					<% 	var empty = true;
+						for (var index in genres) { 
 							var genre = genres[index];
+							empty = false;
 					%>
 					<% include includes/genre.ejs %>
-					<% 	} %>	
+					<% 	}
+						if (empty) {
+					%>
+						<p class="center">Oh No! There's nothing here</p>
+					<%
+						}
+					%>	
 
-				</div>s
+				</div>
 			</div>	
 			<% include includes/footer.ejs %>
 		</div>
