@@ -13,6 +13,7 @@ var util = require('util');
 var async = require('async');
 var router = require('./routes/router.js');
 var db = require('./routes/database.js');
+var favicon = require('serve-favicon');
 
 //sql config setup
 var config = {
@@ -46,7 +47,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cookiesession({keys: ['124353423', '19374402848']}));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(favicon(__dirname + "/favicon.ico"));
 
 app.param("user", function (req, res, next, id) {
 	next();
