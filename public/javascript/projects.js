@@ -10,7 +10,7 @@ $(".project-container").click( function (e) {
 	else { 
 		getTrackId("container-", $(e.target).parent().parent()[0], function (trackId) {
 			console.log($(e.target).parent().parent()[0]);
-			window.location.href = window.location.href + "" + trackId;
+			window.location.href = window.location.href + "/" + trackId;
 		});
 	}
 });

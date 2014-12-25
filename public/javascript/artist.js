@@ -20,3 +20,17 @@ for (var i = 0; i < artists.length; i++) {
 	    $(this).html("-");
 	});
 }
+
+
+$(".following").click (function (e) {
+
+	console.log(this.id);
+
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open( "POST", "/follow", false );
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+    xmlHttp.send("id=" + this.id);
+    var response = xmlHttp.responseText;
+
+    $(this).html(status);
+});

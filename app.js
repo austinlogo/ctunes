@@ -211,8 +211,6 @@ app.post("/projUpvote", function (req, res) {
 
 app.post("/follow", function (req, res) {
 	var id = req.body.id;
- 
-	
 
 	async.parallel([
 		function (cb) {
@@ -226,6 +224,9 @@ app.post("/follow", function (req, res) {
 				// console.log(result);
 				if (result.indexOf(id) < 0) {
 					result.push(id);
+				}
+				else {
+					result.pop(id);
 				}
 				// console.log(result);
 				result = JSON.stringify(result);
@@ -250,7 +251,10 @@ app.post("/follow", function (req, res) {
 
 				if (result.indexOf(req.session.user) < 0) {
 					result.push(req.session.user);
-				} 
+				}
+				else {
+					result.pop(req.session.user);
+				}
 
 				result = JSON.stringify(result);
 				var newQuery = "UPDATE users SET followers='" + result + "' WHERE user='" + id + "';";
@@ -350,6 +354,8 @@ app.post("/search", function (req, res) {
 //sign in
 app.post("/logincheck", function (req, res) {
 	var post = req.body;
+	post.username = post.username.toLowerCase();
+
 	console.log("hello");
 	var query = "SELECT * FROM users WHERE user='" + post.username + "';";
 	console.log(query);
@@ -445,7 +451,7 @@ app.get("/:user", function (req, res) {
 		return router.route(req, res, "profile", {	
 													liUser: req.session.user,
 													"mine": (req.session.user && req.session.user == req.params.user),     
-													muser: req.params.user,
+													"muser": req.params.user,
 													"loggedin": !(req.session.user == undefined),
 													"tracks": result[1], 
 													"users": result[2], 
@@ -894,6 +900,9 @@ app.post("/add-user", function (req, res) {
 		},
 		function (cb) {
 			if (!hash_err) {
+				post.first = post.first.charAt(0).toUpperCase() + post.first.slice(1); //CAPITALIZE;
+				post.last = post.last.charAt(0).toUpperCase() + post.last.slice(1); //CAPITALIZE;
+				post.username = post.username.toLowerCase();
 				query = "INSERT INTO users (user, email, first, last, genre, pic, hashed_password, following, followers) " + 
 					"VALUES ('" + 
 					post.username + "', '" + 

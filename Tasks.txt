@@ -14,7 +14,10 @@ Supported envs
 -----------------------------------------------------------------------|
 
 CURRENT FEATURES (IN PROGRESS)
+* following
+* playback controls
 * loading screen
+* public v. private
 * Control Room
 	* sanitize json strings
 -----------------------------------------------------------------------|
