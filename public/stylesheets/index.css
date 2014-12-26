@@ -640,6 +640,9 @@ input[type=submit] {
 .upload-drop-down {
   cursor: hand;
 }
+#loading-icon {
+  display: hidden;
+}
 html,
 body {
   padding-top: 0px;

@@ -1,13 +1,4 @@
 $(document).ready(function(){
-	// $('#one').click(function() {
-	// 	alert($('#lastone').offset().top);
-	// 	$('html, body').animate({ 
-	// 		scrollTop: $('#lastone').offset().top
-	// 	}, 
-	// 	1000);
-	// 	return;
-	// });
-
 
 	$('a').click(function() { 
 		var target = $(this).attr('href');

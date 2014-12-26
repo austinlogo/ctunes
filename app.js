@@ -13,6 +13,7 @@ var util = require('util');
 var async = require('async');
 var router = require('./routes/router.js');
 var db = require('./routes/database.js');
+var favicon = require('serve-favicon');
 
 //sql config setup
 var config = {
@@ -46,7 +47,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cookiesession({keys: ['124353423', '19374402848']}));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(favicon(__dirname + "/favicon.ico"));
 
 app.param("user", function (req, res, next, id) {
 	next();
@@ -80,11 +81,13 @@ app.get("/", function (req, res) {
 app.post("/new-project", function(req, res) { 
 	var post = req.body;
 
-	query = "INSERT INTO projects (title, creator, iterations) " + 
+	query = "INSERT INTO projects (title, creator, iterations, rating, rated) " + 
 		"VALUES ('" + 
 		post.projectTitle + "', '" + 
 		req.session.user + "', '" + 
-		"[]" + "'" + //iterations
+		"[]" + "', " + //iterations
+		"1" + ", '" +
+		"[]" + "' " +
 		");";				
 
 	connection.query(query, function (err, result) {
@@ -163,22 +166,52 @@ app.get("/:userid/projects/:projectid/:iterationid", function (req, res) {
  
 app.post("/upvote", function (req, res) {
 	var id = req.body.id;
+	var query =  "SELECT rated FROM tracks where id=" + id + ";";
 
-	var update = "UPDATE tracks SET rating = rating + 1 WHERE id=" + id + ";";
-
-	connection.query(update, function (err, result) {
+	connection.query(query, function (err, result) {
 		if (err) throw err;
+		result = JSON.parse(result[0]['rated']);
+		if (result.indexOf(req.session.user) < 0) {
+			result.push(req.session.user);
+			result = JSON.stringify(result);
+			console.log(result);
+			var update = "UPDATE tracks SET rating= rating + 1, rated='" + result + "' WHERE id=" + id + ";";
+			console.log(update);
+			connection.query(update, function (err, result2) {
+				if (err)  throw err;
+				return res.send(result2);	
+			});
+		}
+		return res.send(undefined);
+	
+	})
+});
 
-		return res.send(result);
+app.post("/projUpvote", function (req, res) {
+	var id = req.body.id;
+	var query =  "SELECT rated FROM projects where id=" + id + ";";
 
-		
+	connection.query(query, function (err, result) {
+		if (err) throw err;
+		result = JSON.parse(result[0]['rated']);
+		if (result.indexOf(req.session.user) < 0) {
+			result.push(req.session.user);
+			result = JSON.stringify(result);
+			console.log(result);
+			var update = "UPDATE projects SET rating= rating + 1, rated='" + result + "' WHERE id=" + id + ";";
+			console.log(update);
+			connection.query(update, function (err, result) {
+				if (err)  throw err;
+				return res.send(result2);	
+			});
+		}
+		return res.send(undefined);
+	
 	})
 });
 
 app.post("/follow", function (req, res) {
 	var id = req.body.id;
-
-	
 
 	async.parallel([
 		function (cb) {
@@ -192,6 +225,9 @@ app.post("/follow", function (req, res) {
 				// console.log(result);
 				if (result.indexOf(id) < 0) {
 					result.push(id);
+				}
+				else {
+					result.pop(id);
 				}
 				// console.log(result);
 				result = JSON.stringify(result);
@@ -216,7 +252,10 @@ app.post("/follow", function (req, res) {
 
 				if (result.indexOf(req.session.user) < 0) {
 					result.push(req.session.user);
-				} 
+				}
+				else {
+					result.pop(req.session.user);
+				}
 
 				result = JSON.stringify(result);
 				var newQuery = "UPDATE users SET followers='" + result + "' WHERE user='" + id + "';";
@@ -316,6 +355,8 @@ app.post("/search", function (req, res) {
 //sign in
 app.post("/logincheck", function (req, res) {
 	var post = req.body;
+	post.username = post.username.toLowerCase();
+
 	console.log("hello");
 	var query = "SELECT * FROM users WHERE user='" + post.username + "';";
 	console.log(query);
@@ -362,11 +403,12 @@ app.post("/logincheck", function (req, res) {
 app.get("/:user", function (req, res) {
 
 	var usersQuery = "SELECT user,following FROM users WHERE user ='" + req.params.user + "';";
+	var myQuery = "SELECT user,following FROM users WHERE user ='" + req.session.user + "';";
 	var tracksQuery = "SELECT * FROM tracks WHERE artist='" + req.params.user + "';";
 	var userQuery = "SELECT * FROM users;";
 
 	async.parallel([
-		function (cb) {
+		function (cb) { // 0
 			connection.query(usersQuery, function (err, result) {
 
 				if (err) throw err;
@@ -382,8 +424,7 @@ app.get("/:user", function (req, res) {
 				
 			});
 		},
-		function (cb) {
-			
+		function (cb) { // 1
 			connection.query(tracksQuery, function (err, result) {
 				if (err) throw err;
 				return cb (null, result);
@@ -391,13 +432,15 @@ app.get("/:user", function (req, res) {
 				
 			});
 		},
-		function (cb) {
+		function (cb) { // 2
 			connection.query(userQuery, function (err, result) {
 				return cb (null, result);
-
-				
 			});
-			
+		},
+		function (cb) { // 3
+			connection.query(myQuery, function (err, result) {
+				return cb (null, result);
+			});
 		}
 	],
 	function (err, result) {
@@ -407,15 +450,17 @@ app.get("/:user", function (req, res) {
 		}
 
 		var following_var = result[0][0] == undefined ? [] : result[0][0].following;
+		var my_following = result[3][0] == undefined ? [] : result[3][0].following;
 
 		return router.route(req, res, "profile", {	
 													liUser: req.session.user,
 													"mine": (req.session.user && req.session.user == req.params.user),     
-													muser: req.params.user,
+													"muser": req.params.user,
 													"loggedin": !(req.session.user == undefined),
 													"tracks": result[1], 
 													"users": result[2], 
 													"following": following_var,
+													"myFollowing" : my_following,
 													"page": "user",
 													"account": "hello",
 													"dup": req.query.dup
@@ -860,6 +905,9 @@ app.post("/add-user", function (req, res) {
 		},
 		function (cb) {
 			if (!hash_err) {
+				post.first = post.first.charAt(0).toUpperCase() + post.first.slice(1); //CAPITALIZE;
+				post.last = post.last.charAt(0).toUpperCase() + post.last.slice(1); //CAPITALIZE;
+				post.username = post.username.toLowerCase();
 				query = "INSERT INTO users (user, email, first, last, genre, pic, hashed_password, following, followers) " + 
 					"VALUES ('" + 
 					post.username + "', '" + 

@@ -1,4 +1,4 @@
-<% if (muser != user.user) { %>
+<% if (!(muser == user.user || liUser == user.user)) { %>
 	<div class="artist-container">	
 		<a href="/<%=user.user %>">
 			<div class="artist-info">
@@ -8,12 +8,12 @@
 		</a>
 		<% if (loggedin == true) { %>
 			<div class="icon-container" id="icon-container-<%= user.user %>">
-				<% if (following.indexOf(user.user) < 0 ) { %>
-					<div class="icon" id="<%= user.user %>">
+				<% if (myFollowing.indexOf(user.user) < 0 ) { %>
+					<div class="icon following" id="<%= user.user %>">
 						+
 					</div>
 				<% } else { %>
-					<div class="icon tagged" id="<%= user.user %>">
+					<div class="icon following" id="<%= user.user %>">
 						-
 					</div>
 				<% } %>

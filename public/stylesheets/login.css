@@ -415,3 +415,6 @@ input[type=submit] {
 .upload-drop-down {
   cursor: hand;
 }
+#loading-icon {
+  display: hidden;
+}

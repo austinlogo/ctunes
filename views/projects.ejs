@@ -8,9 +8,7 @@
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="/javascript/includes/upload-drop-down.js"></script>
-		<script src="/javascript/includes/track-funcs.js"></script>
-		<!-- // <script src="/javascript/profile.js"></script> -->
-		
+		<script src="/javascript/includes/track-funcs.js"></script>		
 	</head>
 
 	<body>
@@ -38,18 +36,25 @@
 						</div>
 					<% } %>	
 
-					<% 	for (var index in projects) { 
+					<% 	var empty = true;
+						for (var index in projects) { 
+							empty = false;
 							var project = projects[index];
 					%>
 					<% include includes/project.ejs %>
-					<% 	} %>	
+					<% 	} 
+						if (empty) {
+					%>
+						<p class="center">No Projects!? Quick add something.</p>
+					<%
+						}
+					%>	
 
 				</div>
 			</div>			
 		</div>
-		
+		<% include includes/standardJS.ejs %>
 		<script src="/javascript/projects.js"></script>
 		<script src="/javascript/includes/upload-drop-down.js"></script>
-		<% include includes/standardJS.ejs %>
 	</body>
 </html>
