@@ -14,9 +14,7 @@ Supported envs
 -----------------------------------------------------------------------|
 
 CURRENT FEATURES (IN PROGRESS)
-* rate with limits
-* playback controls
-* loading screen
+* playback controls (this needs some sketching and planning done)
 * public v. private
 * Control Room
 	* sanitize json strings
@@ -35,7 +33,6 @@ DONE FEATURES (NOT TESTED)
 -----------------------------------------------------------------------|
 
 BUGS
-* ratings screw up the server
 * new logo screwed up the nav bar mobile
 * PARSING!!!!!
 * EISDIROPEN error when adding tracks, we should handle that somehow

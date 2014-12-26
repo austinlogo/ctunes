@@ -1,3 +1,5 @@
 /node_modules/*
 /public/content/*
 ssh.txt
+/public/images/icons/loading2.gif
+/public/images/icons/loading3.gif
