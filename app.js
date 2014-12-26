@@ -182,7 +182,9 @@ app.post("/upvote", function (req, res) {
 				return res.send(result2);	
 			});
 		}
-		return res.send(undefined);
+		else {
+			return res.send(undefined);
+		}
 	
 	})
 });
