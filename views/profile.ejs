@@ -25,11 +25,11 @@
 					<input type="file" name="file" placeholder="File">
 					<input type="submit" name="upload">
 				</form>
-				<!-- <div class="progress">
-					
-				</div> -->
-
 				<p id="upload-back">Back</p>
+
+				<div class="center" id="loading-icon">
+					<img src="/images/icons/loading.gif" width="100px" height="100px">
+				</div>
 			</div>
 		</div>
 
@@ -92,6 +92,8 @@
 			</div>
 			<% include includes/footer.ejs %>
 		</div>		
+
+		<script type="text/javascript" src="/javascript/profile.js"></script>
 		<% include includes/standardJS.ejs %>
 	</body>
 </html>

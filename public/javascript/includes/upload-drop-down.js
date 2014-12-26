@@ -20,7 +20,7 @@ $("#upload-drop-down-iteration").click(function () {
 	console.log(num);
 	xmlHttp = new XMLHttpRequest();
 	xmlHttp.open( "POST", "/projects/upload-iteration", false ); //false makes this synchronous
-    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+    xmlHttp.setRequestHeader("Content-TypxmlHttpe", "application/x-www-form-urlencoded"); 
     xmlHttp.send("id=" + num + "&user=" + user);
     var response = xmlHttp.responseText;
     response = JSON.parse(response);
@@ -84,6 +84,7 @@ $("#upload-back-iteration").click(function () {
 
 
 function trackValidate() {
+
 	var f = document.forms['trackSubmit']['album'];
 	var bad = false;
 	// console.log("1");
@@ -108,7 +109,8 @@ function trackValidate() {
 		$(f).css("border", "1px #F00 solid");
 		bad = true;
 	}
-	
-	// console("1");
+
+	if (bad) $('#loading-icon').css("display", "block");
+
 	return bad ? false : true;
 }
