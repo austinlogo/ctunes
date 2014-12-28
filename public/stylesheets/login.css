@@ -227,8 +227,9 @@ button {
   width: 100%;
   z-index: 10;
   height: 30px;
-  background: rgba(40, 40, 100, 0.7);
+  background: rgba(133, 159, 255, 0.5);
   color: #eeeeee;
+  display: none;
 }
 .playback-menu {
   width: 234;
@@ -239,14 +240,15 @@ button {
   margin: 0;
   width: 30px;
   height: 30px;
+  line-height: 30px;
+  cursor: pointer;
   display: inline-block;
 }
 .playback-btn-icon {
   psoition: relative;
-  height: 100%;
-  width: auto;
+  width: 60%;
+  vertical-align: middle;
   margin: 0 auto;
-  display: block;
 }
 #search-box {
   position: relative;

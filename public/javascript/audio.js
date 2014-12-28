@@ -17,6 +17,7 @@ $('.track-container').click(function (e) {
 	var idLong = $(this).attr("id");
 	var id = idLong.substring(prefix.length, idLong.length); 
 
+	// STARTING A NEW TRACK
 	if (id != playing.id) {
 
 		//RESET ALL OTHER INFO
@@ -31,7 +32,8 @@ $('.track-container').click(function (e) {
 		playing.src 	= $(this).find(' > .player-info').attr('src');
 		playing.id		= id;
 		audioPlayer.src = playing.src;
-		audioPlayer.play();
+		audioPlayer.play();	
+		if ($(".play-bar").css("display") == "none") $(".play-bar").slideDown();
 
 
 	}
@@ -103,8 +105,12 @@ $(".download").click(function (e) {
 		}
 	});
 });
+
+
+
 if (audioPlayer) {
 	audioPlayer.addEventListener('ended', function (){	
+		if (audioPlayer.loop) return;
 		console.log("ended");
 		var progressId = "#progress-" + playing.id;
 		this.pause();
@@ -119,3 +125,46 @@ function getTrackId (prefix, elt, cb) {
 
 	return cb (trackId);
 }
+
+
+//PLAYBAR CONTROLS
+
+$("#pb-play").click (function(e) {
+	// alert("hello");
+
+	if (audioPlayer.paused) {
+		audioPlayer.play();
+		$("#pb-play > img").attr("src", "/images/pause.png");
+
+	}
+	else {
+		audioPlayer.pause();
+		$("#pb-play > img").attr("src", "/images/play.png");
+	}
+});
+
+$("#pb-stop").click (function (e) {
+	audioPlayer.pause();
+	$(".play-bar").slideUp();
+});
+
+
+$("#pb-forw").click (function (e) {
+	audioPlayer.currentTime += 3;
+});
+
+$("#pb-back").click (function (e) {
+	audioPlayer.currentTime -= 3;
+});
+
+$("#pb-rept").click (function (e) {
+
+	if (audioPlayer.loop) {
+		audioPlayer.loop = false;
+		$("#pb-rept > img").attr("src", "/images/repeat.png");
+	}
+	else {
+		audioPlayer.loop = true
+		$("#pb-rept > img").attr("src", "/images/ITERATE.png");	
+	}
+});

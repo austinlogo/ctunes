@@ -18,14 +18,14 @@
 	padding-top: 5px;
 	padding-bottom: 5px;
 	top: 50px;
-	// left: 0;
-	// right: 0;
 	width: 100%;
 	z-index: 10;
 	height: 30px;
 
-	background: rgba(40, 40, 100, .7);
+	background: @sky-blue-a;
 	color: @off-white;
+
+	display: none;
 }
 
 .playback-menu {
@@ -38,21 +38,17 @@
 	margin: 0;
 	width: 30px;
 	height: 30px;
+	line-height: 30px;
 
-
+	cursor: pointer;
 	display: inline-block;
 }
 
 .playback-btn-icon {
-	// margin: 0 auto;
-	// width: 20px;
-	// width: 100%;
-
 	psoition: relative;
-	height: 100%;
-	width: auto;
+	width: 60%;
+	vertical-align: middle;
 	margin: 0 auto;
-	display: block;
 }
 
 #search-box {

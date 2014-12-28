@@ -770,6 +770,7 @@ app.post("/projects/upload-iteration", function (req, res) {
 	var user_tracks = "SELECT DISTINCT title, id FROM tracks WHERE artist='" + user + "' GROUP BY title;";
 	var proj_tracks = "SELECT iterations FROM projects WHERE id=" + id + " GROUP BY title;";
 
+	console.log(req.body);
 	console.log(user_tracks);
 	console.log(proj_tracks);
 	async.parallel([
@@ -802,9 +803,6 @@ app.post("/projects/upload-iteration", function (req, res) {
 app.post("/:user/projects/:projectid/add-iteration", function (req, res) {
 	var tracks = req.body.tracks;
 	var new_iteration = {};
-
-
-
 
 	async.parallel([
 		function (cb) {
