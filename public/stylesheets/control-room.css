@@ -242,8 +242,11 @@ button {
   display: inline-block;
 }
 .playback-btn-icon {
-  margin: 0 auto;
+  psoition: relative;
   height: 100%;
+  width: auto;
+  margin: 0 auto;
+  display: block;
 }
 #search-box {
   position: relative;
