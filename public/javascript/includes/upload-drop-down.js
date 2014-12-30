@@ -112,7 +112,7 @@ function trackValidate() {
 		bad = true;
 	}
 
-	if (!bad) $('#loading-icon').css("display", "block");
+	// if (!bad) $('#loading-icon').css("display", "block");
 
 	return bad ? false : true;
 }

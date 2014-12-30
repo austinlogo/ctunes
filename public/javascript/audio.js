@@ -34,11 +34,21 @@ $('.track-container').click(function (e) {
 		audioPlayer.src = playing.src;
 		audioPlayer.play();	
 		if ($(".play-bar").css("display") == "none") $(".play-bar").slideDown();
+		$("#pb-play > img").attr("src", "/images/pause.png");
 
 
 	}
 	else {
-		playing.playing ? audioPlayer.pause() : audioPlayer.play();
+		if (playing.playing) {
+			audioPlayer.pause();
+			$("#pb-play > img").attr("src", "/images/play.png");
+		}
+		else {
+			audioPlayer.play();
+			if ($(".play-bar").css("display") == "none") $(".play-bar").slideDown();
+			$("#pb-play > img").attr("src", "/images/pause.png");
+		}
+
 		playing.playing = !playing.playing;
 
 
@@ -51,6 +61,7 @@ if (audioPlayer) {
 			var percent = 100 - ( (audioPlayer.currentTime * 100) / audioPlayer.duration);
 			// console.log(progressId + ": " + percent);
 		    $("#" + progressId).css("right", percent + "%");
+		    $(".play-bar > .progress").css("right", percent + "%");
 	});
 }
 
@@ -145,6 +156,7 @@ $("#pb-play").click (function(e) {
 
 $("#pb-stop").click (function (e) {
 	audioPlayer.pause();
+	audioPlayer.currentTime = 0;
 	$(".play-bar").slideUp();
 });
 

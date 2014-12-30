@@ -231,6 +231,14 @@ button {
   color: #eeeeee;
   display: none;
 }
+.play-bar .progress {
+  background: #3498db;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 .playback-menu {
   width: 234;
   margin: 0 auto;
@@ -673,5 +681,5 @@ input[type=submit] {
   cursor: hand;
 }
 #loading-icon {
-  display: hidden;
+  display: none;
 }

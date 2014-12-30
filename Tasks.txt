@@ -14,7 +14,6 @@ Supported envs
 -----------------------------------------------------------------------------------------------------|
 
 CURRENT FEATURES (IN PROGRESS)
-* playback controls (this needs some sketching and planning done)
 * public v. private
 * Control Room
 	* sanitize json strings
@@ -33,6 +32,7 @@ DONE FEATURES (NOT TESTED)
 -----------------------------------------------------------------------------------------------------|
 
 BUGS
+* play/pause toggle not working on playbar always when toggling via the card and not the controls
 * new logo screwed up the nav bar mobile
 * PARSING!!!!!
 * EISDIROPEN error when adding tracks, we should handle that somehow
