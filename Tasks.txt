@@ -32,7 +32,6 @@ DONE FEATURES (NOT TESTED)
 -----------------------------------------------------------------------------------------------------|
 
 BUGS
-* play/pause toggle not working on playbar always when toggling via the card and not the controls
 * new logo screwed up the nav bar mobile
 * PARSING!!!!!
 * EISDIROPEN error when adding tracks, we should handle that somehow

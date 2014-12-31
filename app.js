@@ -165,6 +165,8 @@ app.get("/:userid/projects/:projectid/:iterationid", function (req, res) {
 });
  
 app.post("/upvote", function (req, res) {
+	if (req.session.user == null || req.session.user == undefined) return;
+
 	var id = req.body.id;
 	var query =  "SELECT rated FROM tracks where id=" + id + ";";
 
