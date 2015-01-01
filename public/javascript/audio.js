@@ -126,6 +126,8 @@ if (audioPlayer) {
 		var progressId = "#progress-" + playing.id;
 		this.pause();
 		$(progressId).css("right", "100%");
+	    $(".play-bar > .progress").css("right", "100%");
+
 	});
 }
 

@@ -1,4 +1,16 @@
-function initialize(connection) {
+var sql = require('mysql');
+
+var config = {
+	host: 'localhost',
+	user: 'root', 
+	password: 'sniper'
+	// database: 'collabTunes'
+	
+}
+
+var connection = sql.createConnection(config);
+
+function initialize() {
 	var user_table = "CREATE TABLE IF NOT EXISTS users (" + 
 		"user VARCHAR(30) NOT NULL PRIMARY KEY," +
 		"email VARCHAR(30) NOT NULL, " +
@@ -58,4 +70,9 @@ function initialize(connection) {
 
 }
 
+
+function getConnection() {
+	return connection;
+}
+module.exports.getConnection = getConnection;
 module.exports.initialize = initialize;
