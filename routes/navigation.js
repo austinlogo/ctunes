@@ -18,6 +18,28 @@ var db = require('./database.js');
 var favicon = require('serve-favicon');
 var connection = db.getConnection();
 
+function home(req, res) {
+	if (req.session.user) {
+		return res.redirect("/" + req.session.user);
+	}
+	return router.route(req, res, "splash", undefined);
+}
+module.exports.home = home;
+
+function logout (req, res) {
+	req.session.user = undefined;
+	return res.redirect("/");
+}
+module.exports.logout = logout;
+
+function login (req, res) {	
+	router.route(req, res, "login", {
+										"page": "login"
+									}
+	);
+}
+module.exports.login = login;
+
 function getUser (req, res) {
 
 	var usersQuery = "SELECT user,following FROM users WHERE user ='" + req.params.user + "';";

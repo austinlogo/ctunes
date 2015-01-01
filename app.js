@@ -19,11 +19,11 @@ var navigation = require('./routes/navigation.js');
 var actions = require('./routes/actions.js');
 var favicon = require('serve-favicon');
 
-var iteration = {
-	title 	: "",
-	id		: -1,
-	tracks 	: "[]"
-}
+// var iteration = {
+// 	title 	: "",
+// 	id		: -1,
+// 	tracks 	: "[]"
+// }
 
 //create a connection and create Database and tables if necessary
 db.initialize();
@@ -64,46 +64,18 @@ app.param("genre", function (req, res, next, id) {
 	next();
 });
 
-
-app.get("/", function (req, res) {
-	if (req.session.user) {
-		return res.redirect("/" + req.session.user);
-	}
-	return router.route(req, res, "splash", undefined);
-});
+app.get("/", navigation.home);
 
 app.post("/new-project", content.newProject);
 
-app.get("/logout", function (req, res) {
-	req.session.user = undefined;
-	return res.redirect("/");
-});
+app.get("/logout", navigation.logout);
 
+app.get("/login", navigation.login);
 
-app.get("/login", function (req, res) {
-	
-	router.route(req, res, "login", {
-										"page": "login"
-									}
-	);
-
-});
-
+//THIS IS DEFINED BELOW
 app.get("/download/:downloadid", downloadTrack);
 
-function downloadTrack (req, res) {
-	var id = req.params.downloadid;
-	var query = "SELECT * FROM tracks WHERE id=" + id + ";";
-
-	connection.query (query, function (err, result) {
-		if (err) throw err;
-
-		var file = __dirname + "/public/" + result[0].content;
-		return res.download(file);
-	});
-}
-
-app.get("/:userid/projects/:project/download-iteration/:downloadid", content.downloadIteration);
+app.get("/:userid/projects/:project/download-iteration/:downloadid", downloadIteration);
 
 app.get("/:userid/projects/:projectid/:iterationid", content.downloadCurrentIteration); 
 
@@ -131,90 +103,6 @@ app.get("/:user/projects/:projectid", navigation.getProject);
  
 app.post("/upload", content.upload);
 
-// function insert_track(req, res, form, insert, main_cb) {
-// 	var file = '';
-// 	var user = '';
-// 	var folderPath = '';
-// 	var fields = undefined;
-		
-// 	async.waterfall([
-// 		function (cb) {
-// 			form.parse(req, function(err, fields_param, files) {
-// 				if (err) {
-// 					throw err;
-// 				}
-// 				console.log(files);
-// 				file = files.file[0];
-// 				user = req.session.user;
-// 				folderPath = contentPath + user + "/";
-// 				fields = fields_param;
-
-// 				var len = file.originalFilename.length;
-// 				var extension = file.originalFilename.substring(len - 4, len);
-// 				console.log("655: " + extension);
-// 				if (extension == ".mp3" || extension == ".wav") {
-// 					return cb(null);
-// 				}
-// 				else {
-// 					return cb({ "ext" : true});
-// 				}
-// 			});
-// 		},
-// 		function (cb) {
-// 			fsExtra.mkdirs(folderPath, function (err) {
-// 				if (err) throw err;
-
-// 				var path = folderPath + file.originalFilename;
-// 				var databasePath = savePath + user + "/" + file.originalFilename;
-
-// 				return cb(null, path, databasePath);
-// 			});
-// 		},
-// 		function (path, databasePath, cb) {
-// 			fs.readFile(file.path , function(err, data) {
-// 				return cb(err, data, path, databasePath);
-// 			});
-// 		},
-// 		function (data, path, databasePath, cb) {
-// 			fs.writeFile(path, data, function(err) {
-// 				return cb(err, databasePath);
-// 			});
-// 		},
-// 		function (databasePath, cb) {
-// 			fs.unlink(file.path, function() {
-// 				return cb(null, databasePath);
-// 			});
-// 		}
-// 	],
-// 	function (err, databasePath) {
-// 		if(err) {
-// 			console.log(err);
-// 			if(err.ext) return main_cb(true, undefined, undefined);
-// 			else throw err;
-// 		}
-
-// 		if (!insert) return;
-
-// 		// inserting iterations should not be inserted into 
-//         var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated)" +
-//         			"VALUES ('" 
-//         			+ file.originalFilename + "', '" 
-//         			+ fields.album + "', '" 
-//         			+ req.session.user + "', '" 
-//         			+ "{}" + "', '" 
-//         			+ fields.genre + "', '" 
-//         			+ databasePath + "', "
-//         			+ 0 + ", "
-//         			+ "'[]'"
-//         			+ ");";
-	
-//    		connection.query(tracksQuery, function (err, result) {
-// 			return main_cb(err, databasePath, result);
-			
-// 	   	});
-// 	});	
-// }
-
 app.post("/projects/upload-iteration", content.uploadIteration);
 
 app.post("/:user/projects/:projectid/add-iteration", content.addIteration);
@@ -240,3 +128,33 @@ app.use(function (err, req, res, next) {
 app.listen(8080);
 
 module.exports = app;
+
+//---DEFINED FUNCTIONS------------------------------------------------------------|
+
+function downloadTrack (req, res) {
+	var id = req.params.downloadid;
+	var query = "SELECT * FROM tracks WHERE id=" + id + ";";
+
+	connection.query (query, function (err, result) {
+		if (err) throw err;
+
+		var file = __dirname + "/public/" + result[0].content;
+		return res.download(file);
+	});
+}
+
+function downloadIteration (req, res) {
+	var id = req.params.project;
+	var iterationIndex = req.params.downloadid
+
+	var query = "SELECT iterations FROM projects WHERE id=" + id + ";";
+
+	connection.query (query, function (err, result) {
+		if (err) throw err;
+		result = JSON.parse(result[0]['iterations']);
+
+
+		var file = __dirname + "/public/" + result[iterationIndex].content;
+		return res.download(file);
+	});
+}

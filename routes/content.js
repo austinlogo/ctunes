@@ -17,6 +17,11 @@ var db = require('./database.js');
 var connection = db.getConnection();
 // console.log(connection);
 
+var iteration_template = {
+	title 	: "",
+	id		: -1,
+	tracks 	: "[]"
+}
 
 var contentPath	= "./public/content/";
 var savePath = "/content/";
@@ -61,6 +66,19 @@ function downloada (req, res) {
 	});
 }
 module.exports.downloada = downloada;
+
+function downloadTrack (req, res) {
+	var id = req.params.downloadid;
+	var query = "SELECT * FROM tracks WHERE id=" + id + ";";
+
+	connection.query (query, function (err, result) {
+		if (err) throw err;
+
+		var file = __dirname + "/public/" + result[0].content;
+		return res.send(file);
+	});
+}
+module.exports.downloadTrack = downloadTrack;
 
 function downloadIteration (req, res) {
 	var id = req.params.project;
