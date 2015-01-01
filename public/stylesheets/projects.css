@@ -208,6 +208,9 @@ button {
   width: 50%;
   margin: 0 auto;
 }
+.ghost {
+  display: none;
+}
 .nav {
   position: fixed;
   top: 0;

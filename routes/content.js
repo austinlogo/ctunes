@@ -50,23 +50,6 @@ function newProject(req, res) {
 }
 module.exports.newProject = newProject;
 
-function downloada (req, res) {
-	var id = req.params.downloadid;
-	var query = "SELECT * FROM tracks WHERE id=" + id + ";";
-
-	console.log("checking")
-	connection.query (query, function (err, result) {
-		console.log(err);
-		if (err) throw err;
-
-		var file = __dirname + "/public/" + result[0].content;
-		// console.log(file);
-		
-		return res.download(file);
-	});
-}
-module.exports.downloada = downloada;
-
 function downloadTrack (req, res) {
 	var id = req.params.downloadid;
 	var query = "SELECT * FROM tracks WHERE id=" + id + ";";
@@ -135,14 +118,14 @@ function insert_track(req, res, form, insert, main_cb) {
 	async.waterfall([
 		function (cb) {
 			form.parse(req, function(err, fields_param, files) {
-				if (err) {
-					throw err;
-				}
+				if (err) throw err;
+
 				console.log(files);
 				file = files.file[0];
 				user = req.session.user;
-				folderPath = contentPath + user + "/";
 				fields = fields_param;
+				fields.album = fields.album == undefined ? fields.project : fields.album;
+				folderPath = contentPath + user + "/" + fields.album + "/";
 
 				var len = file.originalFilename.length;
 				var extension = file.originalFilename.substring(len - 4, len);
@@ -160,7 +143,7 @@ function insert_track(req, res, form, insert, main_cb) {
 				if (err) throw err;
 
 				var path = folderPath + file.originalFilename;
-				var databasePath = savePath + user + "/" + file.originalFilename;
+				var databasePath = savePath + user + "/" + fields.album + "/" + file.originalFilename;
 
 				return cb(null, path, databasePath);
 			});

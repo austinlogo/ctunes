@@ -19,8 +19,10 @@
 				<form action="<%=projectid %>/add-iteration" name="uploadIteration" onsubmit="return validateIteration()" method="POST" enctype="multipart/form-data">
 					<input type="text" name="iteration_title" placeholder="Title">
 					<input type="file" name="file" placeholder="File">					
+					<input type="text" class="ghost" name="project" value="<%=project.title %>">
 					<div id="user-checkbox" class="checkbox"></div>
 					<div id="project-checkbox" class="checkbox"></div>
+
 					<input type="submit" name="upload">
 				</form>
 

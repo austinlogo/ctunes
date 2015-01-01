@@ -59,12 +59,14 @@ function projUpvote(req, res) {
 			console.log(result);
 			var update = "UPDATE projects SET rating= rating + 1, rated='" + result + "' WHERE id=" + id + ";";
 			console.log(update);
-			connection.query(update, function (err, result) {
+			connection.query(update, function (err, result2) {
 				if (err)  throw err;
 				return res.send(result2);	
 			});
 		}
-		return res.send(undefined);
+		else {
+			return res.send(undefined);
+		}
 	
 	})
 }
