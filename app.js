@@ -16,7 +16,7 @@ var db = require('./routes/database.js');
 var content = require('./routes/content.js');
 var user = require('./routes/user.js');
 var navigation = require('./routes/navigation.js');
-var actions = require('./routes/actions.js')
+var actions = require('./routes/actions.js');
 var favicon = require('serve-favicon');
 
 var iteration = {
@@ -69,7 +69,6 @@ app.get("/", function (req, res) {
 	if (req.session.user) {
 		return res.redirect("/" + req.session.user);
 	}
-
 	return router.route(req, res, "splash", undefined);
 });
 
@@ -89,10 +88,8 @@ app.get("/login", function (req, res) {
 	);
 
 });
-// console.log("" + content);
+
 app.get("/download/:downloadid", downloadTrack);
-
-
 
 function downloadTrack (req, res) {
 	var id = req.params.downloadid;
@@ -105,8 +102,6 @@ function downloadTrack (req, res) {
 		return res.download(file);
 	});
 }
-
-
 
 app.get("/:userid/projects/:project/download-iteration/:downloadid", content.downloadIteration);
 

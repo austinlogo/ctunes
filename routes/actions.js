@@ -18,6 +18,7 @@ var db = require('./database.js');
 // var navigation = require('./routes/navigation.js');
 // var actions = require('./routes/actions.js');
 var favicon = require('serve-favicon');
+var connection = db.getConnection();
 
 function search (req, res) {
 	var prefix = req.body.query + "%";
@@ -34,9 +35,7 @@ function search (req, res) {
 	var project_query = "SELECT * FROM projects WHERE " +
 		"title like '" + prefix + "'" + 
 		";";
-		
-		
-
+	
 	async.parallel([
 		function (cb) {
 			

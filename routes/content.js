@@ -45,7 +45,7 @@ function newProject(req, res) {
 }
 module.exports.newProject = newProject;
 
-function downloadTrack (req, res) {
+function downloada (req, res) {
 	var id = req.params.downloadid;
 	var query = "SELECT * FROM tracks WHERE id=" + id + ";";
 
@@ -54,12 +54,13 @@ function downloadTrack (req, res) {
 		console.log(err);
 		if (err) throw err;
 
-		var file = __dirname + "/public" + result[0].content;
-		console.log(file);
-		return res.download();
+		var file = __dirname + "/public/" + result[0].content;
+		// console.log(file);
+		
+		return res.download(file);
 	});
 }
-module.exports.downloadTrack = downloadTrack;
+module.exports.downloada = downloada;
 
 function downloadIteration (req, res) {
 	var id = req.params.project;
