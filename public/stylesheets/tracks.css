@@ -588,7 +588,8 @@ button {
   display: block;
 }
 #album-items,
-#genre-items {
+#genre-items,
+#project-items {
   display: none;
 }
 .cselected {
