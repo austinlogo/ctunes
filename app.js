@@ -93,6 +93,8 @@ app.get("/:user", navigation.getUser);
 
 app.get("/:user/tracks", navigation.getTracks);
 
+app.get("/:user/discover", navigation.discoverTracks);
+
 app.get("/:user/tracks/genre/:genre", navigation.getGenre);
 
 app.get("/:user/tracks/album/:album", navigation.getAlbum);

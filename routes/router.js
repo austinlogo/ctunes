@@ -25,6 +25,12 @@ function route(req, res, webpage, options, cb) {
 				else res.send(ht);
 			});
 		break;
+		case "discover" : 
+			res.render("discover", options, function(err, ht) {
+				if(err) res.send("error:" + err);
+				else res.send(ht);
+			});
+		break;
 		case "login" :
 			res.render("login", options);
 		break;

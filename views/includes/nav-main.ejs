@@ -2,31 +2,25 @@
 
 <style>
 	<% if (page === "user") { %>
-		#home {
-			/*background-color: #2ECC71;*/
-			
-		}
 		#home > a {
 			color: #2ECC71;
 			font-weight: 700;
 		}
 	<% } %>
-
 	<% if (page === "tracks") { %>
-		#tracks {
-			/*background-color: #2ECC71;*/
-		}
 		#tracks > a {
 			color: #2ECC71;
 			font-weight: 700;
 		}
 	<% } %>
-
 	<% if (page === "projects" || page === "control") { %>
-		#projects {
-			/*background-color: #2ECC71;*/
-		}
 		#projects > a {
+			color: #2ECC71;
+			font-weight: 700;
+		}
+	<% } %>
+	<% if (page === "discover") { %>
+		#discover > a {
 			color: #2ECC71;
 			font-weight: 700;
 		}
@@ -47,8 +41,10 @@
 			</div>
 		<% } %>
 		<div class="menu" id="home"><a href="/<%= muser %>">Profile</a></div>
+		<div class="menu" id="discover"><a href="/<%= muser %>/discover">Discover</a></div>
 		<div class="menu" id="tracks"><a href="/<%= muser %>/tracks">Tracks</a></div>
 		<div class="menu" id="projects"><a href="/<%= muser %>/projects">Projects</a></div>
+
 		
 	</div>
 	<div class="navbar-right">

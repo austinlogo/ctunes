@@ -17,7 +17,7 @@
 	<body>
 		<div id="upload" class="drop-down">					
 			<div class="form-container">
-				<form action="/upload" method="POST" enctype="multipart/form-data">
+				<form action="/upload" method="POST" enctype="multipart/form-data" onsubmit="return trackValidate()">
 					<input type="text" name="album" placeholder="Album">
 					<input type="text" name="genre" placeholder="Genre" value="<%= genre %>">
 					<input type="file" name="file" placeholder="File">

@@ -17,17 +17,9 @@ CURRENT FEATURES (IN PROGRESS)
 * public v. private
 * Discover page
 * update feed logic
-* change the "undefined" to "unknown"
+* Track management (Delete, edit, etc.)
 * Control Room
 	* sanitize json strings
------------------------------------------------------------------------------------------------------|
-
-
-FEATURE BACKLOG (no specific order)
-* timeline iteration history
-	* visualize when things are added
-* Monetization
-
 -----------------------------------------------------------------------------------------------------|
 
 DONE FEATURES (NOT TESTED)

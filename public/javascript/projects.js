@@ -7,10 +7,16 @@ $(".project-container").click( function (e) {
 		console.log("hello");
 		return;
 	}
+	else if ($(e.target).hasClass("project-info")) { 
+		getTrackId("container-", $(e.target).parent()[0], function (trackId) {
+			console.log($(e.target).parent().parent()[0]);
+			window.location.href = window.location.href + "/../projects/" + trackId;
+		});
+	}
 	else { 
 		getTrackId("container-", $(e.target).parent().parent()[0], function (trackId) {
 			console.log($(e.target).parent().parent()[0]);
-			window.location.href = window.location.href + "/" + trackId;
+			window.location.href = window.location.href + "/../projects/" + trackId;
 		});
 	}
 });

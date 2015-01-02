@@ -5,13 +5,10 @@
 		<title><%= muser %> tracks</title>
 		<link href='http://fonts.gooleapis.com/css?family=Raleway:300,500,900,800' rel='stylesheet' type='text/css'>
 
-		<link rel="stylesheet" type="text/css" href="/stylesheets/tracks.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/discover.css">
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<!-- // <script src="/javascript/includes/upload-drop-down.js"></script> -->
 		<script src="/javascript/includes/track-funcs.js"></script>
-		<!-- // <script src="/javascript/profile.js"></script> -->
-		<!-- // <script src="/javascript/projects.js"></script> -->
 		
 	</head>
 
@@ -37,6 +34,7 @@
 				<div class="category cselected" id="trackBtn">Tracks</div>
 				<div class="category" id="albumBtn">Albums</div>
 				<div class="category" id="genreBtn">Genres</div>
+				<div class="category" id="projectBtn">Projects</div>
 			</div>
 			<div class="content-container">
 				<div class="container" id="track-items">
@@ -103,8 +101,32 @@
 							empty = false;
 					%>
 					<% include includes/genre.ejs %>
-					<% 	}
+					<% }
 						if (empty) {
+					%>
+						<p class="center">Oh No! There's nothing here</p>
+					<%
+						}
+					%>	
+
+				</div>
+				<div class="container" id="project-items">
+					
+					<% if (mine) { %>
+						<div class="add-container upload-drop-down">
+							<h1 class="center card">+</h1>	
+						</div>
+					<% } %>	
+
+					<% 	var empty = true;
+						for (var index in projects) { 
+							var project = projects[index];
+							empty = false;
+					%>
+					<% include includes/project.ejs %>
+					<% 	} %>
+
+					<%	if (empty) {
 					%>
 						<p class="center">Oh No! There's nothing here</p>
 					<%
@@ -115,7 +137,7 @@
 			</div>	
 			<% include includes/footer.ejs %>
 		</div>
-
+		<script src="/javascript/projects.js"></script>
 		<% include includes/standardJS.ejs %>
 	</body>
 </html>
