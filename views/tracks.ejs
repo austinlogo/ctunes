@@ -99,6 +99,7 @@
 					<% 	var empty = true;
 						for (var index in genres) { 
 							var genre = genres[index];
+							if (genre.genre == undefined) genre.genre = "Unknown Genre";
 							empty = false;
 					%>
 					<% include includes/genre.ejs %>

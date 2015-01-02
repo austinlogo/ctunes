@@ -15,8 +15,9 @@ Supported envs
 
 CURRENT FEATURES (IN PROGRESS)
 * public v. private
+* Discover page
+* update feed logic
 * change the "undefined" to "unknown"
-* create folders for Albums
 * Control Room
 	* sanitize json strings
 -----------------------------------------------------------------------------------------------------|

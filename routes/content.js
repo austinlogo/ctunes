@@ -120,11 +120,14 @@ function insert_track(req, res, form, insert, main_cb) {
 			form.parse(req, function(err, fields_param, files) {
 				if (err) throw err;
 
-				console.log(files);
+
+				// console.log(files);
 				file = files.file[0];
 				user = req.session.user;
 				fields = fields_param;
-				fields.album = fields.album == undefined ? fields.project : fields.album;
+				console.log("album: ");
+				console.log(fields.album[0]);
+				fields.album = (fields.album == undefined && fields.project != undefined) ? fields.project[0].toLowerCase() : fields.album[0].toLowerCase();
 				folderPath = contentPath + user + "/" + fields.album + "/";
 
 				var len = file.originalFilename.length;
@@ -177,10 +180,10 @@ function insert_track(req, res, form, insert, main_cb) {
         var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated)" +
         			"VALUES ('" 
         			+ file.originalFilename + "', '" 
-        			+ fields.album + "', '" 
+        			+ fields.album == undefined ? "unknown album" : fields.album  + "', '" 
         			+ req.session.user + "', '" 
         			+ "{}" + "', '" 
-        			+ fields.genre + "', '" 
+        			+ fields.genre == undefined ? "unknown genre" : fields.genre + "', '" 
         			+ databasePath + "', "
         			+ 0 + ", "
         			+ "'[]'"
