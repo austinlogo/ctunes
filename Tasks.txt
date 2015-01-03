@@ -1,7 +1,4 @@
 MAINTAINABILITY
-* Routing get and post requests separately
-* user pages routing (needs to be after other routing)
-* less
 -----------------------------------------------------------------------|
 
 RESPONSIVENESS	
@@ -15,9 +12,8 @@ Supported envs
 
 CURRENT FEATURES (IN PROGRESS)
 * public v. private
-* Discover page
-* update feed logic
 * Track management (Delete, edit, etc.)
+* update feed logic
 * Control Room
 	* sanitize json strings
 -----------------------------------------------------------------------------------------------------|

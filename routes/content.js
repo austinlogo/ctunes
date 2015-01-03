@@ -96,7 +96,7 @@ function upload (req, res) {
 		
 	insert_track(req, res, form, true, function (err, path, result) {
 		if (err) {
-			console.log(err.errno);
+			console.log(err);
 			if (!err.errno == 1062)
 				return router.route(req, res, "error", err);
 			else
@@ -127,7 +127,7 @@ function insert_track(req, res, form, insert, main_cb) {
 				fields = fields_param;
 				console.log("album: ");
 				console.log(fields.album[0]);
-				fields.album = (fields.album == undefined && fields.project != undefined) ? fields.project[0].toLowerCase() : fields.album[0].toLowerCase();
+				fields.album[0] = (fields.album == undefined && fields.project != undefined) ? fields.project[0].toLowerCase() : fields.album[0].toLowerCase();
 				folderPath = contentPath + user + "/" + fields.album + "/";
 
 				var len = file.originalFilename.length;
@@ -174,21 +174,25 @@ function insert_track(req, res, form, insert, main_cb) {
 			else throw err;
 		}
 
+		fields.album[0] = (fields.album[0] == undefined) ? "unknown album" : fields.album[0];
+		fields.genre[0] = (fields.genre[0] == undefined) ? "unknown genre" : fields.genre[0];
+
 		if (!insert) return;
 
 		// inserting iterations should not be inserted into 
-        var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated)" +
-        			"VALUES ('" 
+        var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated)"
+        			+ "VALUES ('" 
         			+ file.originalFilename + "', '" 
-        			+ fields.album == undefined ? "unknown album" : fields.album  + "', '" 
+        			+ fields.album[0]  + "', '" 
         			+ req.session.user + "', '" 
         			+ "{}" + "', '" 
-        			+ fields.genre == undefined ? "unknown genre" : fields.genre + "', '" 
+        			+ fields.genre[0] + "', '" 
         			+ databasePath + "', "
         			+ 0 + ", "
         			+ "'[]'"
         			+ ");";
-	
+		console.log(fields.genre);
+		console.log(tracksQuery);
    		connection.query(tracksQuery, function (err, result) {
 			return main_cb(err, databasePath, result);
 			

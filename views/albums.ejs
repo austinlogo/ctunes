@@ -17,7 +17,7 @@
 	<body>
 		<div id="upload" class="drop-down">					
 			<div class="form-container">
-				<form action="/upload" method="POST" enctype="multipart/form-data" onsubmit="return trackValidate()">
+				<form action="/upload" method="POST" name="trackSubmit" enctype="multipart/form-data" onsubmit="return trackValidate()">
 					<input type="text" name="album" placeholder="Album" value="<%= album %>">
 					<input type="text" name="genre" placeholder="Genre">
 					<input type="file" name="file" placeholder="File">
@@ -55,7 +55,6 @@
 			</div>			
 			<% include includes/footer.ejs %>
 		</div>
-
 		<% include includes/standardJS.ejs %>
 	</body>
 </html>
