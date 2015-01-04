@@ -178,6 +178,8 @@ function insert_track(req, res, form, insert, main_cb) {
 		fields.genre[0] = (fields.genre[0] == undefined) ? "unknown genre" : fields.genre[0];
 
 		if (!insert) return;
+		
+		fields.visibility[0] = (fields.visibility[0] == 'private') ? 0 : 1;
 
 		// inserting iterations should not be inserted into 
         var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated, visibility)"

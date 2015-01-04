@@ -670,6 +670,22 @@ input[type=submit] {
   color: #eeeeee;
   font-weight: 700;
 }
+input[type=radio] {
+  display: inline-block;
+  color: #F00;
+  width: 30px;
+  /*display: none;*/
+}
+input[type=radio]:checked {
+  display: inline-block;
+  width: 30px;
+  /*display: none;*/
+  color: #F00;
+}
+label {
+  color: white;
+  display: inline-block;
+}
 .form-container form {
   position: relative;
   width: 100%;

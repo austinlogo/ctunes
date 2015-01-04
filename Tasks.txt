@@ -10,7 +10,7 @@ Supported envs
 * TP nav-bar is a shell, need to fix that.
 -----------------------------------------------------------------------------------------------------|
 
-CURRENT FEATURES (IN PROGRESS)
+FEATURES (IN PROGRESS)
 * public v. private
 * Track management (Edit, Delete)
 * Control Room

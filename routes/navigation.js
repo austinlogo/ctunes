@@ -89,13 +89,14 @@ function getUser (req, res) {
 				var following = JSON.parse(result[0].following);
 				console.log("following");
 				console.log(following.length);
-				if (following.length == 0) return cb(null, undefined);
+				if (following.length == 0) return cb(null, []);
 				
 				var followedTracksQuery = "SELECT * FROM tracks WHERE visibility=1 AND 	";
 				for (var index in following) {
 					console.log(index);
-					followedTracksQuery += (index == following.length - 1) ? "artist='" + following[index] + "';" : " artist='" + following + "' OR ";
+					followedTracksQuery += (index == following.length - 1) ? "artist='" + following[index] + "'" : " artist='" + following + "' OR ";
 				}
+				followedTracksQuery += " LIMIT 20;";
 
 				console.log(followedTracksQuery);
 

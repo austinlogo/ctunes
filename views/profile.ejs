@@ -23,6 +23,12 @@
 					<input type="text" name="album" placeholder="Album">
 					<input type="text" name="genre" placeholder="Genre">
 					<input type="file" name="file" placeholder="File">
+					<div class="radio">
+						<input type="radio" name="visibility" value="public" checked>
+						<label for="public">public</label>
+						<input type="radio" name="visibility" value="private">
+						<label for="private">private</label>
+					</div>
 					<input type="submit" name="upload">
 				</form>
 				<p id="upload-back">Back</p>
@@ -52,7 +58,7 @@
 						if (tracks != undefined) {
 							if (tracks.length == 0) {
 					%>
-							<p class="center">Oh No! There's nothing here.</p>
+							<p class="center">Oh No! There's nothing here. You should try following people.</p>
 					<%
 							}
 							for (var i = 0; i < tracks.length; i++) {
