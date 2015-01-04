@@ -28,24 +28,38 @@ input[type=submit] {
 	font-weight: @bold;
 }
 
-input[type=radio] {
-	display: inline-block;
-	color: #F00;
-	width: 30px;
-	/*display: none;*/
+.radio {
+	margin: 0 auto;
+	height: 30px;
+	margin-left: 2%;
+	width: 100%;
+	/*border-radius: 5px;*/
+	/*background: @dk-gray;*/
 }
 
-input[type=radio]:checked {
-	display: inline-block;
-	width: 30px;
-	/*display: none;*/
-	color: #F00;
+input[type=radio] {
+	display: none;
 }
 
 label {
-	color: white;
-	display: inline-block
+	display: inline-block;
+	width: 49%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: @off-white;
 }
+
+input[type=radio]:checked+label {
+	border-radius: 5px;
+	background: @blue-mellow;
+}
+
+input[type=radio]+label {
+	border-radius: 5px;
+	background: @md-gray-a;
+}
+
 
 .form-container form {
 	position: relative;

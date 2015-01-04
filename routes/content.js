@@ -179,7 +179,7 @@ function insert_track(req, res, form, insert, main_cb) {
 
 		if (!insert) return;
 		
-		fields.visibility[0] = (fields.visibility[0] == 'private') ? 0 : 1;
+		fields.visibility[0] = (fields.visibility[0] == '0') ? 0 : 1;
 
 		// inserting iterations should not be inserted into 
         var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated, visibility)"

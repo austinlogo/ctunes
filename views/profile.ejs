@@ -24,10 +24,11 @@
 					<input type="text" name="genre" placeholder="Genre">
 					<input type="file" name="file" placeholder="File">
 					<div class="radio">
-						<input type="radio" name="visibility" value="public" checked>
-						<label for="public">public</label>
-						<input type="radio" name="visibility" value="private">
-						<label for="private">private</label>
+						<input id="private" type="radio" name="visibility" value="0" checked>
+						<label for="private">Private</label>
+						
+						<input id="public" type="radio" name="visibility" value="1" checked>
+						<label for="public">Public</label>
 					</div>
 					<input type="submit" name="upload">
 				</form>
