@@ -180,7 +180,7 @@ function insert_track(req, res, form, insert, main_cb) {
 		if (!insert) return;
 
 		// inserting iterations should not be inserted into 
-        var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated)"
+        var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated, visibility)"
         			+ "VALUES ('" 
         			+ file.originalFilename + "', '" 
         			+ fields.album[0]  + "', '" 
@@ -189,7 +189,8 @@ function insert_track(req, res, form, insert, main_cb) {
         			+ fields.genre[0] + "', '" 
         			+ databasePath + "', "
         			+ 0 + ", "
-        			+ "'[]'"
+        			+ "'[]'" + ", "
+        			+ "1"
         			+ ");";
 		console.log(fields.genre);
 		console.log(tracksQuery);

@@ -46,6 +46,7 @@ function getUser (req, res) {
 	var myQuery = "SELECT user,following FROM users WHERE user ='" + req.session.user + "';";
 	var tracksQuery = "SELECT * FROM tracks WHERE artist='" + req.params.user + "';";
 	var userQuery = "SELECT * FROM users;";
+	var followQuery = "SELECT following FROM users WHERE user='" + req.params.user + "';";
 
 	async.parallel([
 		function (cb) { // 0
@@ -81,6 +82,29 @@ function getUser (req, res) {
 			connection.query(myQuery, function (err, result) {
 				return cb (null, result);
 			});
+		},
+		function (cb) { // 4
+			connection.query(followQuery, function (err, result) {
+				if (err) return cb(err, null);
+				var following = JSON.parse(result[0].following);
+				console.log("following");
+				console.log(following.length);
+				if (following.length == 0) return cb(null, undefined);
+				
+				var followedTracksQuery = "SELECT * FROM tracks WHERE visibility=1 AND 	";
+				for (var index in following) {
+					console.log(index);
+					followedTracksQuery += (index == following.length - 1) ? "artist='" + following[index] + "';" : " artist='" + following + "' OR ";
+				}
+
+				console.log(followedTracksQuery);
+
+				connection.query(followedTracksQuery, function (err, result) {
+					if (err) throw err;
+					return cb(null, result);
+				});
+
+			});
 		}
 	],
 	function (err, result) {
@@ -97,7 +121,7 @@ function getUser (req, res) {
 													"mine": (req.session.user && req.session.user == req.params.user),     
 													"muser": req.params.user,
 													"loggedin": !(req.session.user == undefined),
-													"tracks": result[1], 
+													"tracks": result[4], 
 													"users": result[2], 
 													"following": following_var,
 													"myFollowing" : my_following,

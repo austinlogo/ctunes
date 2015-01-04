@@ -12,8 +12,7 @@ Supported envs
 
 CURRENT FEATURES (IN PROGRESS)
 * public v. private
-* Track management (Delete, edit, etc.)
-* update feed logic
+* Track management (Edit, Delete)
 * Control Room
 	* sanitize json strings
 -----------------------------------------------------------------------------------------------------|
