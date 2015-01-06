@@ -16,19 +16,7 @@
 	</head>
 
 	<body>
-		<div id="upload" class="drop-down">					
-			<div class="form-container">
-				<form action="/upload" name="trackSubmit" method="POST" enctype="multipart/form-data" onsubmit="return trackValidate()">
-					<input type="text" name="album" placeholder="Album">
-					<input type="text" name="genre" placeholder="Genre">
-					<input type="file" name="file" placeholder="File">
-					<input type="submit" name="upload">
-				</form>
-
-				<p id="upload-back">Back</p>
-			</div>
-		</div>
-		
+		<% include includes/add-track.ejs %>		
 		<div class="content">
 			<div class="mask"></div>
 			<% include includes/nav-main.ejs %>

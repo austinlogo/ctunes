@@ -128,7 +128,9 @@ function getUser (req, res) {
 													"myFollowing" : my_following,
 													"page": "user",
 													"account": "hello",
-													"dup": req.query.dup
+													"dup": req.query.dup,
+													album: undefined,
+													genre: undefined
 												}
 		);
 	});
@@ -139,33 +141,48 @@ function discoverTracks(req, res) {
 	var query  = 	"SELECT * from tracks LIMIT 50;";
 	var aquery = 	"SELECT id, album FROM tracks GROUP BY album;";
 	var gquery =  	"SELECT id, genre FROM tracks GROUP BY genre;";
-	var pquery = 	"SELECT id, creator, title, rated, rating from projects;"
+	var pquery = 	"SELECT id, creator, title, rated, rating from projects;";
+	var uquery = 	"SELECT * FROM users LIMIT 50;";
+	var myQuery = "SELECT user,following FROM users WHERE user ='" + req.session.user + "';";
+
 	
 	async.parallel([
-		function (cb) {
+		function (cb) { //0
 			connection.query(query, function (err, result) {
 				return cb (err, result);
 			});
 		},
-		function (cb) {
+		function (cb) { // 1
 			connection.query(aquery, function (err, result) {
 				return cb (err, result);
 			});
 		},
-		function (cb) {
+		function (cb) { // 2
 			connection.query(gquery, function (err, result) {
 				return cb (err, result);
 			});
 		},
-		function (cb) {
+		function (cb) { // 3
 			connection.query(pquery, function (err, result) {
+				return cb (err, result);
+			});
+		},
+		function (cb) { // 4
+			connection.query(uquery, function (err, result) {
+				return cb (err, result);
+			});
+		},
+		function (cb) { // 5
+			connection.query(myQuery, function (err, result) {
 				return cb (err, result);
 			});
 		}
 	],
 	function (err, result) {
 		if (err) throw err;
-		console.log("results: " + JSON);
+		console.log("results: " + result[4]);
+		var my_following = result[5][0] == undefined ? [] : result[5][0].following;
+
 		return router.route(req, res, "discover",	{ 	
 														liUser: req.session.user,
 														mine: (req.params.user == req.session.user),
@@ -175,7 +192,9 @@ function discoverTracks(req, res) {
 														tracks: result[0],
 														albums: result[1],
 														genres: result[2],
-														projects: result[3]
+														projects: result[3],
+														users: result[4],
+														myFollowing: my_following
 													}
 		);
 	});
@@ -215,7 +234,9 @@ function getTracks(req, res) {
 													page: "tracks",
 													tracks: result[0],
 													albums: result[1],
-													genres: result[2]
+													genres: result[2],
+													album: undefined,
+													genre: undefined
 												}
 		);
 	});
@@ -235,6 +256,7 @@ function getGenre (req, res) {
 													"loggedin": (req.session.user != undefined),
 													page: "tracks",
 													tracks: result,
+													album: undefined,
 													genre: req.params.genre
 												}
 		);
@@ -254,7 +276,8 @@ function getAlbum (req, res) {
 													"loggedin": (req.session.user != undefined),
 													page: "tracks",
 													tracks: result,
-													album: req.params.album
+													album: req.params.album,
+													genre: undefined
 												}
 		);
 	});

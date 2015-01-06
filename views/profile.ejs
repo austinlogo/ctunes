@@ -17,29 +17,7 @@
 
 	</head>
 	<body>
-		<div id="upload" class="drop-down">					
-			<div class="form-container">
-				<form name="trackSubmit" action="/upload" method="POST" enctype="multipart/form-data" onsubmit="return trackValidate()">
-					<input type="text" name="album" placeholder="Album">
-					<input type="text" name="genre" placeholder="Genre">
-					<input type="file" name="file" placeholder="File">
-					<div class="radio">
-						<input id="private" type="radio" name="visibility" value="0" checked>
-						<label for="private">Private</label>
-						
-						<input id="public" type="radio" name="visibility" value="1" checked>
-						<label for="public">Public</label>
-					</div>
-					<input type="submit" name="upload">
-				</form>
-				<p id="upload-back">Back</p>
-
-				<div class="center" id="loading-icon">
-					<img src="/images/icons/loading.GIF" width="30px" height="30px">
-				</div>
-			</div>
-		</div>
-
+		<% include includes/add-track.ejs %>
 		<div class="content">
 
 			<div class="mask"></div>

@@ -32,6 +32,7 @@
 			
 			<div class="category-container">
 				<div class="category cselected" id="trackBtn">Tracks</div>
+				<div class="category" id="artistBtn">Artist</div>
 				<div class="category" id="albumBtn">Albums</div>
 				<div class="category" id="genreBtn">Genres</div>
 				<div class="category" id="projectBtn">Projects</div>
@@ -124,6 +125,31 @@
 							empty = false;
 					%>
 					<% include includes/project.ejs %>
+					<% 	} %>
+
+					<%	if (empty) {
+					%>
+						<p class="center">Oh No! There's nothing here</p>
+					<%
+						}
+					%>	
+
+				</div>
+				<div class="container" id="artist-items">
+					
+					<% if (mine) { %>
+						<div class="add-container upload-drop-down">
+							<h1 class="center card">+</h1>	
+						</div>
+					<% } %>	
+
+					<% 	var empty = true;
+						for (var index in users) { 
+							console.log(index);
+							var user = users[index];
+							empty = false;
+					%>
+					<% include includes/artist.ejs %>
 					<% 	} %>
 
 					<%	if (empty) {
