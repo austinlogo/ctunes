@@ -34,7 +34,7 @@ function newProject(req, res) {
 		post.projectTitle + "', '" + 
 		req.session.user + "', '" + 
 		"[]" + "', " + //iterations
-		"1" + ", '" +
+		"0" + ", '" +
 		"[]" + "' " +
 		");";				
 
@@ -126,8 +126,8 @@ function insert_track(req, res, form, insert, main_cb) {
 				user = req.session.user;
 				fields = fields_param;
 				console.log("album: ");
-				console.log(fields.album[0]);
-				fields.album[0] = (fields.album == undefined && fields.project != undefined) ? fields.project[0].toLowerCase() : fields.album[0].toLowerCase();
+				// console.log(fields.album[0]);
+				fields.album = (fields.album == undefined && fields.project != undefined) ? [fields.project[0].toLowerCase()] : [fields.album[0].toLowerCase()];
 				folderPath = contentPath + user + "/" + fields.album + "/";
 
 				var len = file.originalFilename.length;
@@ -174,8 +174,8 @@ function insert_track(req, res, form, insert, main_cb) {
 			else throw err;
 		}
 
-		fields.album[0] = (fields.album[0] == undefined) ? "unknown album" : fields.album[0];
-		fields.genre[0] = (fields.genre[0] == undefined) ? "unknown genre" : fields.genre[0];
+		fields.album = (fields.album == undefined) ? ["unknown album"] : fields.album;
+		fields.genre = (fields.genre == undefined) ? ["unknown genre"] : fields.genre;
 
 		if (!insert) return;
 		
@@ -192,7 +192,7 @@ function insert_track(req, res, form, insert, main_cb) {
         			+ databasePath + "', "
         			+ 0 + ", "
         			+ "'[]'" + ", "
-        			+ "1"
+        			+ fields.visibility[0]
         			+ ");";
 		console.log(fields.genre);
 		console.log(tracksQuery);
@@ -246,7 +246,7 @@ function addIteration(req, res) {
 	var new_iteration = {};
 
 	async.parallel([
-		function (cb) {
+		function (cb) { // 0
 			var form = new multiparty.Form();
 			console.log(form);
 			insert_track(req, res, form, true, function (err, path, result) {
@@ -256,7 +256,7 @@ function addIteration(req, res) {
 				return cb (null, path);
 			});
 		},
-		function (cb) {
+		function (cb) { // 1
 			var query = "SELECT * FROM projects WHERE id=" + req.params.projectid + ";";
 			connection.query(query, function(err, result) {
 				if (err) throw err;
@@ -269,7 +269,7 @@ function addIteration(req, res) {
 				return cb(null, iterations);
 			});
 		},
-		function (cb) {
+		function (cb) { // 2
 			var form = new multiparty.Form();
 
 			form.parse(req, function(err, fields_param, files) {

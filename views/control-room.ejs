@@ -20,6 +20,13 @@
 					<input type="text" name="iteration_title" placeholder="Title">
 					<input type="file" name="file" placeholder="File">					
 					<input type="text" class="ghost" name="project" value="<%=project.title %>">
+					<div class="radio">
+						<input id="public" type="radio" name="visibility" value="1" checked>
+						<label for="public">Public</label>
+						<div class="bridge"></div> 
+						<input id="private" type="radio" name="visibility" value="0">
+						<label for="private">Private</label>
+					</div>
 					<div id="user-checkbox" class="checkbox"></div>
 					<div id="project-checkbox" class="checkbox"></div>
 
