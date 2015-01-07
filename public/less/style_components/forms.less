@@ -1,10 +1,12 @@
 
+@input-height: 30px;
+
 .checkbox {
 	position: relative;
 	width: 49%;
 	margin: 0 auto;
 	margin-bottom: 10px;
-	height: 200px;
+	height: 400px;
 	float: left;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -13,12 +15,22 @@
 }
 
 input {
+	display: block;
+	width: 100%;
+	background-color: @off-white;
+	border: none;
+	border-radius: 5px;
+
 	padding-left: 5px;
+	margin: 10px;
+	height: @input-height;
+
 }
 
 input[type=checkbox] {
-	width: 20px;
-	display: inline-block;
+	// width: 20px;
+	// display: inline-block;
+	display: none;
 
 }
 
@@ -30,9 +42,10 @@ input[type=submit] {
 
 .radio {
 	margin: 0 auto;
-	height: 30px;
-	margin-left: 2%;
+	height: @input-height;
+	margin: 10px;
 	width: 100%;
+	font-size: 0;
 	/*border-radius: 5px;*/
 	/*background: @dk-gray;*/
 }
@@ -41,25 +54,63 @@ input[type=radio] {
 	display: none;
 }
 
-label {
+input[type=radio]+label,
+input[type=radio]:checked+label {
 	display: inline-block;
-	width: 49%;
-	height: 30px;
-	line-height: 30px;
+	margin: 0;
+	padding: 0;
+	width: 49.5%;
+	font-size: 12pt;
+	height: @input-height;
+	line-height: @input-height;
 	text-align: center;
 	color: @off-white;
+	border-radius: 5px;
+	cursor: hand;
+}
+
+.checkbox-label {
+	position: relative;
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: 95%;
+	font-size: 12pt;
+	height: @input-height;
+	line-height: @input-height;
+	color: @off-white;
+	border-radius: 5px;
+	margin: 5px;
+	padding-left: 5px;
+	cursor: hand;
+}
+
+input[type=checkbox]:checked+label {
+	background: @blue-mellow;
+}
+
+input[type=checkbox]+label {
+	background: @md-gray-a;
 }
 
 input[type=radio]:checked+label {
-	border-radius: 5px;
 	background: @blue-mellow;
 }
 
 input[type=radio]+label {
-	border-radius: 5px;
 	background: @md-gray-a;
 }
 
+.bridge {
+	width: 1%;
+	display: inline-block;
+}
+
+
+.form-container {
+	width: 50%;
+	margin: 0 auto;
+}
 
 .form-container form {
 	position: relative;

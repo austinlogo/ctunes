@@ -37,7 +37,7 @@ $("#upload-drop-down-iteration").click(function () {
     	
     	insert += "<div>";
     	insert += "<input type='checkbox' name='iterations' id='" + item.id + "i' value='"+ item.id +"'>";
-    	insert += "<label for='"+ item.id +"'>" +item.title + "</label>";
+    	insert += "<label class='checkbox-label' for='"+ item.id +"'>" +item.title + "</label>";
     	insert += "</div>\n";
     }
 
@@ -56,7 +56,7 @@ $("#upload-drop-down-iteration").click(function () {
 
     	insert += "<div>";
     	insert += "<input type='checkbox' name='tracks' id='" + item.id + "' value='"+ item.id +"'>";
-    	insert += "<label for='"+ item.id +"'>" +item.title + "</label>";
+    	insert += "<label class='checkbox-label' for='"+ item.id +"'>" +item.title + "</label>";
     	insert += "</div>\n";
     }
     // $('#user-checkbox').html(insert);
