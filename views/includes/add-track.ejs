@@ -1,0 +1,22 @@
+<div id="upload" class="drop-down">					
+	<div class="form-container">
+		<form name="trackSubmit" action="/upload" method="POST" enctype="multipart/form-data" onsubmit="return trackValidate()">
+			<input type="text" name="album" placeholder="Album" value="<%= album == undefined ? '' : album %>">
+			<input type="text" name="genre" placeholder="Genre" value="<%= genre == undefined ? '' : genre %>">
+			<input type="file" name="file" placeholder="File">
+			<div class="radio">
+				<input id="public" type="radio" name="visibility" value="1" checked>
+				<label for="public">Public</label>
+				<div class="bridge"></div> 
+				<input id="private" type="radio" name="visibility" value="0">
+				<label for="private">Private</label>
+			</div>
+			<input type="submit" name="upload">
+		</form>
+		<p id="upload-back">Back</p>
+
+		<div class="center" id="loading-icon">
+			<img src="/images/icons/loading.GIF" width="30px" height="30px">
+		</div>
+	</div>
+</div>
