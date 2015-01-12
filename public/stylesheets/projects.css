@@ -155,7 +155,7 @@ button {
   margin-right: 1%;
   margin-top: 0px;
   float: left;
-  min-height: 300px;
+  width: 100%;
 }
 .third {
   width: 30%;
