@@ -5,7 +5,7 @@ var cookiesession = require('cookie-session');
 var bodyParser = require('body-parser');
 var sql = require('mysql');
 var app = express();
-var bcrypt = require('bcrypt');
+// var bcrypt = require('bcrypt');
 var fsExtra = require('fs-extra');
 var fs = require('fs');
 var multiparty = require('multiparty');
@@ -127,7 +127,7 @@ app.use(function (err, req, res, next) {
     }
 });
 
-app.listen(8080);
+app.listen(3020);
 
 module.exports = app;
 
