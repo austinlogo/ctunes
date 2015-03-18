@@ -204,12 +204,15 @@ function addUser(req, res) {
 	async.series([
 		function (cb) {
 
-			bcrypt.hash(post.password, 10, function (err, hashp) {
+			bcrypt.hash(post.password, null, null, function (err, hashp) {
 
 				hash_err = err;
 				hash = hashp;
-				
+				console.log(hash_err);
+				console.log(hash_err);
+
 				return cb(hash_err, hash);
+
 			});
 		},
 		function (cb) {
@@ -228,7 +231,8 @@ function addUser(req, res) {
 					hash + "', '" + 
 					"[] " + "', '" +
 					"[] " +
-					"');";				
+					"');";		
+				console.log(query);		
 			}		
 			return cb(hash_err, undefined);
 		},
