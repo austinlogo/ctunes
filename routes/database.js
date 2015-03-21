@@ -31,6 +31,7 @@ function initialize() {
 		"collaborators VARCHAR(300) NOT NULL, " +
 		"genre VARCHAR(20) NOT NULL, " +
 		"content VARCHAR(200) NOT NULL, " + 
+		"visibility INT NOT NULL, " + 
 		"rating INT NOT NULL, " + 
 		"rated varchar(1000) NOT NULL, " + 
 		"PRIMARY KEY(id), " +

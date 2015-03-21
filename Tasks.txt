@@ -23,8 +23,9 @@ DONE FEATURES (NOT TESTED)
 
 BUGS
 * new logo screwed up the nav bar mobile
-* PARSING!!!!!
+* PARSING!!!!
 * EISDIROPEN error when adding tracks, we should handle that somehow
+	- this might be fixed
 -----------------------------------------------------------------------------------------------------|
 
 THINGS I'VE LEARNED THAT I SHOULD KEEP IN MIND
