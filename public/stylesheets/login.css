@@ -55,7 +55,7 @@ button {
   background-color: #2ecc71;
   border: none;
   border-radius: 5px;
-  margin: 10px;
+  margin: 10px 0 10px 0;
 }
 .drop-down {
   position: fixed;
@@ -434,7 +434,7 @@ input {
   border: none;
   border-radius: 5px;
   padding-left: 5px;
-  margin: 10px;
+  margin-bottom: 10px;
   height: 30px;
 }
 input[type=checkbox] {
@@ -448,7 +448,7 @@ input[type=submit] {
 .radio {
   margin: 0 auto;
   height: 30px;
-  margin: 10px;
+  margin-bottom: 10px;
   width: 100%;
   font-size: 0;
   /*border-radius: 5px;*/
@@ -504,6 +504,10 @@ input[type=radio] + label {
 }
 .form-container {
   width: 80%;
+  margin: 0 auto;
+}
+.form-container-small {
+  width: 40%;
   margin: 0 auto;
 }
 .form-container form {

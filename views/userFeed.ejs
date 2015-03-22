@@ -1,0 +1,83 @@
+<!DOCTYPE>
+
+<html>
+	<title>
+		<%= muser %>
+	</title>
+	<head>
+
+		<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+		<link rel="icon" href="../favicon.ico" type="image/x-icon">
+		
+		<link href='http://fonts.gooleapis.com/css?family=Raleway:100,300,500,700,' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" type="text/css" href="/stylesheets/profile.css">
+		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>		
+
+	</head>
+	<body>
+		<% include includes/add-track.ejs %>
+		<div class="content">
+
+			<div class="mask"></div>
+			<% include includes/nav-main.ejs %>
+	 	
+			<div class="content-container">
+				<div class="two-third col">
+					<h2>Feed</h2>	
+					
+					<% if (mine) { %>
+						<div class="add-container upload-drop-down">
+							<h1 class="center card">+</h1>
+						</div>	
+					<% } %>
+
+					<% 
+						if (tracks != undefined) {
+							if (tracks.length == 0) {
+					%>
+							<p class="center">Oh No! There's nothing here. You should try following people.</p>
+					<%
+							}
+							for (var i = 0; i < tracks.length; i++) {
+								var track = tracks[i];
+								var add_class = undefined;
+
+								if (following.indexOf(track.artist) < 0 && track.artist != muser)
+									continue;
+
+					%>
+					<%			include includes/track.ejs %>
+					<%
+							}
+						}
+						
+					%>
+				</div>
+				
+				<div class="third col">
+					<h2>Artists</h2>
+					<%
+						if (users != undefined) {
+							if (users.length == 0 || users.length == 1 && mine) {
+					%>
+								<p class="center"x>Oh No! there's no one here</p>
+					<%
+							}
+							for ( var i = 0; i < users.length; i++) {
+								var user = users[i];
+					%>
+					<% 			include includes/artist.ejs %>
+					<%
+							}
+						}
+					%>
+				</div>
+			</div>
+			<% include includes/footer.ejs %>
+		</div>		
+
+		<% include includes/standardJS.ejs %>
+	</body>
+</html>

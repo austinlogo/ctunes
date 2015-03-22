@@ -2,6 +2,7 @@ $(".upload-drop-down").click(function () {
 	$("#upload").css("display", "block");
 	$(".content").css("-webkit-filter", "blur(10px)");	
 	$('.mask').css("background", "rgba(0,0,0, .9");
+	$('body').css("overflow", "hidden");
 });
 
 
@@ -10,6 +11,8 @@ $("#upload-drop-down-iteration").click(function () {
 	$("#upload-iteration").css("display", "block");
 	$(".content").css("-webkit-filter", "blur(10px)");	
 	$('.mask').css("background", "rgba(0,0,0, .9");
+	$('body').css("overflow", "hidden");
+
 
 	var id_r 	= /.*\/projects\/(.*)/;
 	var user_r	= /.*\/(.*)\/projects\/.*/;
@@ -76,12 +79,14 @@ $("#upload-back").click(function () {
 	$('#upload-iteration').css("display", "none");
 	$(".content").css("-webkit-filter", "blur(0px)");
 	$('.mask').css("background", "rgba(0,0,0, .6");
+	$('body').css("overflow-y", "scroll");
 });
 
 $("#upload-back-iteration").click(function () {
 	$('#upload-iteration').css("display", "none");
 	$(".content").css("-webkit-filter", "blur(0px)");
 	$('.mask').css("background", "rgba(0,0,0, .6");
+	$('body').css("overflow-y", "scroll");
 });
 
 
