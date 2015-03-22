@@ -20,7 +20,7 @@ var connection = db.getConnection();
 
 function home(req, res) {
 	if (req.session.user) {
-		return res.redirect("/" + req.session.user);
+		return res.redirect("/" + req.session.user + "/feed");
 	}
 	return router.route(req, res, "splash", undefined);
 }
@@ -40,7 +40,7 @@ function login (req, res) {
 }
 module.exports.login = login;
 
-function getUser (req, res) {
+function getUserFeed (req, res) {
 
 	var usersQuery = "SELECT user,following FROM users WHERE user ='" + req.params.user + "';";
 	var myQuery = "SELECT user,following FROM users WHERE user ='" + req.session.user + "';";
@@ -91,6 +91,7 @@ function getUser (req, res) {
 				console.log(following.length);
 				if (following.length == 0) return cb(null, []);
 				
+				//Constructing query to find tracks by artists that I follow
 				var followedTracksQuery = "SELECT * FROM tracks WHERE visibility=1 AND 	";
 				for (var index in following) {
 					console.log(index);
@@ -117,7 +118,7 @@ function getUser (req, res) {
 		var following_var = result[0][0] == undefined ? [] : result[0][0].following;
 		var my_following = result[3][0] == undefined ? [] : result[3][0].following;
 
-		return router.route(req, res, "profile", {	
+		return router.route(req, res, "feedp", {	
 													liUser: req.session.user,
 													"mine": (req.session.user && req.session.user == req.params.user),     
 													"muser": req.params.user,
@@ -135,7 +136,110 @@ function getUser (req, res) {
 		);
 	});
 }
+module.exports.getUserFeed = getUserFeed;
+
+
+function getUser (req, res) {
+
+	var usersQuery = "SELECT user,following FROM users WHERE user ='" + req.params.user + "';";
+	var myQuery = "SELECT user,following FROM users WHERE user ='" + req.session.user + "';";
+	var tracksQuery = "SELECT * FROM tracks WHERE artist='" + req.params.user + "';";
+	var userQuery = "SELECT * FROM users;";
+	var followQuery = "SELECT following FROM users WHERE user='" + req.params.user + "';";
+
+	async.parallel([
+		// Get the user for this page, so we can see who the user is following
+		function (cb) { // 0
+			connection.query(usersQuery, function (err, result) {
+
+				if (err) throw err;
+
+				if (result.length == 0) {
+					return cb (true, result);
+				} 
+				else  {
+					return cb (null, result);
+					console.log(result);
+				}
+
+				
+			});
+		},
+		// Get the tracks by this page's user
+		function (cb) { // 1 - get the 
+			connection.query(tracksQuery, function (err, result) {
+				if (err) throw err;
+				return cb (null, result);	
+			});
+		},
+		// Get all users
+		function (cb) { // 2
+			connection.query(userQuery, function (err, result) {
+				return cb (null, result);
+			});
+		},
+		// Get the logged in user, so we can see who he is following
+		function (cb) { // 3
+			connection.query(myQuery, function (err, result) {
+				return cb (null, result);
+			});
+		},
+		// Construct a query 
+		function (cb) { // 4
+			connection.query(followQuery, function (err, result) {
+				if (err) return cb(err, null);
+				var following = JSON.parse(result[0].following);
+				console.log("following");
+				console.log(following.length);
+				if (following.length == 0) return cb(null, []);
+				
+				var followedTracksQuery = "SELECT * FROM users WHERE ";
+				for (var index in following) {
+					console.log(index);
+					//looks for the last item in the list
+					followedTracksQuery += (index == following.length - 1) ? "user='" + following[index] + "'" : " user='" + following + "' OR ";
+				}
+				followedTracksQuery += " LIMIT 20;";
+
+				console.log(followedTracksQuery);
+
+				connection.query(followedTracksQuery, function (err, result) {
+					if (err) throw err;
+					return cb(null, result);
+				});
+
+			});
+		}
+	],
+	function (err, result) {
+		// connection.close();
+		if (err) {
+			router.route(req, res, "error", undefined);
+		}
+
+		var following_var = result[4] == undefined ? [] : result[4];
+		var my_following = result[3][0] == undefined ? [] : result[3][0].following;
+
+		return router.route(req, res, "profile", {	
+													liUser: req.session.user,
+													"mine": (req.session.user && req.session.user == req.params.user),     
+													"muser": req.params.user,
+													"loggedin": !(req.session.user == undefined),
+													"tracks": result[1], 
+													"users": result[2], 
+													"following": following_var,
+													"myFollowing" : my_following,
+													"page": "user",
+													"account": "hello",
+													"dup": req.query.dup,
+													album: undefined,
+													genre: undefined
+												}
+		);
+	});
+}
 module.exports.getUser = getUser;
+
 
 function discoverTracks(req, res) {
 	var query  = 	"SELECT * from tracks LIMIT 50;";

@@ -179,7 +179,7 @@ function loginCheck(req, res) {
 			if (answer) {
 				req.session.user = post.username;
 				console.log("success");
-				return res.redirect("/" + post.username);
+				return res.redirect("/" + post.username + "/feed");
 				}
 			else {
 				return router.route(req, res, "splash", undefined);

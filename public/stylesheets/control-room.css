@@ -115,6 +115,11 @@ button {
   margin-bottom: 20pt;
   margin-left: 5px;
 }
+.right {
+  position: absolute;
+  right: 0;
+  width: 100px;
+}
 .block {
   width: 100%;
   margin-bottom: 20px;

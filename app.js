@@ -5,7 +5,6 @@ var cookiesession = require('cookie-session');
 var bodyParser = require('body-parser');
 var sql = require('mysql');
 var app = express();
-// var bcrypt = require('bcrypt');
 var fsExtra = require('fs-extra');
 var fs = require('fs');
 var multiparty = require('multiparty');
@@ -90,6 +89,8 @@ app.post("/search", actions.search);
 app.post("/logincheck", user.loginCheck);
 
 app.get("/:user", navigation.getUser);
+
+app.get("/:user/feed", navigation.getUserFeed);
 
 app.get("/:user/tracks", navigation.getTracks);
 

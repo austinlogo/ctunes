@@ -10,6 +10,12 @@ function route(req, res, webpage, options, cb) {
 				else res.send(html);
 			});
 		break;
+		case "feed" :
+			res.render("userFeed", options, function(err, html) {
+				if (err) console.log(err);
+				else res.send(html);
+			});
+		break;
 		case "new-user" :
 			res.render("new-user", options);
 		break;

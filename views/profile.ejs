@@ -65,8 +65,9 @@
 								<p class="center"x>Oh No! there's no one here</p>
 					<%
 							}
-							for ( var i = 0; i < users.length; i++) {
-								var user = users[i];
+							console.log("I am following : " + users);
+							for ( var i = 0; i < following.length; i++) {
+								var user = following[i];
 					%>
 					<% 			include includes/artist.ejs %>
 					<%
