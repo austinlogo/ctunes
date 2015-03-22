@@ -67,6 +67,12 @@ for (var iterationIndex = 0; iterationIndex < iteration_containers.length; itera
 				
 				$(track).removeClass("it-selected");
 			}
+			var iteration_tracks = $(".message-container");
+			for (var trackI = 0; trackI < iteration_tracks.length; trackI++) {
+				var track = iteration_tracks[trackI];
+				
+				$(track).removeClass("it-selected");
+			}
 			$("." + cl_div).addClass("it-selected");
 		});
 	};

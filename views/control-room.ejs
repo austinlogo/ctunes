@@ -68,10 +68,12 @@
 					if (iterations) { 
 						for (var index = iterations.length - 1; index >= 0; index--) {
 							var iteration = iterations[index];
+							var trackListEmpty = true;
 				%>
 					
 							<%
 								for (var j = 0; j < iteration.iTracks.length; j++) {
+									trackListEmpty = false;
 									console.log("iteration: " + index);
 									var iterationIndex 	= iteration.iTracks[j];
 									var iTrack	 		= iterations[iterationIndex];
@@ -87,7 +89,7 @@
 									}
 								}
 								for (var j = 0; j < iteration.tracks.length; j++) {
-
+									trackListEmpty = false;
 									var trackIndex = iteration.tracks[j];
 									var track = tracks[trackIndex];
 									if (track) {
@@ -100,6 +102,16 @@
 							<% 
 										track.id = oldId;
 									}
+								}
+
+								if (trackListEmpty) {
+							%>
+								<div class="message-container iteration-track iteration-<%= iteration.id %>">
+									<p>
+										Multiple tracks were not used in this iteration.
+									</p>
+								</div>
+							<%
 								}
 							%>
 						
