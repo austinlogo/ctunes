@@ -275,7 +275,7 @@ function addIteration(req, res) {
 			form.parse(req, function(err, fields_param, files) {
 				if (err) throw err;
 
-				new_iteration.title 		= fields_param.iteration_title[0];
+				new_iteration.title 		= files.file[0].originalFilename;
 				new_iteration.tracks 		= (fields_param.tracks != undefined) ? fields_param.tracks : [];
 				new_iteration.iTracks	 	= (fields_param.iterations != undefined) ? fields_param.iterations : []; 
 				// if (fields_param.iterations != undefined) 
@@ -295,25 +295,25 @@ function addIteration(req, res) {
 		new_iteration.content = path;
 
 		console.log("new_iteration~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`");
-		if (new_iteration.tracks.length == 0 && new_iteration.iTracks.length == 0) {
-			console.log("Me again");
+		// I'VE DETERMINED THAT YOU SHOULD BE ABLE TO HAVE BLANK ITERATIONS IF YOU ARE UPLOADING FOR THE FIRST TIME
+		// if (new_iteration.tracks.length == 0 && new_iteration.iTracks.length == 0) {
+		// 	console.log("new iteration error");
+		// 	res.redirect("/" + req.params.user + "/projects" + "/" + req.params.projectid);
+		// 	return;
+		// }
+		// else {
+		iterations.push(new_iteration);
+		
+		iterations = JSON.stringify(iterations);
+		var update = "UPDATE projects SET iterations = '" + iterations + "' WHERE id=" + req.params.projectid + ";";
+		
+		connection.query(update, function(err2, result2) {
+			if (err2) throw err;
+			
 			res.redirect("/" + req.params.user + "/projects" + "/" + req.params.projectid);
-			return;
-		}
-		else {
-			console.log("hello");
-			iterations.push(new_iteration);
-			
-			iterations = JSON.stringify(iterations);
-			var update = "UPDATE projects SET iterations = '" + iterations + "' WHERE id=" + req.params.projectid + ";";
-			
-			connection.query(update, function(err2, result2) {
-				if (err2) throw err;
-				
-				res.redirect("/" + req.params.user + "/projects" + "/" + req.params.projectid);
-				return
-			});
-		}
+			return
+		});
+		// }
 	});	
 }
 module.exports.addIteration = addIteration;

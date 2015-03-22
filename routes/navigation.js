@@ -118,7 +118,7 @@ function getUserFeed (req, res) {
 		var following_var = result[0][0] == undefined ? [] : result[0][0].following;
 		var my_following = result[3][0] == undefined ? [] : result[3][0].following;
 
-		return router.route(req, res, "feedp", {	
+		return router.route(req, res, "feed", {	
 													liUser: req.session.user,
 													"mine": (req.session.user && req.session.user == req.params.user),     
 													"muser": req.params.user,
@@ -422,16 +422,20 @@ function getProject (req, res) {
 				if (iter.length == 0) {
 					return cb (err, result[0], undefined, undefined);
 				}
-				for ( var iterIndex = 0; iterIndex < iter.length; iterIndex++) {
+				for ( var iterIndex = 0; iterIndex < iter.length; iterIndex++) { //loops through the iterations
 					console.log("iterIndex: " + iterIndex);
 					var iteration = iter[iterIndex];
-					for (var trackIndex in iteration.tracks) {
+					for (var trackIndex in iteration.tracks) { //loops through the tracks in each iteration
 						console.log("trackIndex: " + trackIndex);
 						iter_query += " id=" + iteration.tracks[trackIndex];
-						if (!(iterIndex == iter.length - 1 && trackIndex == iteration.tracks.length - 1))
-							iter_query += " OR ";
+						// if (!(iterIndex == iter.length - 1 && trackIndex == iteration.tracks.length - 1)) //determines if there is another
+						iter_query += " OR ";
 					}
 				}
+				console.log("ITER QUERY");
+				console.log(iter_query.substring(0, iter_query.length-4));
+				if (iter_query.substring(iter_query.length-4, iter_query.length) == " OR ")
+					iter_query = iter_query.substring(0, iter_query.length-4);
 				iter_query += ";";
 				// console.log(iter_query);
 				cb (err,result[0], iter, iter_query);

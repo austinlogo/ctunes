@@ -17,7 +17,7 @@
 		<div id="upload-iteration" class="drop-down">					
 			<div class="form-container">
 				<form action="<%=projectid %>/add-iteration" name="uploadIteration" onsubmit="return validateIteration()" method="POST" enctype="multipart/form-data">
-					<input type="text" name="iteration_title" placeholder="Title">
+					<!-- <input type="text" name="iteration_title" placeholder="Title"> -->
 					<input type="file" name="file" placeholder="File">					
 					<input type="text" class="ghost" name="project" value="<%=project.title %>">
 					<div class="radio">
