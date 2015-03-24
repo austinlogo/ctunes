@@ -23,6 +23,7 @@ DONE FEATURES (NOT TESTED)
 
 BUGS
 * new logo screwed up the nav bar mobile
+* Mobile in general needs work
 * Feed viewing is inaccurate
 	- Does not show artists tracks
 * PARSING!!!!

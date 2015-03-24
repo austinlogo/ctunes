@@ -109,6 +109,26 @@ function upload (req, res) {
 }
 module.exports.upload = upload;
 
+function update (req, res) {
+	var form = new multiparty.Form();
+		
+	update_track(req, res, form, true, function (err) {
+		console.log("hello");
+		if (err) {
+			console.log(err);
+			if (!err.errno == 1062)
+				return router.route(req, res, "error", err);
+			else
+				return res.redirect("/" + req.session.user + "?dup=true");
+
+		}
+
+		return res.redirect("/" + req.session.user + "/manage");
+	});
+}
+module.exports.update = update;
+
+
 function insert_track(req, res, form, insert, main_cb) {
 	var file = '';
 	var user = '';
@@ -201,6 +221,37 @@ function insert_track(req, res, form, insert, main_cb) {
 			
 	   	});
 	});	
+}
+
+function update_track(req, res, form, insert, main_cb) {
+	var file = '';
+	var user = '';
+	var folderPath = '';
+	var fields = undefined;
+		
+	form.parse(req, function(err, fields_param, files) {
+		if (err) throw err;
+
+
+		// console.log(files);
+		user = req.session.user;
+		fields = fields_param;
+		fields.visibility[0] = (fields.visibility[0] == '0') ? 0 : 1;
+		// console.log(fields.album[0]);
+		fields.album = (fields.album == undefined && fields.project != undefined) ? [fields.project[0].toLowerCase()] : [fields.album[0].toLowerCase()];
+
+		var updateQuery = 	"UPDATE tracks SET " +
+							"album='" + fields.album + "', " +
+							"genre='" + fields.genre + "', " +
+							"visibility=" + fields.visibility + " " +
+							"WHERE title='" + fields.title + "';";
+		console.log(updateQuery);
+
+		connection.query(updateQuery, function (err, result) {
+			return main_cb(err);
+		});
+
+	});
 }
 
 function uploadIteration (req, res) {

@@ -4,10 +4,7 @@
 	height: @card-height;
 }
 
-.track-container {
-	cursor: pointer;
-}
-
+.track-display,
 .add-container,
 .project-container,
 .album-container,
@@ -27,6 +24,7 @@
 	// width: 100%;
 	height: @card-height;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .add-container {
@@ -34,6 +32,7 @@
 	color: @black;
 }
 
+.track-display,
 .track-container {
 	 // border: @blue-mellow	 1px solid;
 	border-left: @blue-mellow @band-width solid;
@@ -202,6 +201,7 @@
 
 }
 
+.center-container,
 .category-container {
 	margin: 0 auto;
 	width: 50%;
@@ -210,9 +210,11 @@
 	margin-bottom: 10px;
 }
 
+.center-item,
 .category {
 	display: inline-block;
-	width: 120px;
+	padding: 0 20px 0 20px;
+	// width: 120px;
 	height: @card-height;
 	line-height: @card-height;
 	text-align: center;

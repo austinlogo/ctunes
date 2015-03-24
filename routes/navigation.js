@@ -242,10 +242,10 @@ module.exports.getUser = getUser;
 
 
 function discoverTracks(req, res) {
-	var query  = 	"SELECT * from tracks LIMIT 50;";
+	var query  = 	"SELECT * from tracks ORDER BY id DESC LIMIT 50;";
 	var aquery = 	"SELECT id, album FROM tracks GROUP BY album;";
 	var gquery =  	"SELECT id, genre FROM tracks GROUP BY genre;";
-	var pquery = 	"SELECT id, creator, title, rated, rating from projects;";
+	var pquery = 	"SELECT id, creator, title, rated, rating from projects ORDER BY id DESC;";
 	var uquery = 	"SELECT * FROM users LIMIT 50;";
 	var myQuery = "SELECT user,following FROM users WHERE user ='" + req.session.user + "';";
 
@@ -346,6 +346,37 @@ function getTracks(req, res) {
 	});
 }
 module.exports.getTracks = getTracks;
+
+function manageTracks( req, res) {
+
+	if (req.session.user != undefined && req.params.user != req.session.user) {
+		res.redirect('/');
+	}
+
+	var tracksQuery = "SELECT * FROM tracks WHERE artist='" + req.params.user + "';";
+
+	connection.query(tracksQuery, function (err, result) {
+		if (err) {
+			console.log(err);
+		}
+		// result = result[0];	
+
+		return router.route(req, res, "manage",	{ 	
+													liUser: req.session.user,
+													mine: (req.params.user == req.session.user),
+													muser: req.params.user,
+													"loggedin": (req.session.user != undefined),
+													page: "tracks",
+													tracks: result,
+													album: undefined,
+													genre: undefined
+												}
+		);
+
+	});
+
+}
+module.exports.manageTracks = manageTracks;
 
 function getGenre (req, res) {
 	var query = "SELECT * FROM tracks WHERE genre='" + req.params.genre + "';";

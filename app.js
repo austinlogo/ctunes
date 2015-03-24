@@ -94,6 +94,8 @@ app.get("/:user/feed", navigation.getUserFeed);
 
 app.get("/:user/tracks", navigation.getTracks);
 
+app.get("/:user/manage", navigation.manageTracks);
+
 app.get("/:user/discover", navigation.discoverTracks);
 
 app.get("/:user/tracks/genre/:genre", navigation.getGenre);
@@ -105,6 +107,8 @@ app.get("/:user/projects", navigation.getProjects);
 app.get("/:user/projects/:projectid", navigation.getProject);
  
 app.post("/upload", content.upload);
+
+app.post("/update", content.update);
 
 app.post("/projects/upload-iteration", content.uploadIteration);
 
