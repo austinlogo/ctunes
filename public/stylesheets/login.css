@@ -445,6 +445,9 @@ input[type=submit] {
   color: #eeeeee;
   font-weight: 700;
 }
+#delete {
+  background: #ff7777;
+}
 .radio {
   margin: 0 auto;
   height: 30px;

@@ -110,6 +110,8 @@ app.post("/upload", content.upload);
 
 app.post("/update", content.update);
 
+app.post("/delete", content.deleteTrack);
+
 app.post("/projects/upload-iteration", content.uploadIteration);
 
 app.post("/:user/projects/:projectid/add-iteration", content.addIteration);

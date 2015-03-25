@@ -113,9 +113,8 @@ function update (req, res) {
 	var form = new multiparty.Form();
 		
 	update_track(req, res, form, true, function (err) {
-		console.log("hello");
 		if (err) {
-			console.log(err);
+			console.log("UPDATE ERR: " + err);
 			if (!err.errno == 1062)
 				return router.route(req, res, "error", err);
 			else
@@ -244,7 +243,7 @@ function update_track(req, res, form, insert, main_cb) {
 							"album='" + fields.album + "', " +
 							"genre='" + fields.genre + "', " +
 							"visibility=" + fields.visibility + " " +
-							"WHERE title='" + fields.title + "';";
+							"WHERE id=" + fields.id + ";";
 		console.log(updateQuery);
 
 		connection.query(updateQuery, function (err, result) {
@@ -253,6 +252,23 @@ function update_track(req, res, form, insert, main_cb) {
 
 	});
 }
+
+function deleteTrack (req, res) {
+	var form = new multiparty.Form();
+	console.log("deleteTrack");
+	form.parse(req, function(err, fields_param, files) {
+		console.log("Err: "+ err);
+		var deleteQuery = "DELETE FROM tracks WHERE id=" + fields_param.id + ";";
+
+		connection.query(deleteQuery, function (err, result) {
+			console.log("del err: " + err);
+			return res.redirect("/" + req.session.user + "/manage");
+
+		});
+	});
+
+}
+module.exports.deleteTrack = deleteTrack;
 
 function uploadIteration (req, res) {
 	var user 	= req.body.user;
