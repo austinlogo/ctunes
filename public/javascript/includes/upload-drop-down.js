@@ -14,10 +14,10 @@ $("#upload-drop-down-iteration").click(function () {
 	$('body').css("overflow", "hidden");
 
 
-	var id_r 	= /.*\/projects\/(.*)/;
-	var user_r	= /.*\/(.*)\/projects\/.*/;
-	var user 	= user_r.exec(window.location.href)[1];
-	var num 	= id_r.exec(window.location.href)[1];
+	var id_reg		= /.*\/projects\/(.*)/;
+	var user_reg	= /.*\/(.*)\/projects\/.*/;
+	var user 		= user_reg.exec(window.location.href)[1];
+	var num 		= id_reg.exec(window.location.href)[1];
 
 	console.log("user: " + user);
 	console.log("num: " + num);
@@ -89,7 +89,7 @@ $("#upload-back-iteration").click(function () {
 	$('body').css("overflow-y", "scroll");
 });
 
-function uploadValidate() {
+function updateValidate() {
 	var id = document.forms['trackSubmit']['id'].value;
 	var f = document.forms['trackSubmit']['album'];
 

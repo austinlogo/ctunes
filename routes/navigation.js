@@ -454,7 +454,6 @@ function getProject (req, res) {
 					return cb (err, result[0], undefined, undefined);
 				}
 				for ( var iterIndex = 0; iterIndex < iter.length; iterIndex++) { //loops through the iterations
-					console.log("iterIndex: " + iterIndex);
 					var iteration = iter[iterIndex];
 					for (var trackIndex in iteration.tracks) { //loops through the tracks in each iteration
 						console.log("trackIndex: " + trackIndex);
@@ -463,10 +462,11 @@ function getProject (req, res) {
 						iter_query += " OR ";
 					}
 				}
-				console.log("ITER QUERY");
-				console.log(iter_query.substring(0, iter_query.length-4));
+				
 				if (iter_query.substring(iter_query.length-4, iter_query.length) == " OR ")
 					iter_query = iter_query.substring(0, iter_query.length-4);
+				else if (iter_query.substring(iter_query.length-5, iter_query.length) == "WHERE") 
+					return cb (err, result[0], iter, undefined);
 				iter_query += ";";
 				// console.log(iter_query);
 				cb (err,result[0], iter, iter_query);

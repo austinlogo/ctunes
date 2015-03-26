@@ -7,9 +7,9 @@
 
 <div class="<%= track_class %>" id="container-<%= iTrack.id %>i">
 	<div id="progress-<%= iTrack.id %>i" class="progress"></div>
-	<div class="player-info" id="player-<%= iTrack.id %>i" src="<%= iTrack.content%>"></div>
+	<div class="player-info" id="player-<%= iTrack.id %>i" src="<%= iTrack.content.replace(/&apos/g, "'")%>"></div>
 	<div class="iteration-info">
-		<p class="iteration-title"><%=iTrack.title %></p>
+		<p class="iteration-title"><%=iTrack.title.replace(/&apos/g, "'") %></p>
 	</div>
 
 	<div class="icon-container" id="icon-container-<%= iTrack.id %>i">

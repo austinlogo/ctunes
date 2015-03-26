@@ -157,8 +157,10 @@ function insert_track(req, res, form, insert, main_cb) {
 				// get the file extension
 				var len = file.originalFilename.length;
 				var extension = file.originalFilename.substring(len - 4, len);
+				
 				title = file.originalFilename.substring(0, len - 4);
 
+				console.log("check after file renaming");
 				//We need to check that we are dealing with an mp3 or wav file. as that's all we support
 				if (extension == ".mp3" || extension == ".wav") {
 					return cb(null);
@@ -169,7 +171,7 @@ function insert_track(req, res, form, insert, main_cb) {
 			});
 		},
 		function (cb) {
-
+			console.log("mkdir");
 			//make the folder path. if it already exists then nothing will change
 			fsExtra.mkdirs(folderPath, function (err) {
 				if (err) throw err;
@@ -179,7 +181,7 @@ function insert_track(req, res, form, insert, main_cb) {
 				// I am a doctor
 				var path = folderPath + file.originalFilename;
 				var databasePath = savePath + user + "/" + fields.album + "/" + file.originalFilename;
-
+				console.log("mkdir paths");
 				// database path is not used until the end. I just pass it down the entire way for fun
 				return cb(null, path, databasePath);
 			});
@@ -210,6 +212,8 @@ function insert_track(req, res, form, insert, main_cb) {
 			else throw err;
 		}
 
+		console.log("file staging");
+
 		// if the stuff is empty it needs to be something that is not undefined
 		fields.album = (fields.album == undefined) ? ["unknown album"] : fields.album;
 		fields.genre = (fields.genre == undefined) ? ["unknown genre"] : fields.genre;
@@ -223,18 +227,20 @@ function insert_track(req, res, form, insert, main_cb) {
 		// inserting iterations should not be inserted into 
         var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated, visibility)"
         			+ "VALUES ('" 
-        			+ title + "', '" 
+        			+ title.replace("'", "&apos").replace('"', '&quot') + "', '" 
         			+ fields.album[0]  + "', '" 
         			+ req.session.user + "', '" 
         			+ "{}" + "', '" 
         			+ fields.genre[0] + "', '" 
-        			+ databasePath + "', "
+        			+ databasePath.replace("'", "&apos").replace('"', '&quot') + "', "
         			+ 0 + ", "
         			+ "'[]'" + ", "
         			+ fields.visibility[0]
         			+ ");";
 
+		console.log("INSERT TRACK QUERY \n\n" + tracksQuery + "\n\n");
    		connection.query(tracksQuery, function (err, result) {
+   			console.log("insert track err: " + err);
 			return main_cb(err, databasePath, result);			
 	   	});
 	});	
@@ -288,6 +294,7 @@ function deleteTrack (req, res) {
 }
 module.exports.deleteTrack = deleteTrack;
 
+//this is the post reqest that comes through to populate the screen when you want to upload a new iteration
 function uploadIteration (req, res) {
 	var user 	= req.body.user;
 	var id		= req.body.id;
@@ -360,14 +367,9 @@ function addIteration(req, res) {
 			form.parse(req, function(err, fields_param, files) {
 				if (err) throw err;
 
-				new_iteration.title 		= files.file[0].originalFilename;
+				new_iteration.title 		= files.file[0].originalFilename.substring(0, files.file[0].originalFilename.length - 4);
 				new_iteration.tracks 		= (fields_param.tracks != undefined) ? fields_param.tracks : [];
 				new_iteration.iTracks	 	= (fields_param.iterations != undefined) ? fields_param.iterations : []; 
-				// if (fields_param.iterations != undefined) 
-				// 	new_iteration.iTracks		= fields_param.iterations;	
-				// else
-				// 	new_iteration.iTracks		= [];	
-
 
 				return cb(null, null);
 			});
@@ -377,6 +379,7 @@ function addIteration(req, res) {
 		var path = result[0];
 		var iterations = result[1];
 		// console.log(iterations);
+
 		new_iteration.content = path;
 
 		console.log("new_iteration~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`");
@@ -390,10 +393,19 @@ function addIteration(req, res) {
 		iterations.push(new_iteration);
 		
 		iterations = JSON.stringify(iterations);
+		console.log(iterations);
+
+		//BASIC SANITIZATION
+		iterations = iterations.replace(/'/g, "&apos");
+
 		var update = "UPDATE projects SET iterations = '" + iterations + "' WHERE id=" + req.params.projectid + ";";
 		
+		console.log("addIteration query Statement \n\n" + update + "\n\n");
 		connection.query(update, function(err2, result2) {
-			if (err2) throw err;
+			if (err2) {
+				console.log(err2);
+				throw err2;
+			};
 			
 			res.redirect("/" + req.params.user + "/projects" + "/" + req.params.projectid);
 			return

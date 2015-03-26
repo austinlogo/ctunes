@@ -8,9 +8,9 @@
 <div class="<%= track_class %>" id="container-<%= track.id %>">
 	<div class="readyMask"></div>
 	<div id="progress-<%= track.id %>" class="progress"></div>	
- 	<div class="player-info" id="player-<%= track.id %>" src="<%= track.content%>"></div>
+ 	<div class="player-info" id="player-<%= track.id %>" src="<%= track.content.replace(/&apos/g, "'")%>"></div>
 	<div class="track-info">
-		<p class="track-title"><%=track.title %></p>
+		<p class="track-title"><%=track.title.replace(/&apos/g, "'") %></p>
 		<% if (track.album != "undefined")  {  %>
 			<p class="track-artist">by <%=track.artist %> on <%=track.album %></p>
 		<% } else { %>
