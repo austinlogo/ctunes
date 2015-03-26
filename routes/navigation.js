@@ -353,7 +353,7 @@ function manageTracks( req, res) {
 		res.redirect('/');
 	}
 
-	var tracksQuery = "SELECT * FROM tracks WHERE artist='" + req.params.user + "';";
+	var tracksQuery = "SELECT * FROM tracks WHERE artist='" + req.params.user + "' AND projectAlbum=0;";
 
 	connection.query(tracksQuery, function (err, result) {
 		if (err) {

@@ -667,6 +667,9 @@ input {
   margin: 10px 0 10px 0;
   height: 30px;
 }
+label {
+  font-family: sans-serif;
+}
 input[type=checkbox] {
   display: none;
 }

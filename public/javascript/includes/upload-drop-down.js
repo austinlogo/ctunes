@@ -89,9 +89,21 @@ $("#upload-back-iteration").click(function () {
 	$('body').css("overflow-y", "scroll");
 });
 
+function uploadValidate() {
+	var id = document.forms['trackSubmit']['id'].value;
+	var f = document.forms['trackSubmit']['album'];
+
+	if (f.value == null || f.value == "") {
+		$('#album').attr('value', $("#" + id).children('.track-album').html());
+	}
+
+	f = document.forms['trackSubmit']['genre'];
+	if (f.value == null || f.value =="") {
+		$('#genre').attr('value', $("#" + id).children('.track-genre').html());
+	}
+}
 
 function trackValidate() {
-
 	var f = document.forms['trackSubmit']['album'];
 	var bad = false;
 	// console.log("1");
@@ -119,5 +131,5 @@ function trackValidate() {
 
 	// if (!bad) $('#loading-icon').css("display", "block");
 
-	return bad ? false : true;
+	return !bad;
 }
