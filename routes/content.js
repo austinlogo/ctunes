@@ -130,10 +130,12 @@ module.exports.update = update;
 
 function insert_track(req, res, form, insert, main_cb) {
 	var file = '';
+	var title = '';
 	var user = '';
 	var folderPath = '';
 	var fields = undefined;
 		
+	//waterfall will perform each of these sections synchronously one after the other.
 	async.waterfall([
 		function (cb) {
 			form.parse(req, function(err, fields_param, files) {
@@ -145,13 +147,19 @@ function insert_track(req, res, form, insert, main_cb) {
 				user = req.session.user;
 				fields = fields_param;
 				console.log("album: ");
-				// console.log(fields.album[0]);
+				
+				// if there is no album then we are adding a mixed track which is actually part of project.
 				fields.album = (fields.album == undefined && fields.project != undefined) ? [fields.project[0].toLowerCase()] : [fields.album[0].toLowerCase()];
+				// contentPath prefix is meant to actually get your file to the right place
+				// savepath prefix will be put into the database so that it can be accessed by the web pages.
 				folderPath = contentPath + user + "/" + fields.album + "/";
 
+				// get the file extension
 				var len = file.originalFilename.length;
 				var extension = file.originalFilename.substring(len - 4, len);
-				console.log("655: " + extension);
+				title = file.originalFilename.substring(0, len - 4);
+
+				//We need to check that we are dealing with an mp3 or wav file. as that's all we support
 				if (extension == ".mp3" || extension == ".wav") {
 					return cb(null);
 				}
@@ -161,26 +169,35 @@ function insert_track(req, res, form, insert, main_cb) {
 			});
 		},
 		function (cb) {
+
+			//make the folder path. if it already exists then nothing will change
 			fsExtra.mkdirs(folderPath, function (err) {
 				if (err) throw err;
 
+				// path: hard coded path where your file will be stored
+				// databasePath: path as it will need to be referenced by webpages. they're different trust me.
+				// I am a doctor
 				var path = folderPath + file.originalFilename;
 				var databasePath = savePath + user + "/" + fields.album + "/" + file.originalFilename;
 
+				// database path is not used until the end. I just pass it down the entire way for fun
 				return cb(null, path, databasePath);
 			});
 		},
 		function (path, databasePath, cb) {
+			// read the file from the temp folder where it was downloaded to
 			fs.readFile(file.path , function(err, data) {
 				return cb(err, data, path, databasePath);
 			});
 		},
 		function (data, path, databasePath, cb) {
+			// write file to path, not hard to understand this part
 			fs.writeFile(path, data, function(err) {
 				return cb(err, databasePath);
 			});
 		},
 		function (databasePath, cb) {
+			// the internet said to do this. tells the computer something, frees the data, I am not sure.
 			fs.unlink(file.path, function() {
 				return cb(null, databasePath);
 			});
@@ -193,17 +210,20 @@ function insert_track(req, res, form, insert, main_cb) {
 			else throw err;
 		}
 
+		// if the stuff is empty it needs to be something that is not undefined
 		fields.album = (fields.album == undefined) ? ["unknown album"] : fields.album;
 		fields.genre = (fields.genre == undefined) ? ["unknown genre"] : fields.genre;
 
+		// deprecated
 		if (!insert) return;
 		
+		//convert strings to integer values although they should really be bit values
 		fields.visibility[0] = (fields.visibility[0] == '0') ? 0 : 1;
 
 		// inserting iterations should not be inserted into 
         var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated, visibility)"
         			+ "VALUES ('" 
-        			+ file.originalFilename + "', '" 
+        			+ title + "', '" 
         			+ fields.album[0]  + "', '" 
         			+ req.session.user + "', '" 
         			+ "{}" + "', '" 
@@ -213,11 +233,9 @@ function insert_track(req, res, form, insert, main_cb) {
         			+ "'[]'" + ", "
         			+ fields.visibility[0]
         			+ ");";
-		console.log(fields.genre);
-		console.log(tracksQuery);
+
    		connection.query(tracksQuery, function (err, result) {
-			return main_cb(err, databasePath, result);
-			
+			return main_cb(err, databasePath, result);			
 	   	});
 	});	
 }
