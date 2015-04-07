@@ -1,3 +1,12 @@
+/**
+ * routes to the correct
+ * @param  req {request}
+ * @param  res {response}
+ * @param  webpage {String}
+ * @param  options {JSON} the values that are added into the JSON document
+ * @param  cb {Function} callback
+ * @return callback function {Function}
+ */
 function route(req, res, webpage, options, cb) {
 
 	switch(webpage) {

@@ -1,3 +1,7 @@
+/**
+ * this file relates to anything that has to do with the user and it's profile
+ */
+
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -17,6 +21,9 @@ var db = require('./database.js');
 var favicon = require('serve-favicon');
 var connection = db.getConnection();
 
+/**
+ * upvote a track
+ */
 function upvote (req, res) {
 	if (req.session.user == null || req.session.user == undefined) return;
 
@@ -45,7 +52,9 @@ function upvote (req, res) {
 }
 module.exports.upvote = upvote;
 
-
+/**
+ * upvote a project
+ */
 function projUpvote(req, res) {
 	var id = req.body.id;
 	var query =  "SELECT rated FROM projects where id=" + id + ";";
@@ -72,11 +81,17 @@ function projUpvote(req, res) {
 }
 module.exports.projUpvote = projUpvote;
 
+/**
+ * Follow another artist
+ */
 function follow(req, res) {
 	if (req.session.user == undefined || req.session.user == null) return;
 	var id = req.body.id;
 
 	async.parallel([
+		/**
+		 * PART 01: query the users followers
+		 */
 		function (cb) {
 			var query = "SELECT following FROM users WHERE user = '" + req.session.user + "';";
 			connection.query(query, function (err, result) {
@@ -97,6 +112,7 @@ function follow(req, res) {
 				var newQuery = "UPDATE users SET following='" + result + "' WHERE user='" + req.session.user + "';";
 				console.log(newQuery);
 
+				//update the list of followers
 				connection.query(newQuery, function(err, result) {
 					if (err) res.send(err);
 
@@ -105,6 +121,9 @@ function follow(req, res) {
 			});
 
 		},
+		/**
+		 * query the follower's following 
+		 */
 		function (cb) {
 			var query = "SELECT followers FROM users WHERE user='" + id + "';";
 			connection.query(query, function(err, result) {
@@ -123,6 +142,8 @@ function follow(req, res) {
 				result = JSON.stringify(result);
 				var newQuery = "UPDATE users SET followers='" + result + "' WHERE user='" + id + "';";
 				console.log(newQuery);
+
+				//update the list
 				connection.query(newQuery, function(err, result) {
 					if (err) res.send(err);
 
@@ -141,6 +162,9 @@ function follow(req, res) {
 }
 module.exports.follow = follow;
 
+/**
+ * log in
+ */
 function loginCheck(req, res) {
 	var post = req.body;
 	post.username = post.username.toLowerCase();
@@ -150,6 +174,11 @@ function loginCheck(req, res) {
 	console.log(query);
 
 	async.parallel([
+		/**
+		 * PART 01: find user and compare hashed password
+		 * @param  {Function}
+		 * @return {[type]}
+		 */
 		function (cb) {
 				
 			connection.query(query, function (err, result) {
@@ -173,6 +202,9 @@ function loginCheck(req, res) {
 			
 		}
 		],
+		/**
+		 * check if the password matches
+		 */
 		function (err, result) {
 			var answer = result[0];
 			
@@ -189,6 +221,9 @@ function loginCheck(req, res) {
 }
 module.exports.loginCheck = loginCheck;
 
+/**
+ * add a new user
+ */
 function addUser(req, res) {
 
 	var post = req.body;
@@ -202,6 +237,7 @@ function addUser(req, res) {
 	var hash = undefined;
 	var query = "";
 	async.series([
+		// PART 01: HASH password
 		function (cb) {
 
 			bcrypt.hash(post.password, null, null, function (err, hashp) {
@@ -215,6 +251,7 @@ function addUser(req, res) {
 
 			});
 		},
+		// PART 02: check the hash, and if it checks out insert new user
 		function (cb) {
 			if (!hash_err) {
 				post.first = post.first.charAt(0).toUpperCase() + post.first.slice(1); //CAPITALIZE;
@@ -236,6 +273,7 @@ function addUser(req, res) {
 			}		
 			return cb(hash_err, undefined);
 		},
+		// PART 03: make query
 		function (cb) {
 			connection.query(query, function (err, result) {
 				cb(err, result);
@@ -244,6 +282,7 @@ function addUser(req, res) {
 			});			
 		}
 	],
+	// PART 04: check for duplicate and continue on
 	function (error, result) {
 		if (error && error.code == 'ER_DUP_ENTRY') {
 			router.route(req, res, "error");

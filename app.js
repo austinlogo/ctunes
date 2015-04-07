@@ -18,12 +18,6 @@ var navigation = require('./routes/navigation.js');
 var actions = require('./routes/actions.js');
 var favicon = require('serve-favicon');
 
-// var iteration = {
-// 	title 	: "",
-// 	id		: -1,
-// 	tracks 	: "[]"
-// }
-
 //create a connection and create Database and tables if necessary
 db.initialize();
 var connection = db.getConnection();
@@ -42,6 +36,7 @@ app.use(cookieParser());
 app.use(cookiesession({keys: ['124353423', '19374402848']}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + "/favicon.ico"));
+
 
 app.param("user", function (req, res, next, id) {
 	next();

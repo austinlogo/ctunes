@@ -34,6 +34,7 @@ function initialize() {
 		"visibility INT NOT NULL, " + 
 		"rating INT NOT NULL, " + 
 		"rated varchar(1000) NOT NULL, " + 
+		"isProjectIteration# BIT NOT NULL, " + 
 		"PRIMARY KEY(id), " +
 		"UNIQUE KEY(title, album, artist)" +
 		");";

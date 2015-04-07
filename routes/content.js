@@ -1,3 +1,6 @@
+// This file handles data manipulation particularly with the mysql database
+
+
 // var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -23,12 +26,18 @@ var iteration_template = {
 	tracks 	: "[]"
 }
 
+// these two paths are used to provide a path we can put in the database and the path we will use to 
+// actually save the file to the correct folder.
 var contentPath	= "./public/content/";
 var savePath = "/content/";
 
+/**
+ * Creates a new project
+ */
 function newProject(req, res) { 
 	var post = req.body;
 
+	// boiler plate project
 	query = "INSERT INTO projects (title, creator, iterations, rating, rated) " + 
 		"VALUES ('" + 
 		post.projectTitle + "', '" + 
@@ -40,16 +49,15 @@ function newProject(req, res) {
 
 	connection.query(query, function (err, result) {
 		if (err) throw err;
-
-		var route = "/" + req.session.user + "/projects";
-		
-		return res.redirect(route);
-
-		
+		var route = "/" + req.session.user + "/projects";		
+		return res.redirect(route);		
 	});
 }
 module.exports.newProject = newProject;
 
+/**
+ * download a track
+ */
 function downloadTrack (req, res) {
 	var id = req.params.downloadid;
 	var query = "SELECT * FROM tracks WHERE id=" + id + ";";
@@ -63,6 +71,9 @@ function downloadTrack (req, res) {
 }
 module.exports.downloadTrack = downloadTrack;
 
+/**
+ * download a specific iteration to your computer
+ */
 function downloadIteration (req, res) {
 	var id = req.params.project;
 	var iterationIndex = req.params.downloadid
@@ -80,6 +91,9 @@ function downloadIteration (req, res) {
 }
 module.exports.downloadIteration = downloadIteration;
 
+/**
+ * download the latest iteration
+ */
 function downloadCurrentIteration (req, res) {
 	var query = "SELECT iterations FROM projects WHERE id=" + req.params.projectid + ";";
 
@@ -91,10 +105,14 @@ function downloadCurrentIteration (req, res) {
 }
 module.exports.downloadCurrentIteration = downloadCurrentIteration;
 
+/**
+ * upload a raw track, not an iteration
+ */
 function upload (req, res) {
 	var form = new multiparty.Form();
 		
-	insert_track(req, res, form, true, function (err, path, result) {
+
+	insert_track(req, res, form, false, function (err, path, result) {
 		if (err) {
 			console.log(err);
 			if (!err.errno == 1062)
@@ -109,10 +127,13 @@ function upload (req, res) {
 }
 module.exports.upload = upload;
 
+/**
+ * update a pre existing track
+ */
 function update (req, res) {
 	var form = new multiparty.Form();
 		
-	update_track(req, res, form, true, function (err) {
+	update_track(req, res, form, function (err) {
 		if (err) {
 			console.log("UPDATE ERR: " + err);
 			if (!err.errno == 1062)
@@ -127,8 +148,13 @@ function update (req, res) {
 }
 module.exports.update = update;
 
-
-function insert_track(req, res, form, insert, main_cb) {
+/**
+ * REQUEST 	req 				: request
+ * RESPONSE res 				: response
+ * FORM 	form 				: the form that was submitted
+ * BOOLEAN 	isProjectIteration	: is this a projectIteration 
+ */
+function insert_track(req, res, form, isProjectIteration, main_cb) {
 	var file = '';
 	var title = '';
 	var user = '';
@@ -137,10 +163,11 @@ function insert_track(req, res, form, insert, main_cb) {
 		
 	//waterfall will perform each of these sections synchronously one after the other.
 	async.waterfall([
+		// PART 01
+		// gut the form and start parsing the juicy data that falls out.
 		function (cb) {
 			form.parse(req, function(err, fields_param, files) {
 				if (err) throw err;
-
 
 				// console.log(files);
 				file = files.file[0];
@@ -149,7 +176,9 @@ function insert_track(req, res, form, insert, main_cb) {
 				console.log("album: ");
 				
 				// if there is no album then we are adding a mixed track which is actually part of project.
-				fields.album = (fields.album == undefined && fields.project != undefined) ? [fields.project[0].toLowerCase()] : [fields.album[0].toLowerCase()];
+				// fields.album = (fields.album == undefined && fields.project != undefined) ? [fields.project[0].toLowerCase()] : [fields.album[0].toLowerCase()];
+				fields.album = isProjectIteration ? [fields.project[0].toLowerCase()] : [fields.album[0].toLowerCase()];
+
 				// contentPath prefix is meant to actually get your file to the right place
 				// savepath prefix will be put into the database so that it can be accessed by the web pages.
 				folderPath = contentPath + user + "/" + fields.album + "/";
@@ -170,8 +199,9 @@ function insert_track(req, res, form, insert, main_cb) {
 				}
 			});
 		},
+		// PART 02
+		// construct the paths that we will be using
 		function (cb) {
-			console.log("mkdir");
 			//make the folder path. if it already exists then nothing will change
 			fsExtra.mkdirs(folderPath, function (err) {
 				if (err) throw err;
@@ -186,18 +216,26 @@ function insert_track(req, res, form, insert, main_cb) {
 				return cb(null, path, databasePath);
 			});
 		},
+		// PART 03
+		// read
+		// read the file buffer from the temp directory where the file was downloaded
 		function (path, databasePath, cb) {
 			// read the file from the temp folder where it was downloaded to
 			fs.readFile(file.path , function(err, data) {
 				return cb(err, data, path, databasePath);
 			});
 		},
+		// PART 04
+		// write
+		// write the file to the specified path
 		function (data, path, databasePath, cb) {
 			// write file to path, not hard to understand this part
 			fs.writeFile(path, data, function(err) {
 				return cb(err, databasePath);
 			});
 		},
+		// PART 05
+		// unlink files
 		function (databasePath, cb) {
 			// the internet said to do this. tells the computer something, frees the data, I am not sure.
 			fs.unlink(file.path, function() {
@@ -205,6 +243,12 @@ function insert_track(req, res, form, insert, main_cb) {
 			});
 		}
 	],
+	/**
+	 * compile files and insert into project
+	 * @param  err 			{error}
+	 * @param  databasepath {the path to be stored in the database}
+	 * @return callback
+	 */
 	function (err, databasePath) {
 		if(err) {
 			console.log(err);
@@ -219,24 +263,25 @@ function insert_track(req, res, form, insert, main_cb) {
 		fields.genre = (fields.genre == undefined) ? ["unknown genre"] : fields.genre;
 
 		// deprecated
-		if (!insert) return;
+		isProjectIteration = isProjectIteration ? 1 : 0;
 		
 		//convert strings to integer values although they should really be bit values
 		fields.visibility[0] = (fields.visibility[0] == '0') ? 0 : 1;
 
 		// inserting iterations should not be inserted into 
-        var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, rating, rated, visibility)"
-        			+ "VALUES ('" 
-        			+ title.replace("'", "&apos").replace('"', '&quot') + "', '" 
-        			+ fields.album[0]  + "', '" 
-        			+ req.session.user + "', '" 
-        			+ "{}" + "', '" 
-        			+ fields.genre[0] + "', '" 
-        			+ databasePath.replace("'", "&apos").replace('"', '&quot') + "', "
-        			+ 0 + ", "
-        			+ "'[]'" + ", "
-        			+ fields.visibility[0]
-        			+ ");";
+        var tracksQuery = "INSERT INTO tracks (title, album, artist, collaborators, genre, content, isProjectIteration, rating, rated, visibility)"
+	        			+ "VALUES ('" 
+	        			+ title.replace("'", "&apos").replace('"', '&quot') + "', '" 
+	        			+ fields.album[0]  + "', '" 
+	        			+ req.session.user + "', '" 
+	        			+ "{}" + "', '" 
+	        			+ fields.genre[0] + "', '" 
+	        			+ databasePath.replace("'", "&apos").replace('"', '&quot') + "', "
+	        			+ isProjectIteration + ", "
+	        			+ 0 + ", "
+	        			+ "'[]'" + ", "
+	        			+ fields.visibility[0]
+	        			+ ");";
 
 		console.log("INSERT TRACK QUERY \n\n" + tracksQuery + "\n\n");
    		connection.query(tracksQuery, function (err, result) {
@@ -246,7 +291,15 @@ function insert_track(req, res, form, insert, main_cb) {
 	});	
 }
 
-function update_track(req, res, form, insert, main_cb) {
+/**
+ * update a pre-existing track
+ * @param  req 		{request}
+ * @param  res 		{response}
+ * @param  form 	{html form}
+ * @param  main_cb 	{callback}
+ * @return main_cb
+ */
+function update_track(req, res, form, main_cb) {
 	var file = '';
 	var user = '';
 	var folderPath = '';
@@ -277,6 +330,9 @@ function update_track(req, res, form, insert, main_cb) {
 	});
 }
 
+/**
+ * delete track
+ */
 function deleteTrack (req, res) {
 	var form = new multiparty.Form();
 	console.log("deleteTrack");
@@ -294,7 +350,9 @@ function deleteTrack (req, res) {
 }
 module.exports.deleteTrack = deleteTrack;
 
-//this is the post reqest that comes through to populate the screen when you want to upload a new iteration
+/**
+ * this is the post reqest that comes through to populate the screen when you want to upload a new iteration
+ */
 function uploadIteration (req, res) {
 	var user 	= req.body.user;
 	var id		= req.body.id;
@@ -305,13 +363,23 @@ function uploadIteration (req, res) {
 	console.log(req.body);
 	console.log(user_tracks);
 	console.log(proj_tracks);
-	async.parallel([
+	async.parallel
+		/**
+		 * PART 01: query tracks by artist
+		 * @param  {Function}
+		 * @return {callback}
+		 */
 		function (cb) {
 			connection.query(user_tracks, function (err, result) {
 				if (err) throw err;
 				return cb (null, result);
 			});
 		},
+		/**
+		 * PART 02: query iterations from current project
+		 * @param  {Function}
+		 * @return {callback}
+		 */
 		function (cb) {
 			connection.query(proj_tracks, function (err, result) {
 				if (err) throw err;
@@ -322,6 +390,12 @@ function uploadIteration (req, res) {
 			});
 		}
 	],
+	/**
+	 * compile
+	 * @param  {Error}
+	 * @param  result {JSON) : query results
+	 * @return {[type]}
+	 */
 	function (err, result) {
 		if(err) res.send(err);
 
@@ -333,11 +407,20 @@ function uploadIteration (req, res) {
 }
 module.exports.uploadIteration = uploadIteration;
 
+/**
+ * add an iteration to a pre-existing project
+ */
 function addIteration(req, res) {
 	var tracks = req.body.tracks;
+	// new_iteration is a JSON snippet
 	var new_iteration = {};
 
 	async.parallel([
+		/**
+		 * PART 01: parse the form
+		 * @param  callback {Function}
+		 * @return {callback}
+		 */
 		function (cb) { // 0
 			var form = new multiparty.Form();
 			console.log(form);
@@ -348,6 +431,11 @@ function addIteration(req, res) {
 				return cb (null, path);
 			});
 		},
+		/**
+		 * PART 02: query the required project
+		 * @param  {Function}
+		 * @return {[type]}
+		 */
 		function (cb) { // 1
 			var query = "SELECT * FROM projects WHERE id=" + req.params.projectid + ";";
 			connection.query(query, function(err, result) {
@@ -361,6 +449,10 @@ function addIteration(req, res) {
 				return cb(null, iterations);
 			});
 		},
+		/**
+		 * construct the new iteration
+		 * @param  {Function}
+		 */
 		function (cb) { // 2
 			var form = new multiparty.Form();
 
@@ -375,6 +467,12 @@ function addIteration(req, res) {
 			});
 		}
 	],
+	/**
+	 * compile and insert the new iteration
+	 * @param  {[type]}
+	 * @param  {[type]}
+	 * @return {[type]}
+	 */
 	function (err, result) {
 		var path = result[0];
 		var iterations = result[1];

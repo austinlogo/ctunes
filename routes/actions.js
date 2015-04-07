@@ -20,6 +20,7 @@ var db = require('./database.js');
 var favicon = require('serve-favicon');
 var connection = db.getConnection();
 
+// find what they are looking for in the search bar
 function search (req, res) {
 	var prefix = req.body.query + "%";
 	var users_query = "SELECT user, first, last, pic FROM users WHERE " +
