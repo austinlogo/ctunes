@@ -363,7 +363,7 @@ function uploadIteration (req, res) {
 	console.log(req.body);
 	console.log(user_tracks);
 	console.log(proj_tracks);
-	async.parallel
+	async.parallel([
 		/**
 		 * PART 01: query tracks by artist
 		 * @param  {Function}
